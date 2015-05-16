@@ -13,28 +13,30 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            InitNode(typeof(AddNode));
+            InitNode(typeof(AddNode), "3", "5");
             Console.ReadLine();
         }
 
-        static void InitNode(Type t)
+        static void InitNode(Type t, params object[] inputs)
         {
             NodeAttributes na = (NodeAttributes)Attribute.GetCustomAttribute(t, typeof(NodeAttributes));
 
             IList<IDataTypeContainer> nodeInputs = new List<IDataTypeContainer>();
 
-            foreach (Type item in na.Inputs)
+            for (int i = 0; i < na.Inputs.Count; i++)
             {
-                var instance = Activator.CreateInstance(item);
-                nodeInputs.Add((IDataTypeContainer)instance);
+                IDataTypeContainer instance = (IDataTypeContainer)Activator.CreateInstance(na.Inputs[i]);
+                instance.SetValue(inputs[i]);
+
+                nodeInputs.Add(instance);
             }
 
             MethodInfo method = t.GetMethod("NodeFunction");
             VisualNodeBase classInstance = (VisualNodeBase)Activator.CreateInstance(t);
 
-            var result = classInstance.NodeFunction(nodeInputs);
+            List<IDataTypeContainer> result = (List<IDataTypeContainer>)classInstance.NodeFunction(nodeInputs);
 
-            Console.WriteLine(result);
+            Console.WriteLine(result[0].ToString());
         }
     }
 }

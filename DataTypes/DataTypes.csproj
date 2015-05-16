@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="IDataTypeContainer.cs" />
     <Compile Include="DEBUGINTEGER.cs" />
-    <Compile Include="IValueData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

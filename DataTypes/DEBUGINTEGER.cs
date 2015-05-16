@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataTypes
 {
-    public struct DEBUGINTEGER : IDataTypeContainer, IValueData
+    public struct DEBUGINTEGER : IDataTypeContainer
     {
         public int value;
 
@@ -15,9 +15,14 @@ namespace DataTypes
             this.value = val;
         }
 
-        public void SetValue(string value)
+        public void SetValue(object value)
         {
-            this.value = Convert.ToInt32(value);
+            this.value = Convert.ToInt32(value.ToString());
+        }
+
+        public override string ToString()
+        {
+            return value.ToString();
         }
     }
 }

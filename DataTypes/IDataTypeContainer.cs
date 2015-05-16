@@ -8,5 +8,6 @@ namespace DataTypes
 {
     public interface IDataTypeContainer
     {
+        void SetValue(object value);
     }
 }
