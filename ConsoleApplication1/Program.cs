@@ -31,12 +31,10 @@ namespace ConsoleApplication1
                 nodeInputs.Add(instance);
             }
 
-            MethodInfo method = t.GetMethod("NodeFunction");
             VisualNodeBase classInstance = (VisualNodeBase)Activator.CreateInstance(t);
-
             List<IDataTypeContainer> result = (List<IDataTypeContainer>)classInstance.NodeFunction(nodeInputs);
 
-            Console.WriteLine(result[0].ToString());
+            Console.WriteLine(result[0].GetDataAsString());
         }
     }
 }

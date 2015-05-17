@@ -15,14 +15,14 @@ namespace DataTypes
             this.value = val;
         }
 
+        public string GetDataAsString()
+        {
+            return this.value.ToString();
+        }
+
         public void SetValue(object value)
         {
             this.value = Convert.ToInt32(value.ToString());
-        }
-
-        public override string ToString()
-        {
-            return value.ToString();
         }
     }
 }
