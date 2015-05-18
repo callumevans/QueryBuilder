@@ -12,7 +12,6 @@ namespace Nodes
     {
         public virtual string Name { get; }
         public virtual string Description { get; }
-        public virtual bool HasInput { get; }
 
         public VisualNodeBase()
         {

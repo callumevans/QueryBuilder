@@ -39,6 +39,9 @@ namespace ConsoleApplication1
             }
         }
 
+        /// <summary>
+        /// Calculate and realise outputs for the node
+        /// </summary>
         public void CalculateOutput()
         {
             VisualNodeBase classInstance = (VisualNodeBase)Activator.CreateInstance(NodeType);
@@ -58,6 +61,7 @@ namespace ConsoleApplication1
             for (int i = 0; i < result.Count; i++)
             {
                 NodeOutputs[i].OutputValue = result[i];
+                NodeOutputs[i].OutputRealised = true;
             }
         }
     }

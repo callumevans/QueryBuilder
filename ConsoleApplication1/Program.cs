@@ -29,7 +29,15 @@ namespace ConsoleApplication1
 
             addNode2.CalculateOutput();
 
-            Console.WriteLine(addNode2.NodeOutputs[0].OutputValue.GetDataAsString());
+            // Third node
+            GraphNode subtractNode = new GraphNode(typeof(SubtractNode));
+
+            subtractNode.NodeInputs[0].InputProviderPin = addNode2.NodeOutputs[0];
+            subtractNode.NodeInputs[1].InputProviderPin = new OutputPin(subtractNode.NodeInputs[1].DataType, null) { OutputValue = new DEBUGINTEGER(2) };
+
+            subtractNode.CalculateOutput();
+
+            Console.WriteLine(subtractNode.NodeOutputs[0].OutputValue.GetDataAsString());
 
             Console.ReadLine();
         }

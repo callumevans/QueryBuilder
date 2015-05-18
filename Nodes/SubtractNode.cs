@@ -10,7 +10,7 @@ namespace Nodes
     [NodeAttributes(
         inputs:  new Type[] { typeof(DEBUGINTEGER), typeof(DEBUGINTEGER) },
         outputs: new Type[] { typeof(DEBUGINTEGER) })]
-    public class AddNode : VisualNodeBase
+    public class SubtractNode : VisualNodeBase
     {
         public override IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs)
         {
@@ -19,7 +19,7 @@ namespace Nodes
             DEBUGINTEGER a = (DEBUGINTEGER)inputs[0];
             DEBUGINTEGER b = (DEBUGINTEGER)inputs[1];
 
-            outputs.Add(new DEBUGINTEGER(a.value + b.value));
+            outputs.Add(new DEBUGINTEGER(a.value - b.value));
 
             return outputs;
         }
