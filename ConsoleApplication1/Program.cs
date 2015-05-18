@@ -13,6 +13,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
+            // First node
             GraphNode addNode = new GraphNode(typeof(AddNode));
 
             addNode.NodeInputs[0].InputProviderPin = new OutputPin(addNode.NodeInputs[0].DataType, null) { OutputValue = new DEBUGINTEGER(3) };
@@ -20,29 +21,17 @@ namespace ConsoleApplication1
 
             addNode.CalculateOutput();
 
-            Console.WriteLine(addNode.NodeOutputs[0].OutputValue.GetDataAsString());
+            // Second node
+            GraphNode addNode2 = new GraphNode(typeof(AddNode));
+
+            addNode2.NodeInputs[0].InputProviderPin = addNode.NodeOutputs[0];
+            addNode2.NodeInputs[1].InputProviderPin = new OutputPin(addNode2.NodeInputs[1].DataType, null) { OutputValue = new DEBUGINTEGER(1) };
+
+            addNode2.CalculateOutput();
+
+            Console.WriteLine(addNode2.NodeOutputs[0].OutputValue.GetDataAsString());
 
             Console.ReadLine();
-        }
-
-        static void InitNode(Type t, params object[] inputs)
-        {
-            NodeAttributes na = (NodeAttributes)Attribute.GetCustomAttribute(t, typeof(NodeAttributes));
-
-            IList<IDataTypeContainer> nodeInputs = new List<IDataTypeContainer>();
-
-            for (int i = 0; i < na.Inputs.Count; i++)
-            {
-                IDataTypeContainer instance = (IDataTypeContainer)Activator.CreateInstance(na.Inputs[i]);
-                instance.SetValue(inputs[i]);
-
-                nodeInputs.Add(instance);
-            }
-
-            VisualNodeBase classInstance = (VisualNodeBase)Activator.CreateInstance(t);
-            List<IDataTypeContainer> result = (List<IDataTypeContainer>)classInstance.NodeFunction(nodeInputs);
-
-            Console.WriteLine(result[0].GetDataAsString());
         }
     }
 }
