@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DataTypes;
+using Nodes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,47 +10,61 @@ namespace ConsoleApplication1
 {
     public class GraphNode
     {
-        public List<GraphNodePin> Inputs { get; set; }
-        public List<GraphNodePin> Outputs { get; set; }
+        public Type NodeType { get; }
 
-        public GraphNode()
+        public List<GraphNodePin> NodeInputs { get; set; }
+        public List<GraphNodePin> NodeOutputs { get; set; }
+
+        public GraphNode(Type nodeType)
         {
+            NodeInputs = new List<GraphNodePin>();
+            NodeOutputs = new List<GraphNodePin>();
 
-        }
+            NodeType = nodeType;
 
-        public class GraphNodeConnection
-        {
-            public bool ValueIsRealised { get; set; }
-            public object Value { get; set; }
+            NodeAttributes nodeAttributes = (NodeAttributes)Attribute.GetCustomAttribute(nodeType, typeof(NodeAttributes));
 
-            public GraphNodePin RootPin { get; set; }
-            public GraphNodePin TargetPin { get; set; }
-
-            public GraphNodeConnection(GraphNodePin rootPin, GraphNodePin targetPin)
+            // Get input pins
+            for (int i = 0; i < nodeAttributes.Inputs.Count; i++)
             {
-                RootPin = rootPin;
-                TargetPin = targetPin;
+                GraphNodePin input = new GraphNodePin(nodeAttributes.Inputs[i], this, PinType.INPUT);
+                NodeInputs.Add(input);
+            }
 
-                ValueIsRealised = false;
-                Value = null;
+            // Get output pins
+            for (int i = 0; i < nodeAttributes.Outputs.Count; i++)
+            {
+                GraphNodePin output = new GraphNodePin(nodeAttributes.Outputs[i], this, PinType.OUTPUT);
+                NodeOutputs.Add(output);
+            }
+
+            // Create connection for each output
+            foreach (GraphNodePin output in NodeOutputs)
+            {
+                output.Connection = new GraphNodeConnection(output);
             }
         }
 
-        public class GraphNodePin
+        public void CalculateOutput()
         {
-            public Type Type { get; }
-            public GraphNode Parent { get; }
-            public GraphNodeConnection Connection { get; set; }
-            public PinType PinType { get; }
+            VisualNodeBase classInstance = (VisualNodeBase)Activator.CreateInstance(NodeType);
 
-            public GraphNodePin(Type type, GraphNode parent, PinType pinType)
+            IList<IDataTypeContainer> nodeInputList = new List<IDataTypeContainer>();
+
+            for (int i = 0; i < NodeInputs.Count; i++)
             {
-                Type = type;
-                Parent = parent;
-                PinType = pinType;
+                IDataTypeContainer inputInstance = (IDataTypeContainer)Activator.CreateInstance(NodeInputs[i].Type);
+                inputInstance.SetValue(NodeInputs[i].Connection.Value.GetDataAsString());
+
+                nodeInputList.Add(inputInstance);
+            }
+
+            List<IDataTypeContainer> result = (List<IDataTypeContainer>)classInstance.NodeFunction(nodeInputList);
+            
+            for (int i = 0; i < result.Count; i++)
+            {
+                NodeOutputs[i].Connection.Value = result[i];
             }
         }
-
-        public enum PinType { OUTPUT, INPUT }
     }
 }
