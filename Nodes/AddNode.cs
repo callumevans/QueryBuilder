@@ -9,6 +9,7 @@ namespace Nodes
 {
     [NodeAttributes(
         inputs: new Type[] { typeof(DEBUGINTEGER), typeof(DEBUGINTEGER) },
+        defaultInputs: new object[] { "0", "0" },
         outputs: new Type[] { typeof(DEBUGINTEGER) },
         hasExecution: false)]
     public class AddNode : VisualNodeBase

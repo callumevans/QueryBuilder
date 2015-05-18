@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Contracts
+namespace ConsoleApplication2
 {
-    public class QueryState
+    class Program
     {
+        static void Main(string[] args)
+        {
+        }
     }
 }

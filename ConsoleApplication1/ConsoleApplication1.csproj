@@ -44,8 +44,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GraphNode.cs" />
-    <Compile Include="GraphNodeConnection.cs" />
-    <Compile Include="GraphNodePin.cs" />
+    <Compile Include="BaseNodePin.cs" />
+    <Compile Include="InputPin.cs" />
+    <Compile Include="OutputPin.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

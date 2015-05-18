@@ -12,13 +12,13 @@ namespace ConsoleApplication1
     {
         public Type NodeType { get; }
 
-        public List<GraphNodePin> NodeInputs { get; set; }
-        public List<GraphNodePin> NodeOutputs { get; set; }
+        public List<InputPin> NodeInputs { get; set; }
+        public List<OutputPin> NodeOutputs { get; set; }
 
         public GraphNode(Type nodeType)
         {
-            NodeInputs = new List<GraphNodePin>();
-            NodeOutputs = new List<GraphNodePin>();
+            NodeInputs = new List<InputPin>();
+            NodeOutputs = new List<OutputPin>();
 
             NodeType = nodeType;
 
@@ -27,21 +27,15 @@ namespace ConsoleApplication1
             // Get input pins
             for (int i = 0; i < nodeAttributes.Inputs.Count; i++)
             {
-                GraphNodePin input = new GraphNodePin(nodeAttributes.Inputs[i], this, PinType.INPUT);
+                InputPin input = new InputPin(nodeAttributes.Inputs[i], this);
                 NodeInputs.Add(input);
             }
 
             // Get output pins
             for (int i = 0; i < nodeAttributes.Outputs.Count; i++)
             {
-                GraphNodePin output = new GraphNodePin(nodeAttributes.Outputs[i], this, PinType.OUTPUT);
+                OutputPin output = new OutputPin(nodeAttributes.Outputs[i], this);
                 NodeOutputs.Add(output);
-            }
-
-            // Create connection for each output
-            foreach (GraphNodePin output in NodeOutputs)
-            {
-                output.Connection = new GraphNodeConnection(output);
             }
         }
 
@@ -53,17 +47,17 @@ namespace ConsoleApplication1
 
             for (int i = 0; i < NodeInputs.Count; i++)
             {
-                IDataTypeContainer inputInstance = (IDataTypeContainer)Activator.CreateInstance(NodeInputs[i].Type);
-                inputInstance.SetValue(NodeInputs[i].Connection.Value.GetDataAsString());
+                IDataTypeContainer inputValue = (IDataTypeContainer)Activator.CreateInstance(NodeInputs[i].DataType);
+                inputValue.SetValue(NodeInputs[i].GetValue.GetDataAsString());
 
-                nodeInputList.Add(inputInstance);
+                nodeInputList.Add(inputValue);
             }
 
             List<IDataTypeContainer> result = (List<IDataTypeContainer>)classInstance.NodeFunction(nodeInputList);
             
             for (int i = 0; i < result.Count; i++)
             {
-                NodeOutputs[i].Connection.Value = result[i];
+                NodeOutputs[i].OutputValue = result[i];
             }
         }
     }
