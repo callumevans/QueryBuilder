@@ -8,55 +8,59 @@ using System.Threading.Tasks;
 
 namespace ConsoleApplication1
 {
+    /// <summary>
+    /// Maintains and manages a graph of interconnected nodes
+    /// More specifically, the nodes' connections
+    /// </summary>
     public class NodeGraphManager
     {
-        public List<GraphNode> Nodes { get; set; }
         public List<PinConnection> Connections { get; private set; }
+        public List<Tuple<GraphNode, int, GraphNode>> ExecutionConnections { get; private set; }
         public QueryState QueryState { get; }
-
-        private List<PinConnection> connections;
 
         public NodeGraphManager()
         {
             Connections = new List<PinConnection>();
-            Nodes = new List<GraphNode>();
+            ExecutionConnections = new List<Tuple<GraphNode, int, GraphNode>>();
             QueryState = new QueryState();
         }
 
+        public void GenerateAllNodeOutputs()
+        {
+
+        }
+
+        /// <summary>
+        /// Add a new connection between two pins
+        /// </summary>
+        /// <param name="outputPin">The output pin that will provide a value</param>
+        /// <param name="targetPin">The input pin the will receive the input</param>
         public void AddConnection(OutputPin outputPin, InputPin targetPin)
         {
             // Make sure we only one connection per input
-            foreach (PinConnection connection in this.connections)
+            foreach (PinConnection connection in Connections)
             {
                 if (connection.InputPin == targetPin) throw new Exception("InputPin already has a connection.");
             }
 
-            connections.Add(new PinConnection(outputPin, targetPin));
+            Connections.Add(new PinConnection(outputPin, targetPin));
         }
 
-        public static IHasExecution NextDownstreamNode(IHasExecution node)
+        /// <summary>
+        /// Adds a new execution connection between two nodes
+        /// </summary>
+        /// <param name="rootNode">Node to make connection from</param>
+        /// <param name="connectionNumber">Execution index being set on root node</param>
+        /// <param name="targetNode">The target node for the execution path</param>
+        public void AddConnection(GraphNode rootNode, int connectionNumber, GraphNode targetNode)
         {
-            return node.GetExecutionTarget();
+            if ((rootNode.NodeType == typeof(IHasExecution)) && (targetNode.NodeType == typeof(IHasExecution)))
+                ExecutionConnections.Add(new Tuple<GraphNode, int, GraphNode>(rootNode, connectionNumber, targetNode));
         }
 
-        public static IHasExecution PreviousUpstreamNode(IHasExecution node)
+        private List<GraphNode> GetDependencies(GraphNode node)
         {
-            return node.GetExecutionParent();
-        }
 
-        public static List<GraphNode> GetDependentNodes(GraphNode node)
-        {
-            List<GraphNode> childNodes = new List<GraphNode>();
-
-            foreach (OutputPin outputPin in node.NodeOutputs)
-            {
-                foreach (InputPin connectedPin in outputPin.Connections)
-                {
-                    childNodes.Add(connectedPin.Parent);
-                }
-            }
-
-            return childNodes;
         }
     }
 }

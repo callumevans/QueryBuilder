@@ -41,8 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddNode.cs" />
+    <Compile Include="EndNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StartTest.cs" />
+    <Compile Include="StartNode.cs" />
     <Compile Include="SubtractNode.cs" />
   </ItemGroup>
   <ItemGroup>

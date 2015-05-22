@@ -1,4 +1,5 @@
-﻿using DataTypes;
+﻿using Common;
+using DataTypes;
 using Nodes;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,14 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             NodeGraphManager manager = new NodeGraphManager();
+
+            // End node
+            GraphNode endNode = new GraphNode(typeof(EndNode), manager);
+
+            // Start node
+            GraphNode startNode = new GraphNode(typeof(StartNode), manager);
+
+            manager.AddConnection(startNode, 1, endNode);
 
             // First node
             GraphNode addNode = new GraphNode(typeof(AddNode), manager);
@@ -38,6 +47,10 @@ namespace ConsoleApplication1
             manager.AddConnection(new OutputPin(typeof(DEBUGINTEGER), null) { OutputValue = new DEBUGINTEGER(2) }, subtractNode.NodeInputs[1]);
 
             subtractNode.CalculateOutput();
+
+
+            manager.AddConnection(subtractNode.NodeOutputs[0], endNode.NodeInputs[0]);
+            endNode.CalculateOutput();
 
             Console.WriteLine(subtractNode.NodeOutputs[0].OutputValue.GetDataAsString());
 

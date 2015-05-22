@@ -8,10 +8,7 @@ namespace Common
 {
     public interface IHasExecution
     {
-        IHasExecution GetExecutionParent();
-        IHasExecution GetExecutionTarget();
-
-        void SetExecutionParent(IHasExecution parent);
-        void SetExecutionTarget(IHasExecution target);
+        int GetExecutionPath();
+        int GetOutgoingExecutionCount();
     }
 }

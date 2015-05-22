@@ -10,9 +10,12 @@ namespace Nodes
     public class NodeAttributes : Attribute
     {
         public List<Type> Inputs { get; set; }
-        public List<Type> Outputs { get; set; }
+        public List<string> InputLabels { get; set; }
 
-        public NodeAttributes(Type[] inputs, Type[] outputs, bool hasExecution = true)
+        public List<Type> Outputs { get; set; }
+        public List<string> OutputLabels { get; set; }
+
+        public NodeAttributes(Type[] inputs, Type[] outputs, string[] inputLabels = null, string[] outputLabels = null)
         {
             Inputs = inputs.ToList();
             Outputs = outputs.ToList();
