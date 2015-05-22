@@ -1,4 +1,4 @@
-﻿using Contracts;
+﻿using Common;
 using DataTypes;
 using System;
 using System.Collections.Generic;
@@ -18,6 +18,6 @@ namespace Nodes
 
         }
 
-        public abstract IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs);
+        public abstract IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs, QueryState state);
     }
 }

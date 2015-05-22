@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    public interface ISystemPlugin
+    public class QueryState
     {
-        string Name { get; }
-        string Description { get; }
     }
 }

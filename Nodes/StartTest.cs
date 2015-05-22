@@ -1,4 +1,4 @@
-﻿using Contracts;
+﻿using Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ namespace Nodes
     {
         public IHasExecution benignTestNode;
 
-        public override IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs)
+        public override IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs, QueryState state)
         {
             IList<IDataTypeContainer> output = new List<IDataTypeContainer>();
             return output;

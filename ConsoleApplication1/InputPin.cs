@@ -9,19 +9,27 @@ namespace ConsoleApplication1
 {
     public class InputPin : BaseNodePin
     {
-        public OutputPin InputProviderPin { get; set; }
-
-        public IDataTypeContainer GetValue
+        public OutputPin InputProviderPin
         {
             get
             {
-                return InputProviderPin.OutputValue;
+                foreach (PinConnection connection in Parent.GraphManager.Connections)
+                {
+                    if (connection.InputPin == this)
+                        return connection.OutputPin;
+                }
+
+                return null;
             }
         }
 
-        public InputPin(Type inputType, GraphNode parent, OutputPin inputProvider = null) : base(inputType, parent)
+        public IDataTypeContainer GetValue
         {
-            InputProviderPin = inputProvider;
+            get { return InputProviderPin.OutputValue; }
+        }
+
+        public InputPin(Type inputType, GraphNode parent) : base(inputType, parent)
+        {
         }
     }
 }

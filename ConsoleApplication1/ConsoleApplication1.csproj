@@ -48,6 +48,7 @@
     <Compile Include="InputPin.cs" />
     <Compile Include="NodeGraphManager.cs" />
     <Compile Include="OutputPin.cs" />
+    <Compile Include="PinConnection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

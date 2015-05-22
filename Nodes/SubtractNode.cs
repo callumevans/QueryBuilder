@@ -1,4 +1,5 @@
-﻿using DataTypes;
+﻿using Common;
+using DataTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Nodes
         outputs: new Type[] { typeof(DEBUGINTEGER) })]
     public class SubtractNode : VisualNodeBase
     {
-        public override IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs)
+        public override IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs, QueryState state)
         {
             IList<IDataTypeContainer> outputs = new List<IDataTypeContainer>();
 

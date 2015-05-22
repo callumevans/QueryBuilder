@@ -13,27 +13,29 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            // First node
-            GraphNode addNode = new GraphNode(typeof(AddNode));
+            NodeGraphManager manager = new NodeGraphManager();
 
-            addNode.NodeInputs[0].InputProviderPin = new OutputPin(addNode.NodeInputs[0].DataType, null) { OutputValue = new DEBUGINTEGER(3) };
-            addNode.NodeInputs[1].InputProviderPin = new OutputPin(addNode.NodeInputs[1].DataType, null) { OutputValue = new DEBUGINTEGER(6) };
+            // First node
+            GraphNode addNode = new GraphNode(typeof(AddNode), manager);
+
+            manager.AddConnection(new OutputPin(typeof(DEBUGINTEGER), null) { OutputValue = new DEBUGINTEGER(3) }, addNode.NodeInputs[0]);
+            manager.AddConnection(new OutputPin(typeof(DEBUGINTEGER), null) { OutputValue = new DEBUGINTEGER(6) }, addNode.NodeInputs[1]);
 
             addNode.CalculateOutput();
 
             // Second node
-            GraphNode addNode2 = new GraphNode(typeof(AddNode));
+            GraphNode addNode2 = new GraphNode(typeof(AddNode), manager);
 
-            addNode2.NodeInputs[0].InputProviderPin = addNode.NodeOutputs[0];
-            addNode2.NodeInputs[1].InputProviderPin = new OutputPin(addNode2.NodeInputs[1].DataType, null) { OutputValue = new DEBUGINTEGER(1) };
+            manager.AddConnection(addNode.NodeOutputs[0], addNode2.NodeInputs[0]);
+            manager.AddConnection(new OutputPin(typeof(DEBUGINTEGER), null) { OutputValue = new DEBUGINTEGER(1) }, addNode2.NodeInputs[1]);
 
             addNode2.CalculateOutput();
 
             // Third node
-            GraphNode subtractNode = new GraphNode(typeof(SubtractNode));
+            GraphNode subtractNode = new GraphNode(typeof(SubtractNode), manager);
 
-            subtractNode.NodeInputs[0].InputProviderPin = addNode2.NodeOutputs[0];
-            subtractNode.NodeInputs[1].InputProviderPin = new OutputPin(subtractNode.NodeInputs[1].DataType, null) { OutputValue = new DEBUGINTEGER(2) };
+            manager.AddConnection(addNode2.NodeOutputs[0], subtractNode.NodeInputs[0]);
+            manager.AddConnection(new OutputPin(typeof(DEBUGINTEGER), null) { OutputValue = new DEBUGINTEGER(2) }, subtractNode.NodeInputs[1]);
 
             subtractNode.CalculateOutput();
 
