@@ -79,9 +79,21 @@ namespace ConsoleApplication1
             }
 
             // Process inputs and realise the outputs
-            VisualNodeBase classInstance = (VisualNodeBase)Activator.CreateInstance(NodeType);
-            List<IDataTypeContainer> result = (List<IDataTypeContainer>)classInstance.NodeFunction(nodeInputList, GraphManager.QueryState);
-            
+            List<IDataTypeContainer> result;
+            NodeBase node;
+
+            // If node is executable we need to make sure we pass the query state to it
+            if (NodeType.IsSubclassOf(typeof(ExecutableNode)))
+            {
+                node = (ExecutableNode)Activator.CreateInstance(NodeType, new object[] { GraphManager.QueryState });
+            }
+            else
+            {
+                node = (NodeBase)Activator.CreateInstance(NodeType);
+            }
+
+            result = (List<IDataTypeContainer>)node.NodeFunction(nodeInputList);
+
             for (int i = 0; i < result.Count; i++)
             {
                 NodeOutputs[i].OutputValue = result[i];

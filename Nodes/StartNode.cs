@@ -11,19 +11,21 @@ namespace Nodes
     [NodeAttributes(
        inputs: new Type[] { },
        outputs: new Type[] { })]
-    public class StartNode : VisualNodeBase, IHasExecution
+    public class StartNode : ExecutableNode
     {
-        public override IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs, QueryState state)
+        public StartNode(QueryState state) : base(state) { }
+
+        public override IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs)
         {
-            return null;
+            return new List<IDataTypeContainer>();
         }
 
-        public int GetExecutionPath()
+        public override int GetExecutionPath()
         {
             return 1;
         }
 
-        public int GetOutgoingExecutionCount()
+        public override int GetOutgoingExecutionCount()
         {
             return 1;
         }

@@ -47,7 +47,7 @@
     <Compile Include="SubtractNode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\Common.csproj">
+    <ProjectReference Include="..\Common\Common.csproj">
       <Project>{a283d3f9-3bcf-405c-a4c8-37cb73ab6b0e}</Project>
       <Name>Common</Name>
     </ProjectReference>

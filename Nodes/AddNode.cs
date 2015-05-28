@@ -11,9 +11,9 @@ namespace Nodes
     [NodeAttributes(
         inputs:  new Type[] { typeof(DEBUGINTEGER), typeof(DEBUGINTEGER) },
         outputs: new Type[] { typeof(DEBUGINTEGER) })]
-    public class AddNode : VisualNodeBase
+    public class AddNode : NodeBase
     {
-        public override IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs, QueryState state)
+        public override IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs)
         {
             IList<IDataTypeContainer> outputs = new List<IDataTypeContainer>();
 
