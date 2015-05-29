@@ -14,8 +14,19 @@ namespace ConsoleApplication1
     /// </summary>
     public class NodeGraphManager
     {
+        /// <summary>
+        /// Connections between input and output pins
+        /// </summary>
         public List<PinConnection> Connections { get; private set; }
+
+        /// <summary>
+        /// Execution paths between executable nodes
+        /// </summary>
         public List<Tuple<GraphNode, int, GraphNode>> ExecutionConnections { get; private set; }
+
+        /// <summary>
+        /// The query state of the graph being built
+        /// </summary>
         public QueryState QueryState { get; }
 
         private List<GraphNode> nodeNetwork;
@@ -47,6 +58,7 @@ namespace ConsoleApplication1
             // Add the connected nodes to our model if we need to
             if ((nodeNetwork.Contains(outputPin.Parent) == false) && (outputPin.Parent != null))
                 nodeNetwork.Add(outputPin.Parent);
+
             if (nodeNetwork.Contains(targetPin.Parent) == false)
                 nodeNetwork.Add(targetPin.Parent);
         }
@@ -67,25 +79,32 @@ namespace ConsoleApplication1
             // Add the connected nodes to our model if we need to
             if (nodeNetwork.Contains(rootNode) == false)
                 nodeNetwork.Add(rootNode);
+
             if (nodeNetwork.Contains(targetNode) == false)
                 nodeNetwork.Add(targetNode);
         }
 
+        /// <summary>
+        /// Realises all node outputs
+        /// </summary>
         public void RealiseNodeOutputs()
         {
             List<GraphNode> realisedNodes = new List<GraphNode>();
             List<GraphNode> unrealisedNodes = new List<GraphNode>();
             List<GraphNode> realisableNodes = new List<GraphNode>();
 
+            // Assume all nodes are unrealised
             foreach (GraphNode node in nodeNetwork)
             {
                 unrealisedNodes.Add(node);
             }
 
+            // Until we have no unrealised nodes
             do
             {
                 List<GraphNode> tempList = new List<GraphNode>();
 
+                // See if any nodes are realisable
                 foreach (GraphNode node in unrealisedNodes)
                 {
                     bool isRealisable = true;
@@ -103,6 +122,7 @@ namespace ConsoleApplication1
                     }
                 }
 
+                // Calculate outputs for realisable nodes
                 foreach (GraphNode realisable in realisableNodes)
                 {
                     realisable.CalculateOutput();

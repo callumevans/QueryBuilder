@@ -28,8 +28,6 @@ namespace ConsoleApplication1
             get { return InputProviderPin.OutputValue; }
         }
 
-        public InputPin(Type inputType, GraphNode parent) : base(inputType, parent)
-        {
-        }
+        public InputPin(Type inputType, GraphNode parent) : base(inputType, parent) { }
     }
 }

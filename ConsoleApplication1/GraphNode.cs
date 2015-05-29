@@ -92,6 +92,7 @@ namespace ConsoleApplication1
                 node = (NodeBase)Activator.CreateInstance(NodeType);
             }
 
+            // Calculate and set results
             result = (List<IDataTypeContainer>)node.NodeFunction(nodeInputList);
 
             for (int i = 0; i < result.Count; i++)

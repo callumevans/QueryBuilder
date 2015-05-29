@@ -17,12 +17,12 @@ namespace ConsoleApplication1
             NodeGraphManager manager = new NodeGraphManager();
 
             // End node
-            GraphNode endNode = new GraphNode(typeof(EndNode), manager);
+            GraphNode printNode = new GraphNode(typeof(PrintNode), manager);
 
             // Start node
             GraphNode startNode = new GraphNode(typeof(StartNode), manager);
 
-            manager.AddConnection(startNode, 1, endNode);
+            manager.AddConnection(startNode, 1, printNode);
 
             // First node
             GraphNode addNode = new GraphNode(typeof(AddNode), manager);
@@ -42,13 +42,20 @@ namespace ConsoleApplication1
             manager.AddConnection(addNode2.NodeOutputs[0], subtractNode.NodeInputs[0]);
             manager.AddConnection(new OutputPin(typeof(DEBUGINTEGER), null) { OutputValue = new DEBUGINTEGER(2), OutputRealised = true }, subtractNode.NodeInputs[1]);
 
-            manager.AddConnection(subtractNode.NodeOutputs[0], endNode.NodeInputs[0]);
+            manager.AddConnection(subtractNode.NodeOutputs[0], printNode.NodeInputs[0]);
+
+            //
 
             manager.RealiseNodeOutputs();
 
-            Console.WriteLine(subtractNode.NodeOutputs[0].OutputValue.GetDataAsString());
+            Console.WriteLine("Waiting");
 
             Console.ReadLine();
+        }
+
+        private static void Manager_muhEvent(string s)
+        {
+            Console.WriteLine("Progress report...");
         }
     }
 }

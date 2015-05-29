@@ -11,9 +11,9 @@ namespace Nodes
     [NodeAttributes(
         inputs: new Type[] { typeof(DEBUGINTEGER) },
         outputs: new Type[] { })]
-    public class EndNode : ExecutableNode
+    public class PrintNode : ExecutableNode
     {
-        public EndNode(QueryState state) : base(state) { }
+        public PrintNode(QueryState state) : base(state) { }
 
         public override int GetExecutionPath()
         {
@@ -31,7 +31,7 @@ namespace Nodes
 
             DEBUGINTEGER a = (DEBUGINTEGER)inputs[0];
 
-            Console.WriteLine("End Node Printout Function: " + a.GetDataAsString());
+            Console.WriteLine("Print Function: " + a.GetDataAsString());
 
             return outputs;
         }
