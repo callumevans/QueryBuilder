@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nodes", "Nodes\Nodes.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graph", "Graph\Graph.csproj", "{BBA5F488-7F2A-44BD-B945-48124D03D429}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualQueryApplication", "VisualQueryApplication\VisualQueryApplication.csproj", "{C96143EA-51AC-45DC-8619-C4D8564B5CF2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{BBA5F488-7F2A-44BD-B945-48124D03D429}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBA5F488-7F2A-44BD-B945-48124D03D429}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBA5F488-7F2A-44BD-B945-48124D03D429}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C96143EA-51AC-45DC-8619-C4D8564B5CF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C96143EA-51AC-45DC-8619-C4D8564B5CF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C96143EA-51AC-45DC-8619-C4D8564B5CF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C96143EA-51AC-45DC-8619-C4D8564B5CF2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
