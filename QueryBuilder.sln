@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataTypes", "DataTypes\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nodes", "Nodes\Nodes.csproj", "{A9F4E2B5-C928-44F3-B5FE-C54EDFDE617B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VisualQueryBuilder", "VisualQueryBuilder\VisualQueryBuilder.csproj", "{A6B959B8-99CB-4B06-813D-90AF34764EF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graph", "Graph\Graph.csproj", "{BBA5F488-7F2A-44BD-B945-48124D03D429}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{A9F4E2B5-C928-44F3-B5FE-C54EDFDE617B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9F4E2B5-C928-44F3-B5FE-C54EDFDE617B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9F4E2B5-C928-44F3-B5FE-C54EDFDE617B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6B959B8-99CB-4B06-813D-90AF34764EF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6B959B8-99CB-4B06-813D-90AF34764EF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6B959B8-99CB-4B06-813D-90AF34764EF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6B959B8-99CB-4B06-813D-90AF34764EF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBA5F488-7F2A-44BD-B945-48124D03D429}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA5F488-7F2A-44BD-B945-48124D03D429}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA5F488-7F2A-44BD-B945-48124D03D429}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA5F488-7F2A-44BD-B945-48124D03D429}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

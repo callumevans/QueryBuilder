@@ -1,12 +1,12 @@
-﻿<Window x:Class="VisualQueryBuilder.MainWindow"
+﻿<Fluent:RibbonWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VisualQueryBuilder"
+        xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
+        xmlns:Custom="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon" x:Class="VisualQueryBuilder.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="853" Width="1406">
-    <Grid>
-
-    </Grid>
-</Window>
+    <Grid/>
+</Fluent:RibbonWindow>
