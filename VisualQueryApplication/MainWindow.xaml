@@ -1,12 +1,15 @@
-﻿<Fluent:RibbonWindow x:Class="VisualQueryApplication.MainWindow"
+﻿<Fluent:RibbonWindow
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VisualQueryApplication"
+        xmlns:ZoomAndPan="clr-namespace:VisualQueryApplication.Controls.GraphBuilder.ZoomAndPan"
+        x:Class="VisualQueryApplication.MainWindow"
         mc:Ignorable="d"
-        Title="Visual Query Builder" Width="1024" Height="768">
+        Title="Visual Query Builder" Width="1400" Height="968"
+        FocusManager.FocusedElement="{Binding ElementName=scroller}">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -14,40 +17,41 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Fluent:Ribbon>
+
             <!-- Theme Colour -->
             <Fluent:Ribbon.Resources>
                 <SolidColorBrush x:Key="RibbonThemeColorBrush" Color="#5C005C" />
             </Fluent:Ribbon.Resources>
-            
+
             <!-- Quick Access -->
             <Fluent:Ribbon.QuickAccessItems>
                 <!-- Undo -->
                 <Fluent:QuickAccessMenuItem>
                     <Fluent:Button Header="Undo"
-                                   Icon="Images\Ribbon\icon_placeholder.png" />
+						Icon="Images\Ribbon\icon_placeholder.png" />
                 </Fluent:QuickAccessMenuItem>
 
                 <!-- Redo -->
                 <Fluent:QuickAccessMenuItem>
                     <Fluent:Button Header="Redo"
-                                   Icon="Images\Ribbon\icon_placeholder.png" />
+						Icon="Images\Ribbon\icon_placeholder.png" />
                 </Fluent:QuickAccessMenuItem>
 
             </Fluent:Ribbon.QuickAccessItems>
 
             <!-- File Menu -->
             <Fluent:Ribbon.Menu>
-                
+
                 <Fluent:Backstage>
 
                     <!-- Save -->
                     <Fluent:BackstageTabControl>
                         <Fluent:Button Header="Save"
-                                       Icon="Images\Ribbon\icon_placeholder.png" />
+							Icon="Images\Ribbon\icon_placeholder.png" />
 
                         <!-- Save As -->
                         <Fluent:Button Header="Save As"
-                                       Icon="Images\Ribbon\icon_placeholder.png" />
+							Icon="Images\Ribbon\icon_placeholder.png" />
                     </Fluent:BackstageTabControl>
 
                 </Fluent:Backstage>
@@ -60,13 +64,12 @@
 
                 <!-- Settings -->
                 <Fluent:RibbonGroupBox Header="Settings">
-                    <Fluent:Button Name="Settings"
-                                   Header="Settings"
-                                   LargeIcon="Images\Ribbon\icon_settings.png"
-                                   Icon="Images\Ribbon\icon_settings.png" />
+                    <Fluent:Button x:Name="Settings"
+						Header="Settings"
+						LargeIcon="Images\Ribbon\icon_settings.png"
+						Icon="Images\Ribbon\icon_settings.png" />
 
                 </Fluent:RibbonGroupBox>
-
             </Fluent:RibbonTabItem>
 
             <!-- Query -->
@@ -74,33 +77,64 @@
 
                 <!-- Query Actions -->
                 <Fluent:RibbonGroupBox Header="Query Actions">
-                    <Fluent:Button Name="Build"
-                                   Header="Build"
-                                   LargeIcon="Images\Ribbon\icon_build.png"
-                                   Icon="Images\Ribbon\icon_build.png" />
+                    <Fluent:Button x:Name="Build"
+						Header="Build"
+						LargeIcon="Images\Ribbon\icon_build.png"
+						Icon="Images\Ribbon\icon_build.png" />
 
                     <Fluent:Button Icon="Images\Ribbon\icon_placeholder.png"
-                                   SizeDefinition="Middle">Check</Fluent:Button>
+						SizeDefinition="Middle" Header="Check"/>
 
                 </Fluent:RibbonGroupBox>
-
             </Fluent:RibbonTabItem>
+
         </Fluent:Ribbon>
-        
+
+        <!-- Visual Designer -->
+
         <!-- Status Bar -->
         <Fluent:StatusBar HorizontalAlignment="Stretch"
-                          VerticalAlignment="Bottom"
-                          Grid.Row="2">
+			VerticalAlignment="Bottom"
+			Grid.Row="2">
             <Fluent:StatusBar.Resources>
-                <SolidColorBrush x:Key="RibbonThemeColorBrush" Color="#5C005C" />
+                <SolidColorBrush x:Key="RibbonThemeColorBrush" Color="LightGray" />
             </Fluent:StatusBar.Resources>
-            
+
             <Fluent:StatusBarItem
-                Title="Words Width"
-                Width="150"
-                HorizontalAlignment="Left">
+				Title="Words Width"
+				Width="150"
+				HorizontalAlignment="Left">
                 <TextBlock Text="" />
             </Fluent:StatusBarItem>
         </Fluent:StatusBar>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="149*"/>
+                <ColumnDefinition Width="547*"/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer 
+                          Grid.Column="1"
+                          x:Name="scroller"
+                          CanContentScroll="True"
+                          VerticalScrollBarVisibility="Visible"
+                          HorizontalScrollBarVisibility="Visible">
+                <ZoomAndPan:ZoomAndPanControl
+                    x:Name="zoomAndPanControl"
+                    Background="LightGray">
+                    <Canvas
+                        x:Name="content"
+                        Width="2000"
+                        Height="2000">
+                        
+                        <Rectangle Fill="Green" Height="100" Canvas.Left="638" Stroke="Black" Canvas.Top="550" Width="100"/>
+
+
+
+                    </Canvas>
+                </ZoomAndPan:ZoomAndPanControl>
+            </ScrollViewer>
+        </Grid>
+
     </Grid>
 </Fluent:RibbonWindow>

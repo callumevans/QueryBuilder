@@ -24,6 +24,7 @@ namespace VisualQueryApplication
         public MainWindow()
         {
             InitializeComponent();
+            
         }
     }
 }
