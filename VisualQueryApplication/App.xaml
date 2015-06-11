@@ -8,7 +8,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Fluent;Component/Themes/Office2013/Generic.xaml" />
-                <ResourceDictionary Source="Generic.xaml" />
+                <ResourceDictionary Source="Controls/GraphBuilder/ZoomAndPan/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

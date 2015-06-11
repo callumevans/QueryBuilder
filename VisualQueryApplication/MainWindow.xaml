@@ -5,17 +5,24 @@
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VisualQueryApplication"
+        xmlns:GraphBuilder="clr-namespace:VisualQueryApplication.Controls.GraphBuilder"
         xmlns:ZoomAndPan="clr-namespace:VisualQueryApplication.Controls.GraphBuilder.ZoomAndPan"
+        xmlns:avalonDock="http://schemas.xceed.com/wpf/xaml/avalondock"
         x:Class="VisualQueryApplication.MainWindow"
         mc:Ignorable="d"
-        Title="Visual Query Builder" Width="1400" Height="968"
-        FocusManager.FocusedElement="{Binding ElementName=scroller}">
+        Title="Visual Query Builder" Width="1400" Height="968">
+    
+    <Window.DataContext>
+        <local:ViewModel />
+    </Window.DataContext>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+        
         <Fluent:Ribbon>
 
             <!-- Theme Colour -->
@@ -68,7 +75,10 @@
 						Header="Settings"
 						LargeIcon="Images\Ribbon\icon_settings.png"
 						Icon="Images\Ribbon\icon_settings.png" />
-
+                    
+                    <Fluent:Button Icon="Images\Ribbon\icon_placeholder.png"
+                                   SizeDefinition="Middle" Header="Save Layout" Command="{Binding SaveLayoutCommand}" CommandParameter="{Binding ElementName=dockingManager}" />
+                    
                 </Fluent:RibbonGroupBox>
             </Fluent:RibbonTabItem>
 
@@ -90,51 +100,58 @@
 
         </Fluent:Ribbon>
 
-        <!-- Visual Designer -->
+        <!-- Docking Manager -->
+        <avalonDock:DockingManager
+            x:Name="dockingManager"
+            Grid.Row="1"
+            Margin="0">
+            <avalonDock:DockingManager.Theme>
+                <avalonDock:MetroTheme />
+            </avalonDock:DockingManager.Theme>
 
-        <!-- Status Bar -->
-        <Fluent:StatusBar HorizontalAlignment="Stretch"
-			VerticalAlignment="Bottom"
-			Grid.Row="2">
-            <Fluent:StatusBar.Resources>
-                <SolidColorBrush x:Key="RibbonThemeColorBrush" Color="LightGray" />
-            </Fluent:StatusBar.Resources>
-
-            <Fluent:StatusBarItem
-				Title="Words Width"
-				Width="150"
-				HorizontalAlignment="Left">
-                <TextBlock Text="" />
-            </Fluent:StatusBarItem>
-        </Fluent:StatusBar>
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="149*"/>
-                <ColumnDefinition Width="547*"/>
-            </Grid.ColumnDefinitions>
-
-            <ScrollViewer 
-                          Grid.Column="1"
-                          x:Name="scroller"
-                          CanContentScroll="True"
-                          VerticalScrollBarVisibility="Visible"
-                          HorizontalScrollBarVisibility="Visible">
-                <ZoomAndPan:ZoomAndPanControl
-                    x:Name="zoomAndPanControl"
-                    Background="LightGray">
-                    <Canvas
-                        x:Name="content"
-                        Width="2000"
-                        Height="2000">
-                        
-                        <Rectangle Fill="Green" Height="100" Canvas.Left="638" Stroke="Black" Canvas.Top="550" Width="100"/>
-
-
-
-                    </Canvas>
-                </ZoomAndPan:ZoomAndPanControl>
-            </ScrollViewer>
-        </Grid>
+            <avalonDock:LayoutRoot>
+                
+                <avalonDock:LayoutPanel Orientation="Horizontal">
+                    
+                    <avalonDock:LayoutPanel Orientation="Vertical">
+                        <avalonDock:LayoutAnchorablePaneGroup>
+                            <avalonDock:LayoutAnchorablePane>
+                                <avalonDock:LayoutAnchorable x:Name="docking_rectangleTab">
+                                    <Rectangle x:Name="rect" Fill="Red" Width="100" Height="150" />
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutAnchorablePaneGroup>
+                    </avalonDock:LayoutPanel>
+                    
+                    <avalonDock:LayoutPanel>
+                        <avalonDock:LayoutAnchorablePaneGroup>
+                            <avalonDock:LayoutAnchorablePane>
+                                <avalonDock:LayoutAnchorable x:Name="docking_visualEditorTab">
+                                    <ScrollViewer 
+                              x:Name="scroller"
+                              CanContentScroll="True"
+                              VerticalScrollBarVisibility="Visible"
+                              HorizontalScrollBarVisibility="Visible">
+                                        <ZoomAndPan:ZoomAndPanControl
+                                        x:Name="zoomAndPanControl"
+                                        Background="LightGray">
+                                            <Canvas
+                                        x:Name="content"
+                                        Width="2000"
+                                        Height="2000">
+                                                <GraphBuilder:VisualChartBox Canvas.Left="100" Canvas.Top="100" />
+                                            </Canvas>
+                                        </ZoomAndPan:ZoomAndPanControl>
+                                    </ScrollViewer>
+                                </avalonDock:LayoutAnchorable>
+                            </avalonDock:LayoutAnchorablePane>
+                        </avalonDock:LayoutAnchorablePaneGroup>
+                    </avalonDock:LayoutPanel>
+                    
+                </avalonDock:LayoutPanel>
+                
+            </avalonDock:LayoutRoot>
+        </avalonDock:DockingManager>
 
     </Grid>
 </Fluent:RibbonWindow>

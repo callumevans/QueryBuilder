@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LayoutRoot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <RootPanel Orientation="Horizontal">
+    <LayoutPanel Orientation="Vertical" DockWidth="0.31841155234657*">
+      <LayoutAnchorablePaneGroup Orientation="Horizontal">
+        <LayoutAnchorablePane>
+          <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" IsSelected="True" ContentId="rect" />
+        </LayoutAnchorablePane>
+      </LayoutAnchorablePaneGroup>
+    </LayoutPanel>
+    <LayoutPanel Orientation="Horizontal" DockWidth="1.68158844765343*">
+      <LayoutAnchorablePaneGroup Orientation="Horizontal">
+        <LayoutAnchorablePane>
+          <LayoutAnchorable AutoHideMinWidth="100" AutoHideMinHeight="100" IsSelected="True" ContentId="scroller" LastActivationTimeStamp="06/10/2015 18:15:19" />
+        </LayoutAnchorablePane>
+      </LayoutAnchorablePaneGroup>
+    </LayoutPanel>
+  </RootPanel>
+  <TopSide />
+  <RightSide />
+  <LeftSide />
+  <BottomSide />
+  <FloatingWindows />
+  <Hidden />
+</LayoutRoot>
