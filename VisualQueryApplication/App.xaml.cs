@@ -14,8 +14,13 @@ namespace VisualQueryApplication
     /// </summary>
     public partial class App : Application
     {
+        public static readonly string applicationRoot = AppDomain.CurrentDomain.BaseDirectory;
+        public static readonly string pluginFolderPath = applicationRoot + "/Plugins";
+
         public App()
         {
+            if (!Directory.Exists(pluginFolderPath))
+                Directory.CreateDirectory(pluginFolderPath);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Common
         public List<Type> Outputs { get; set; }
         public List<string> OutputLabels { get; set; }
 
-        public NodeAttributes(Type[] inputs, Type[] outputs, string[] inputLabels = null, string[] outputLabels = null)
+        public NodeAttributes(string name, string description, Type[] inputs, Type[] outputs, string[] inputLabels = null, string[] outputLabels = null)
         {
             Inputs = inputs.ToList();
             Outputs = outputs.ToList();
