@@ -18,6 +18,5 @@ namespace Common
 
         public abstract int GetExecutionPath();
         public abstract int GetOutgoingExecutionCount();
-        public abstract override IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs);
     }
 }

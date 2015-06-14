@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
+    [AttributeUsage(AttributeTargets.Class)]
     public class NodeName : Attribute
     {
         public string Name { get; set; }

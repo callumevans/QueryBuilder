@@ -8,17 +8,11 @@ using DataTypes;
 
 namespace Nodes
 {
-    [NodeAttributes(
-       inputs: new Type[] { },
-       outputs: new Type[] { })]
+    [NodeName("Start")]
+    [NodeDescription("Start of the flow")]
     public class StartNode : ExecutableNode
     {
         public StartNode(QueryState state) : base(state) { }
-
-        public override IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs)
-        {
-            return new List<IDataTypeContainer>();
-        }
 
         public override int GetExecutionPath()
         {
@@ -28,6 +22,11 @@ namespace Nodes
         public override int GetOutgoingExecutionCount()
         {
             return 1;
+        }
+
+        public override void NodeFunction()
+        {
+            return;
         }
     }
 }

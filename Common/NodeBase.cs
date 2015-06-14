@@ -9,6 +9,6 @@ namespace Common
 {
     public abstract class NodeBase
     {
-        public abstract IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs);
+        public abstract void NodeFunction();
     }
 }
