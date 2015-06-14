@@ -14,17 +14,8 @@ namespace VisualQueryApplication
     /// </summary>
     public partial class App : Application
     {
-        public static string LayoutFile;
-
         public App()
         {
-            LayoutFile = ConfigurationManager.AppSettings["DockLayoutFile"];
-
-            if (!File.Exists(LayoutFile))
-            {
-                File.Create(LayoutFile);
-                File.Copy(ConfigurationManager.AppSettings["DefaultDockLayoutFile"], LayoutFile);
-            }
         }
     }
 }

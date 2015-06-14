@@ -22,7 +22,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder.ZoomAndPan
         /// <summary>
         /// Reference to the underlying content, which is named PART_Content in the template.
         /// </summary>
-        private FrameworkElement content = null;
+        private FrameworkElement content = new FrameworkElement();
 
         /// <summary>
         /// The transform that is applied to the content to scale it by 'ContentScale'.

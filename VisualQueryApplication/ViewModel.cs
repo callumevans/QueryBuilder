@@ -6,9 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xceed.Wpf.AvalonDock;
-using Xceed.Wpf.AvalonDock.Layout.Serialization;
-
 namespace VisualQueryApplication
 {
     public class ViewModel : INotifyPropertyChanged
@@ -63,41 +60,6 @@ namespace VisualQueryApplication
 
         public ViewModel()
         {
-            SaveLayoutCommand = new RelayCommand(new Action<object>(SaveLayout));
-            LoadLayoutCommand = new RelayCommand(new Action<object>(LoadLayout));
-        }
-
-        public void SaveLayout(object obj)
-        {
-            DockingManager dockingManager = (DockingManager)obj;
-            XmlLayoutSerializer layoutSerialiser = new XmlLayoutSerializer(dockingManager);
-
-            File.WriteAllText(App.LayoutFile, "");
-
-            using (var writer = new StreamWriter(App.LayoutFile))
-            {
-                layoutSerialiser.Serialize(writer);
-            }
-        }
-
-        public void LoadLayout(object obj)
-        {
-            DockingManager dockingManager = (DockingManager)obj;
-
-            // Load layout
-            try
-            {
-                XmlLayoutSerializer layoutSerialiser = new XmlLayoutSerializer(dockingManager);
-
-                using (var reader = new StreamReader(App.LayoutFile))
-                {
-                    layoutSerialiser.Deserialize(reader);
-                }
-            }
-            catch
-            {
-                // TO-DO: Ask user to reset layout file if it fails
-            }
         }
     }
 }

@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:VisualQueryApplication.Controls.GraphBuilder"
              mc:Ignorable="d"
              d:DesignHeight="100" d:DesignWidth="200">
-    <Grid MinWidth="200" MinHeight="100">
-        <Border Background="LightGray" BorderThickness="1" BorderBrush="Black">
+    <Grid Width="200" MinHeight="100">
+        <Border Background="White" BorderThickness="1" BorderBrush="Black" Margin="10,0">
             <Border Background="Gray" Height="30" VerticalAlignment="Top">
-                <TextBlock x:Name="nodeHeading" TextWrapping="Wrap" Text="NODE" VerticalAlignment="Center" TextAlignment="Center" FontSize="20" />
+                <TextBlock x:Name="nodeHeading" TextWrapping="Wrap" VerticalAlignment="Center" Text="NODE" TextAlignment="Center" FontSize="18" />
             </Border>
         </Border>
     </Grid>
