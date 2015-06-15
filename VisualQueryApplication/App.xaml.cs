@@ -15,7 +15,7 @@ namespace VisualQueryApplication
     public partial class App : Application
     {
         public static readonly string applicationRoot = AppDomain.CurrentDomain.BaseDirectory;
-        public static readonly string pluginFolderPath = applicationRoot + "/Plugins";
+        public static readonly string pluginFolderPath = applicationRoot + "/NodePlugins";
 
         public App()
         {

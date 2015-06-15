@@ -8,14 +8,16 @@
              x:Class="VisualQueryApplication.Controls.GraphBuilder.VisualEditor"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid Background="LightGray">
+    <Grid>
         <ScrollViewer
             x:Name="pannerScroller"
             CanContentScroll="True"
             VerticalScrollBarVisibility="Visible"
             HorizontalScrollBarVisibility="Visible">
             <ZoomAndPan:ZoomAndPanControl x:Name="zoomPanControl">
-                <local:VisualChartBox />
+                <Canvas x:Name="Content" Background="LightGray" Width="10000" Height="10000">
+                    <local:VisualChartBox />
+                </Canvas>
             </ZoomAndPan:ZoomAndPanControl>
         </ScrollViewer>
     </Grid>

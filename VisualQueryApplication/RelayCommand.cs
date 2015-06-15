@@ -9,9 +9,11 @@ namespace VisualQueryApplication
 {
     public class RelayCommand : ICommand
     {
-        private Action<object> action;
+        public event EventHandler CanExecuteChanged;
 
-        public RelayCommand(Action<object> action)
+        private Action action;
+
+        public RelayCommand(Action action)
         {
             this.action = action;
         }
@@ -21,14 +23,9 @@ namespace VisualQueryApplication
             return true;
         }
 
-        public event EventHandler CanExecuteChanged;
-
         public void Execute(object parameter)
         {
-            if (parameter != null)
-                action(parameter);
-            else
-                action(null);
+            action();
         }
     }
 }

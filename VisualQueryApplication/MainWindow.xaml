@@ -28,7 +28,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Fluent:Ribbon Grid.ColumnSpan="2" Height="142">
+        <Fluent:Ribbon Grid.ColumnSpan="2" VerticalAlignment="Stretch">
 
             <!-- Theme Colour -->
             <Fluent:Ribbon.Resources>
@@ -76,12 +76,21 @@
 
                 <!-- Settings -->
                 <Fluent:RibbonGroupBox Header="Settings">
-                    <Fluent:Button x:Name="Settings"
+                    <Fluent:Button
 						Header="Settings"
 						LargeIcon="Images\Ribbon\icon_settings.png"
 						Icon="Images\Ribbon\icon_settings.png" />
-
                 </Fluent:RibbonGroupBox>
+                
+                <!-- Load Nodes -->
+                <Fluent:RibbonGroupBox Header="Nodes">
+                    <Fluent:Button
+                        Header="Reload Nodes"
+						LargeIcon="Images\Ribbon\icon_placeholder.png"
+						Icon="Images\Ribbon\icon_placeholder.png"
+                        Command="{Binding LoadNodesCommand}" />
+                </Fluent:RibbonGroupBox>
+                
             </Fluent:RibbonTabItem>
 
             <!-- Query -->
@@ -102,7 +111,7 @@
 
         </Fluent:Ribbon>
 
-        <ListBox x:Name="loadedNodesList" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding LoadedNod}" />
+        <ListBox x:Name="loadedNodesList" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding LoadedNodes}" />
         
         <GraphBuilder:VisualEditor Grid.Column="1" Grid.Row="1"/>
         <GridSplitter x:Name="gridSplitter" HorizontalAlignment="Left" Height="100" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Width="5"/>
