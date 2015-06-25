@@ -6,8 +6,12 @@
              xmlns:local="clr-namespace:VisualQueryApplication.Controls.GraphBuilder"
              xmlns:ZoomAndPan="clr-namespace:VisualQueryApplication.Controls.GraphBuilder.ZoomAndPan"
              x:Class="VisualQueryApplication.Controls.GraphBuilder.VisualEditor"
+             xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.DataContext>
+        <vm:GraphEditorViewModel />
+    </UserControl.DataContext>
     <Grid>
         <ScrollViewer
             x:Name="pannerScroller"
@@ -15,8 +19,7 @@
             VerticalScrollBarVisibility="Visible"
             HorizontalScrollBarVisibility="Visible">
             <ZoomAndPan:ZoomAndPanControl x:Name="ZoomPanControl">
-                <Canvas x:Name="CanvasContent" Background="LightGray" Width="10000" Height="10000">
-                </Canvas>
+                <Canvas x:Name="CanvasContent" Background="LightGray" Width="10000" Height="10000"  />
             </ZoomAndPan:ZoomAndPanControl>
         </ScrollViewer>
     </Grid>

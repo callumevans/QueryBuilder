@@ -28,7 +28,9 @@ namespace VisualQueryApplication
         {
             InitializeComponent();
 
-            VisualEditor.ContentArea.Children.Add(new VisualGraphBox(typeof(AddNode)));
+            VisualEditor.ContentArea.Children.Add(new VisualGraphBox(typeof(AddNode)) { Margin = new Thickness(20, 10, 20, 20)});
+            VisualEditor.ContentArea.Children.Add(new VisualGraphBox(typeof(SubtractNode)) { Margin = new Thickness(230, 30, 20, 20) });
+            VisualEditor.ContentArea.Children.Add(new VisualGraphBox(typeof(PrintNode)) { Margin = new Thickness(430, 60, 20, 20) });
         }
     }
 }

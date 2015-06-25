@@ -37,24 +37,47 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
-        public List<IDataTypeContainer> Inputs
+        public List<FieldInfo> Inputs
         {
             get
             {
+                List<FieldInfo> inputs = new List<FieldInfo>();
+
+                foreach (FieldInfo field in nodeType.GetFields())
+                {
+                    foreach (Attribute attribute in field.GetCustomAttributes())
+                    {
+                        if (attribute.GetType() == typeof(ExposedInput))
+                            inputs.Add(field);
+                    }
+                }
+
                 return inputs;
-            }
-            set
-            {
-                SetValue(ref inputs, value);
             }
         }
 
-        private List<IDataTypeContainer> inputs;
+        public List<FieldInfo> Outputs
+        {
+            get
+            {
+                List<FieldInfo> outputs = new List<FieldInfo>();
+
+                foreach (FieldInfo field in nodeType.GetFields())
+                {
+                    foreach (Attribute attribute in field.GetCustomAttributes())
+                    {
+                        if (attribute.GetType() == typeof(ExposedOutput))
+                            outputs.Add(field);
+                    }
+                }
+
+                return outputs;
+            }
+        }
 
         public VisualGraphViewModel(Type type)
         {
             nodeType = type;
-            inputs = new List<IDataTypeContainer>();
         }
     }
 }

@@ -3,6 +3,7 @@ using Nodes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -27,15 +28,77 @@ namespace VisualQueryApplication.Controls.GraphBuilder
         {
             InitializeComponent();
             this.DataContext = new VisualGraphViewModel(nodeType);
+
+            RefreshInputs();
+            RefreshOutputs();
         }
 
-        public void RefreshInputs()
+        private void RefreshInputs()
         {
-            InputsPanel.Children.Clear();
-
-            foreach (IDataTypeContainer input in ((VisualGraphViewModel)DataContext).Inputs)
+            foreach (FieldInfo input in ((VisualGraphViewModel)DataContext).Inputs)
             {
-                InputsPanel.Children.Add(new NodePin());
+                StackPanel childPanel = new StackPanel()
+                {
+                    Orientation = Orientation.Horizontal,
+                    MinHeight = 20,
+                    Margin = new Thickness(0, 4, 0, 4)
+                };
+
+                childPanel.Children.Add(new NodePin()
+                {
+                    Width = 12,
+                    Height = 12,
+                    Margin = new Thickness(3),
+                    HorizontalAlignment = HorizontalAlignment.Right
+                });
+
+                childPanel.Children.Add(new TextBlock()
+                {
+                    Text = input.Name,
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    Width = 50,
+                    Height = 12,
+                    LineHeight = 12,
+                    FontSize = 9,
+                    VerticalAlignment = VerticalAlignment.Center
+                });
+
+                InputsPanel.Children.Add(childPanel);
+            }
+        }
+
+        private void RefreshOutputs()
+        {
+            foreach (FieldInfo output in ((VisualGraphViewModel)DataContext).Outputs)
+            {
+                StackPanel childPanel = new StackPanel()
+                {
+                    Orientation = Orientation.Horizontal,
+                    MinHeight = 20,
+                    Margin = new Thickness(0, 4, 0, 4)
+                };
+
+                childPanel.Children.Add(new TextBlock()
+                {
+                    Text = output.Name,
+                    HorizontalAlignment = HorizontalAlignment.Right,
+                    TextAlignment = TextAlignment.Right,
+                    Width = 50,
+                    Height = 12,
+                    LineHeight = 12,
+                    FontSize = 9,
+                    VerticalAlignment = VerticalAlignment.Center
+                });
+
+                childPanel.Children.Add(new NodePin()
+                {
+                    Width = 12,
+                    Height = 12,
+                    Margin = new Thickness(3),
+                    HorizontalAlignment = HorizontalAlignment.Right
+                });
+
+                OutputsPanel.Children.Add(childPanel);
             }
         }
     }
