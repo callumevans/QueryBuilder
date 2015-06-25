@@ -63,8 +63,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\GraphBuilder\VisualChartBox.xaml.cs">
-      <DependentUpon>VisualChartBox.xaml</DependentUpon>
+    <Compile Include="Controls\GraphBuilder\NodePin.xaml.cs">
+      <DependentUpon>NodePin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GraphBuilder\VisualGraphBox.xaml.cs">
+      <DependentUpon>VisualGraphBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\GraphBuilder\VisualEditor.xaml.cs">
       <DependentUpon>VisualEditor.xaml</DependentUpon>
@@ -73,7 +76,12 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Page Include="Controls\GraphBuilder\VisualChartBox.xaml">
+    <Compile Include="ViewModels\VisualNodeViewModel.cs" />
+    <Page Include="Controls\GraphBuilder\NodePin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\GraphBuilder\VisualGraphBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

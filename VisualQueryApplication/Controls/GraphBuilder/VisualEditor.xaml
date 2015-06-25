@@ -14,9 +14,8 @@
             CanContentScroll="True"
             VerticalScrollBarVisibility="Visible"
             HorizontalScrollBarVisibility="Visible">
-            <ZoomAndPan:ZoomAndPanControl x:Name="zoomPanControl">
-                <Canvas x:Name="Content" Background="LightGray" Width="10000" Height="10000">
-                    <local:VisualChartBox />
+            <ZoomAndPan:ZoomAndPanControl x:Name="ZoomPanControl">
+                <Canvas x:Name="CanvasContent" Background="LightGray" Width="10000" Height="10000">
                 </Canvas>
             </ZoomAndPan:ZoomAndPanControl>
         </ScrollViewer>

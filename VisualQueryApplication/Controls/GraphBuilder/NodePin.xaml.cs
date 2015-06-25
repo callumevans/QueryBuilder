@@ -16,16 +16,11 @@ using System.Windows.Shapes;
 namespace VisualQueryApplication.Controls.GraphBuilder
 {
     /// <summary>
-    /// Interaction logic for VisualEditor.xaml
+    /// Interaction logic for NodePin.xaml
     /// </summary>
-    public partial class VisualEditor : UserControl
+    public partial class NodePin : UserControl
     {
-        public Canvas ContentArea
-        {
-            get { return CanvasContent; }
-        }
-
-        public VisualEditor()
+        public NodePin()
         {
             InitializeComponent();
         }

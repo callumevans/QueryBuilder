@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Nodes
 {
-
     [NodeName("Print")]
     [NodeDescription("Prints text")]
     public class PrintNode : ExecutableNode

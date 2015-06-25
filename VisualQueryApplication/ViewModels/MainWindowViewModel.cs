@@ -16,8 +16,6 @@ namespace VisualQueryApplication.ViewModels
     {
         MainWindowModel model;
 
-        #region Bindable Properties
-
         /// <summary>
         /// List of nodes that are loaded in the system
         /// </summary>
@@ -35,10 +33,6 @@ namespace VisualQueryApplication.ViewModels
 
         private ObservableCollection<string> loadedNodes;
 
-        #endregion
-
-        #region Commands
-
         public ICommand LoadNodesCommand
         {
             get
@@ -46,8 +40,6 @@ namespace VisualQueryApplication.ViewModels
                 return new RelayCommand(LoadNodes);
             }
         }
-
-        #endregion
 
         public MainWindowViewModel()
         {
