@@ -27,14 +27,6 @@ namespace VisualQueryApplication
         public MainWindow()
         {
             InitializeComponent();
-
-
-
-            /*
-            VisualEditor.ContentArea.Items.Add(new VisualGraphBox(typeof(AddNode)) {  });
-            VisualEditor.ContentArea.Items.Add(new VisualGraphBox(typeof(SubtractNode)) { Margin = new Thickness(230, 30, 20, 20) });
-            VisualEditor.ContentArea.Items.Add(new VisualGraphBox(typeof(PrintNode)) { Margin = new Thickness(430, 60, 20, 20) });
-            */
         }
     }
 }

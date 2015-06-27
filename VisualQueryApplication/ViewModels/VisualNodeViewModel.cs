@@ -8,12 +8,28 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using VisualQueryApplication.Model;
 
 namespace VisualQueryApplication.ViewModels
 {
     public class VisualNodeViewModel : ViewModelBase
     {
+        public int ZIndex
+        {
+            get
+            {
+                return zIndex;
+            }
+            set
+            {
+                zIndex = value;
+                OnPropertyChanged("ZIndex");
+            }
+        }
+
+        private int zIndex = 0;
+
         public double X
         {
             get

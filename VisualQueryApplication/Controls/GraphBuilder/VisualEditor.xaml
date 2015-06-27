@@ -16,11 +16,10 @@
     
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vm:VisualNodeViewModel}">
-            <Thumb
-                DragDelta="Thumb_DragDelta">
+            <Thumb DragDelta="Thumb_DragDelta">              
                 <Thumb.Template>
                     <ControlTemplate>
-                        <local:VisualGraphBox />
+                        <local:VisualGraphBox x:Name="VisualNodeControl" MouseDown="Box_MouseDown" />
                     </ControlTemplate>
                 </Thumb.Template>
             </Thumb>
@@ -50,6 +49,9 @@
                             <Setter
                                 Property="Canvas.Top"
                                 Value="{Binding Y}" />
+                            <Setter
+                                Property="Canvas.ZIndex"
+                                Value="{Binding ZIndex}" />
                         </Style>
                     </ItemsControl.ItemContainerStyle>
                 </ItemsControl>

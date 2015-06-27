@@ -43,5 +43,15 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             node.X += e.HorizontalChange;
             node.Y += e.VerticalChange;
         }
+
+        private void Box_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            UserControl controlSender = (UserControl)sender;
+            VisualNodeViewModel node = (VisualNodeViewModel)controlSender.DataContext;
+
+            GraphEditorViewModel graphViewModel = (GraphEditorViewModel)DataContext;
+
+            node.ZIndex = graphViewModel.FindMaxZIndex() + 10;
+        }
     }
 }

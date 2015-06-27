@@ -13,7 +13,7 @@ namespace Nodes
     public class AddNode : NodeBase
     {
         [ExposedInput(0)]
-        public DEBUGINTEGER inputOne;
+        public DEBUGINTEGER inputOneloooooong;
 
         [ExposedInput(1)]
         public DEBUGINTEGER inputTwo;
@@ -23,7 +23,7 @@ namespace Nodes
 
         public override void NodeFunction()
         {
-            outputOne = new DEBUGINTEGER(inputOne.value + inputTwo.value);
+            outputOne = new DEBUGINTEGER(inputOneloooooong.value + inputTwo.value);
         }
     }
 }

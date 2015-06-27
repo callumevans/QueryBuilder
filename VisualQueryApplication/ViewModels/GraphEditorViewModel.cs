@@ -39,5 +39,27 @@ namespace VisualQueryApplication.ViewModels
             visualNodes.Add(new VisualNodeViewModel(typeof(SubtractNode)));
             visualNodes.Add(new VisualNodeViewModel(typeof(AddNode)));
         }
+
+        public int FindMaxZIndex()
+        {
+            int count = 0;
+
+            if (visualNodes.Count > 0)
+            {
+                count = visualNodes[0].ZIndex;
+            }
+            else
+            {
+                return 0;
+            }
+
+            foreach (VisualNodeViewModel node in visualNodes)
+            {
+                if (node.ZIndex > count)
+                    count = node.ZIndex;
+            }
+
+            return count;
+        }
     }
 }

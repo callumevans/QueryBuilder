@@ -27,6 +27,14 @@ namespace VisualQueryApplication.Controls.GraphBuilder
         public VisualGraphBox()
         {
             InitializeComponent();
+
+            Loaded += VisualGraphBox_Loaded;
+        }
+
+        private void VisualGraphBox_Loaded(object sender, RoutedEventArgs e)
+        {
+            RefreshInputs();
+            RefreshOutputs();
         }
 
         private void RefreshInputs()
