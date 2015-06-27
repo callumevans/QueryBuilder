@@ -24,18 +24,14 @@ namespace VisualQueryApplication.Controls.GraphBuilder
     /// </summary>
     public partial class VisualGraphBox : UserControl
     {
-        public VisualGraphBox(Type nodeType)
+        public VisualGraphBox()
         {
             InitializeComponent();
-            this.DataContext = new VisualGraphViewModel(nodeType);
-
-            RefreshInputs();
-            RefreshOutputs();
         }
 
         private void RefreshInputs()
         {
-            foreach (FieldInfo input in ((VisualGraphViewModel)DataContext).Inputs)
+            foreach (FieldInfo input in ((VisualNodeViewModel)DataContext).Inputs)
             {
                 StackPanel childPanel = new StackPanel()
                 {
@@ -69,7 +65,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
         private void RefreshOutputs()
         {
-            foreach (FieldInfo output in ((VisualGraphViewModel)DataContext).Outputs)
+            foreach (FieldInfo output in ((VisualNodeViewModel)DataContext).Outputs)
             {
                 StackPanel childPanel = new StackPanel()
                 {

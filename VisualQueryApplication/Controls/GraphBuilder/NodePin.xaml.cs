@@ -20,6 +20,15 @@ namespace VisualQueryApplication.Controls.GraphBuilder
     /// </summary>
     public partial class NodePin : UserControl
     {
+        public Point Centre
+        {
+            get
+            {
+                Point relativePoint = (Point)VisualTreeHelper.GetOffset(this);
+                return relativePoint;
+            }
+        }
+
         public NodePin()
         {
             InitializeComponent();

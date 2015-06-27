@@ -6,16 +6,17 @@
              xmlns:local="clr-namespace:VisualQueryApplication.Controls.GraphBuilder"
              xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"
              mc:Ignorable="d"
-             d:DesignHeight="100" d:DesignWidth="150" MinWidth="150">
+             Width="160"
+             MinHeight="50">
 
-    <Grid MinHeight="100" Margin="10,0" Background="White">
+    <Grid Margin="10,0" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="79*"/>
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Background="DarkGray" />
-        <Border Grid.RowSpan="2" BorderBrush="Black" />
+        <Border Grid.RowSpan="2" Grid.ColumnSpan="1" BorderThickness="2" BorderBrush="Black" />
         <TextBlock x:Name="BoxHeading"  Grid.Row="0" VerticalAlignment="Center" Text="{Binding NodeTitle}" HorizontalAlignment="Center" FontSize="11" />
         <StackPanel x:Name="InputsPanel" HorizontalAlignment="Left" Grid.Row="1" Width="70" Orientation="Vertical" />
         <StackPanel x:Name="OutputsPanel" Grid.Row="1" HorizontalAlignment="Right" Width="70" Orientation="Vertical" />

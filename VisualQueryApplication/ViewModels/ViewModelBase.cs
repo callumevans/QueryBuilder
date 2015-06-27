@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace VisualQueryApplication.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

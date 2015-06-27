@@ -12,8 +12,38 @@ using VisualQueryApplication.Model;
 
 namespace VisualQueryApplication.ViewModels
 {
-    public class VisualGraphViewModel : ViewModelBase
+    public class VisualNodeViewModel : ViewModelBase
     {
+        public double X
+        {
+            get
+            {
+                return x;
+            }
+            set
+            {
+                x = value;
+                OnPropertyChanged("X");
+            }
+        }
+
+        private double x = 20;
+
+        public double Y
+        {
+            get
+            {
+                return y;
+            }
+            set
+            {
+                y = value;
+                OnPropertyChanged("Y");
+            }
+        }
+
+        private double y = 20;
+
         public Type NodeType
         {
             get
@@ -75,7 +105,7 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
-        public VisualGraphViewModel(Type type)
+        public VisualNodeViewModel(Type type)
         {
             nodeType = type;
         }
