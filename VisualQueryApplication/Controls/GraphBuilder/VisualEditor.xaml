@@ -15,6 +15,7 @@
     </UserControl.DataContext>
     
     <UserControl.Resources>
+        
         <DataTemplate DataType="{x:Type vm:VisualNodeViewModel}">
             <Thumb DragDelta="Thumb_DragDelta">              
                 <Thumb.Template>
@@ -24,9 +25,17 @@
                 </Thumb.Template>
             </Thumb>
         </DataTemplate>
+     <!--   
+        <DataTemplate DataType="{x:Type vm:GraphConnectionViewModel}">
+            <Line
+                Stroke="Black"
+                StrokeThickness="1"
+                X1="{Binding }"
+        </DataTemplate> -->
+        
     </UserControl.Resources>
-    
-    <Grid>
+
+    <Grid>   
         <ScrollViewer
             x:Name="pannerScroller"
             CanContentScroll="True"
@@ -56,6 +65,7 @@
                     </ItemsControl.ItemContainerStyle>
                 </ItemsControl>
             </ZoomAndPan:ZoomAndPanControl>
+            
         </ScrollViewer>
     </Grid>
 </UserControl>

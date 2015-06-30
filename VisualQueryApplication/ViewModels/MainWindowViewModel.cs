@@ -14,7 +14,7 @@ namespace VisualQueryApplication.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        MainWindowModel model;
+        MainWindowModel model = new MainWindowModel();
 
         /// <summary>
         /// List of nodes that are loaded in the system
@@ -31,7 +31,7 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
-        private ObservableCollection<string> loadedNodes;
+        private ObservableCollection<string> loadedNodes = new ObservableCollection<string>();
 
         public ICommand LoadNodesCommand
         {
@@ -43,8 +43,6 @@ namespace VisualQueryApplication.ViewModels
 
         public MainWindowViewModel()
         {
-            model = new MainWindowModel();
-            loadedNodes = new ObservableCollection<string>();
         }
 
         private void LoadNodes()

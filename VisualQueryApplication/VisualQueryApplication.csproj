@@ -73,6 +73,7 @@
       <DependentUpon>VisualEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\MainWindowModel.cs" />
+    <Compile Include="Model\VisualNodeModel.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModels\GraphConnectionViewModel.cs" />
     <Compile Include="ViewModels\GraphEditorViewModel.cs" />

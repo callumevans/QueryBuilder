@@ -9,21 +9,59 @@
              MinWidth="160"
              MinHeight="50">
 
-    <Grid Margin="10,0" Background="White">
+    <UserControl.Resources>
+        <DataTemplate x:Key="InputDataTemplate">
+            <StackPanel Orientation="Horizontal">
+                <local:NodePin HorizontalAlignment="Left" Margin="5" x:Name="InputPin" />
+                <Label HorizontalAlignment="Left" Content="{Binding Key}" VerticalAlignment="Center" />
+            </StackPanel>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="OutputDataTemplate">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Label HorizontalAlignment="Left" Content="{Binding Key}" VerticalAlignment="Center" />
+                <local:NodePin Margin="5" x:Name="OutputPin" />
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="79*"/>
         </Grid.RowDefinitions>
-        
+
         <Grid.Effect>
             <DropShadowEffect Color="Gray" Opacity="0.5" />
         </Grid.Effect>
 
         <Border Grid.Row="0" Background="DarkGray" />
         <Border Grid.RowSpan="2" BorderThickness="2" BorderBrush="Black" />
+
+        <TextBlock x:Name="BoxHeading"  Grid.Row="0" Text="{Binding NodeTitle}" HorizontalAlignment="Center" FontSize="11" Margin="80,2,80,0" />
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <ItemsControl Grid.Column="0" ItemsSource="{Binding Inputs}" ItemTemplate="{StaticResource InputDataTemplate}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            
+            <ItemsControl Grid.Column="1" ItemsSource="{Binding Outputs}" ItemTemplate="{StaticResource OutputDataTemplate}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </Grid>
         
-        <TextBlock x:Name="BoxHeading"  Grid.Row="0" VerticalAlignment="Center" Text="{Binding NodeTitle}" HorizontalAlignment="Center" FontSize="11" />
-        <StackPanel x:Name="InputsPanel" HorizontalAlignment="Left" Grid.Row="1" MinWidth="70" Orientation="Vertical" />
-        <StackPanel x:Name="OutputsPanel" Grid.Row="1" HorizontalAlignment="Right" MinWidth="70" Orientation="Vertical" />
     </Grid>
 </UserControl>

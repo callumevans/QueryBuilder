@@ -15,6 +15,23 @@ namespace VisualQueryApplication.ViewModels
 {
     public class VisualNodeViewModel : ViewModelBase
     {
+        private VisualNodeModel nodeModel;
+
+        public List<GraphConnectionViewModel> Connections
+        {
+            get
+            {
+                return connectionsViewModel;
+            }
+            set
+            {
+                connectionsViewModel = value;
+                OnPropertyChanged("Connections");
+            }
+        }
+
+        private List<GraphConnectionViewModel> connectionsViewModel = new List<GraphConnectionViewModel>();
+
         public int ZIndex
         {
             get
@@ -83,18 +100,18 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
-        public List<FieldInfo> Inputs
+        public Dictionary<string, Type> Inputs
         {
             get
             {
-                List<FieldInfo> inputs = new List<FieldInfo>();
+                inputs = new Dictionary<string, Type>();
 
-                foreach (FieldInfo field in nodeType.GetFields())
+                foreach (FieldInfo field in nodeModel.NodeType.GetFields())
                 {
                     foreach (Attribute attribute in field.GetCustomAttributes())
                     {
                         if (attribute.GetType() == typeof(ExposedInput))
-                            inputs.Add(field);
+                            inputs.Add(field.Name, field.GetType());
                     }
                 }
 
@@ -102,18 +119,20 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
-        public List<FieldInfo> Outputs
+        private Dictionary<string, Type> inputs;
+
+        public Dictionary<string, Type> Outputs
         {
             get
             {
-                List<FieldInfo> outputs = new List<FieldInfo>();
+                outputs = new Dictionary<string, Type>();
 
-                foreach (FieldInfo field in nodeType.GetFields())
+                foreach (FieldInfo field in nodeModel.NodeType.GetFields())
                 {
                     foreach (Attribute attribute in field.GetCustomAttributes())
                     {
                         if (attribute.GetType() == typeof(ExposedOutput))
-                            outputs.Add(field);
+                            outputs.Add(field.Name, field.GetType());
                     }
                 }
 
@@ -121,9 +140,12 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
+        private Dictionary<string, Type> outputs;
+
         public VisualNodeViewModel(Type type)
         {
             nodeType = type;
+            nodeModel = new VisualNodeModel(type);
         }
     }
 }

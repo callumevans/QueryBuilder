@@ -27,18 +27,18 @@ namespace VisualQueryApplication.Controls.GraphBuilder
         public VisualGraphBox()
         {
             InitializeComponent();
-
             Loaded += VisualGraphBox_Loaded;
         }
 
         private void VisualGraphBox_Loaded(object sender, RoutedEventArgs e)
         {
-            RefreshInputs();
-            RefreshOutputs();
+            // Update model and get data type labels
+
         }
 
         private void RefreshInputs()
         {
+            /*
             foreach (FieldInfo input in ((VisualNodeViewModel)DataContext).Inputs)
             {
                 StackPanel childPanel = new StackPanel()
@@ -68,11 +68,12 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                 });
 
                 InputsPanel.Children.Add(childPanel);
-            }
+            }*/
         }
 
         private void RefreshOutputs()
         {
+            /*
             foreach (FieldInfo output in ((VisualNodeViewModel)DataContext).Outputs)
             {
                 StackPanel childPanel = new StackPanel()
@@ -103,7 +104,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                 });
 
                 OutputsPanel.Children.Add(childPanel);
-            }
+            }*/
         }
     }
 }
