@@ -42,6 +42,16 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
             node.X += e.HorizontalChange;
             node.Y += e.VerticalChange;
+
+            foreach (var input in node.Inputs)
+            {
+                input.Pin.ParentMoved();
+            }
+
+            foreach (var output in node.Outputs)
+            {
+                output.Pin.ParentMoved();
+            }
         }
 
         private void Box_MouseDown(object sender, MouseButtonEventArgs e)

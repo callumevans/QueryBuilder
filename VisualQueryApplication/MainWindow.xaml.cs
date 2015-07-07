@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using VisualQueryApplication.Controls.GraphBuilder;
+using VisualQueryApplication.ViewModels;
 
 namespace VisualQueryApplication
 {
@@ -27,6 +28,27 @@ namespace VisualQueryApplication
         public MainWindow()
         {
             InitializeComponent();
+
+
+        }
+
+        private GraphEditorViewModel vm;
+
+        private void applicationWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            vm = (GraphEditorViewModel)this.VisualEditor.DataContext;
+            VisualNodeViewModel addNode = new VisualNodeViewModel(typeof(AddNode));
+            VisualNodeViewModel subNode = new VisualNodeViewModel(typeof(SubtractNode));
+
+            vm.VisualNodes.Add(addNode);
+            vm.VisualNodes.Add(subNode);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            vm.Connections.Add(new ConnectionViewModel(vm,
+                vm.VisualNodes[0].Outputs[0].Pin,
+                vm.VisualNodes[1].Inputs[0].Pin));
         }
     }
 }

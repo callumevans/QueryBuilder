@@ -8,7 +8,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using VisualQueryApplication.Controls.GraphBuilder;
 using VisualQueryApplication.Model;
 
 namespace VisualQueryApplication.ViewModels
@@ -16,21 +19,6 @@ namespace VisualQueryApplication.ViewModels
     public class VisualNodeViewModel : ViewModelBase
     {
         private VisualNodeModel nodeModel;
-
-        public List<GraphConnectionViewModel> Connections
-        {
-            get
-            {
-                return connectionsViewModel;
-            }
-            set
-            {
-                connectionsViewModel = value;
-                OnPropertyChanged("Connections");
-            }
-        }
-
-        private List<GraphConnectionViewModel> connectionsViewModel = new List<GraphConnectionViewModel>();
 
         public int ZIndex
         {
@@ -41,7 +29,7 @@ namespace VisualQueryApplication.ViewModels
             set
             {
                 zIndex = value;
-                OnPropertyChanged("ZIndex");
+                OnPropertyChanged(nameof(ZIndex));
             }
         }
 
@@ -56,7 +44,7 @@ namespace VisualQueryApplication.ViewModels
             set
             {
                 x = value;
-                OnPropertyChanged("X");
+                OnPropertyChanged(nameof(X));
             }
         }
 
@@ -71,81 +59,71 @@ namespace VisualQueryApplication.ViewModels
             set
             {
                 y = value;
-                OnPropertyChanged("Y");
+                OnPropertyChanged(nameof(Y));
             }
         }
 
         private double y = 20;
 
-        public Type NodeType
-        {
-            get
-            {
-                return nodeType;
-            }
-            set
-            {
-                SetValue(ref nodeType, value);
-            }
-        }
-
-        private Type nodeType;
-
         public string NodeTitle
         {
             get
             {
-                Attribute titleAttribute = nodeType.GetCustomAttribute(typeof(NodeName));
+                Attribute titleAttribute = nodeModel.NodeType.GetCustomAttribute(typeof(NodeName));
                 return ((NodeName)titleAttribute).Name;
             }
         }
 
-        public Dictionary<string, Type> Inputs
+        public ObservableCollection<PinModel> Inputs
         {
             get
             {
-                inputs = new Dictionary<string, Type>();
-
-                foreach (FieldInfo field in nodeModel.NodeType.GetFields())
-                {
-                    foreach (Attribute attribute in field.GetCustomAttributes())
-                    {
-                        if (attribute.GetType() == typeof(ExposedInput))
-                            inputs.Add(field.Name, field.GetType());
-                    }
-                }
-
                 return inputs;
             }
-        }
-
-        private Dictionary<string, Type> inputs;
-
-        public Dictionary<string, Type> Outputs
-        {
-            get
+            set
             {
-                outputs = new Dictionary<string, Type>();
-
-                foreach (FieldInfo field in nodeModel.NodeType.GetFields())
-                {
-                    foreach (Attribute attribute in field.GetCustomAttributes())
-                    {
-                        if (attribute.GetType() == typeof(ExposedOutput))
-                            outputs.Add(field.Name, field.GetType());
-                    }
-                }
-
-                return outputs;
+                inputs = value;
+                OnPropertyChanged(nameof(Inputs));
             }
         }
 
-        private Dictionary<string, Type> outputs;
+        private ObservableCollection<PinModel> inputs = new ObservableCollection<PinModel>();
 
-        public VisualNodeViewModel(Type type)
+        public ObservableCollection<PinModel> Outputs
         {
-            nodeType = type;
-            nodeModel = new VisualNodeModel(type);
+            get
+            {
+                return outputs;
+            }
+            set
+            {
+                outputs = value;
+                OnPropertyChanged(nameof(Outputs));
+            }
+        }
+
+        private ObservableCollection<PinModel> outputs = new ObservableCollection<PinModel>();
+
+        public VisualNodeViewModel(Type nodeType)
+        {
+            SetType(nodeType);
+        }
+
+        public void SetType(Type nodeType)
+        {
+            nodeModel = new VisualNodeModel(nodeType);
+
+            // Import inputs and outputs
+            foreach (FieldInfo field in nodeModel.NodeType.GetFields())
+            {
+                foreach (Attribute attribute in field.GetCustomAttributes())
+                {
+                    if (attribute.GetType() == typeof(ExposedInput))
+                        inputs.Add(new PinModel(field.Name, field.FieldType));
+                    else if (attribute.GetType() == typeof(ExposedOutput))
+                        outputs.Add(new PinModel(field.Name, field.FieldType));
+                }
+            }
         }
     }
 }

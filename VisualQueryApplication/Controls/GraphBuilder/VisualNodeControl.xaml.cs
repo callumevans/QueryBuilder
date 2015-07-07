@@ -22,9 +22,9 @@ namespace VisualQueryApplication.Controls.GraphBuilder
     /// <summary>
     /// Interaction logic for VisualChartBox.xaml
     /// </summary>
-    public partial class VisualGraphBox : UserControl
+    public partial class VisualNodeControl : UserControl
     {
-        public VisualGraphBox()
+        public VisualNodeControl()
         {
             InitializeComponent();
         }

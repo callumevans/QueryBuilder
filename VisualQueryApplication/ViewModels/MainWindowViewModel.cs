@@ -27,7 +27,8 @@ namespace VisualQueryApplication.ViewModels
             }
             private set
             {
-                SetValue(ref loadedNodes, value);
+                loadedNodes = value;
+                OnPropertyChanged("LoadedNodes");
             }
         }
 
@@ -37,15 +38,23 @@ namespace VisualQueryApplication.ViewModels
         {
             get
             {
-                return new RelayCommand(LoadNodes);
+                return loadNodesCommand;
+            }
+            set
+            {
+                loadNodesCommand = value;
+                OnPropertyChanged("LoadNodesCommand");
             }
         }
 
+        private ICommand loadNodesCommand;
+
         public MainWindowViewModel()
         {
+            LoadNodesCommand = new RelayCommand(LoadNodes) { CanExecute = true };
         }
 
-        private void LoadNodes()
+        private void LoadNodes(object parameters)
         {
             model.LoadedNodes.Clear();
             this.LoadedNodes.Clear();

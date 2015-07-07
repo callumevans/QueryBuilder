@@ -9,63 +9,77 @@
              xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    
+
     <UserControl.DataContext>
         <vm:GraphEditorViewModel />
     </UserControl.DataContext>
-    
+
     <UserControl.Resources>
-        
+
         <DataTemplate DataType="{x:Type vm:VisualNodeViewModel}">
-            <Thumb DragDelta="Thumb_DragDelta">              
+            <Thumb DragDelta="Thumb_DragDelta">
                 <Thumb.Template>
                     <ControlTemplate>
-                        <local:VisualGraphBox x:Name="VisualNodeControl" MouseDown="Box_MouseDown" />
+                        <local:VisualNodeControl x:Name="VisualNodeControl" MouseDown="Box_MouseDown" />
                     </ControlTemplate>
                 </Thumb.Template>
             </Thumb>
         </DataTemplate>
-     <!--   
-        <DataTemplate DataType="{x:Type vm:GraphConnectionViewModel}">
+
+        <DataTemplate DataType="{x:Type vm:ConnectionViewModel}">
             <Line
                 Stroke="Black"
-                StrokeThickness="1"
-                X1="{Binding }"
-        </DataTemplate> -->
-        
-    </UserControl.Resources>
+                StrokeThickness="2"
+                Fill="Black"
+                X1="{Binding OutputPin.Centre.X}"
+                Y1="{Binding OutputPin.Centre.Y}"
+                X2="{Binding InputPin.Centre.X}"
+                Y2="{Binding InputPin.Centre.Y}" />
+        </DataTemplate>
 
-    <Grid>   
+    </UserControl.Resources>
+    
+    <Grid>
         <ScrollViewer
-            x:Name="pannerScroller"
-            CanContentScroll="True"
-            VerticalScrollBarVisibility="Visible"
-            HorizontalScrollBarVisibility="Visible">
-            
+                x:Name="pannerScroller"
+                CanContentScroll="True"
+                VerticalScrollBarVisibility="Visible"
+                HorizontalScrollBarVisibility="Visible">
+
             <ZoomAndPan:ZoomAndPanControl x:Name="ZoomPanControl">
-                <ItemsControl x:Name="ContentDisplay" Background="LightGray" Width="2000" Height="2000"
-                              ItemsSource="{Binding VisualNodes}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Canvas />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemContainerStyle>
-                        <Style>
-                            <Setter
+                <Grid>
+                    <ItemsControl x:Name="ContentDisplay" Background="LightGray" Width="2000" Height="2000" ItemsSource="{Binding VisualNodes}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemContainerStyle>
+                            <Style>
+                                <Setter
                                 Property="Canvas.Left"
                                 Value="{Binding X}" />
-                            <Setter
+                                <Setter
                                 Property="Canvas.Top"
                                 Value="{Binding Y}" />
-                            <Setter
+                                <Setter
                                 Property="Canvas.ZIndex"
                                 Value="{Binding ZIndex}" />
-                        </Style>
-                    </ItemsControl.ItemContainerStyle>
-                </ItemsControl>
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                    </ItemsControl>
+
+                    <ItemsControl x:Name="ConnectionsDisplay" ItemsSource="{Binding Connections}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
             </ZoomAndPan:ZoomAndPanControl>
-            
         </ScrollViewer>
     </Grid>
+    
 </UserControl>

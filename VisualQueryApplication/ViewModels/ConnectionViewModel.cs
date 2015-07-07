@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using VisualQueryApplication.Controls.GraphBuilder;
 
 namespace VisualQueryApplication.ViewModels
 {
-    public class GraphConnectionViewModel : ViewModelBase
+    public class ConnectionViewModel : ViewModelBase
     {
         public NodePin OutputPin
         {
@@ -17,7 +18,7 @@ namespace VisualQueryApplication.ViewModels
             }
             set
             {
-                SetValue(ref outputPin, value);
+                outputPin = value;
             }
         }
 
@@ -31,21 +32,19 @@ namespace VisualQueryApplication.ViewModels
             }
             set
             {
-                SetValue(ref inputPin, value);
+                inputPin = value;
             }
         }
 
         private NodePin inputPin;
 
-        public GraphConnectionViewModel()
-        {
+        private GraphEditorViewModel graphViewModel;
 
-        }
-
-        public GraphConnectionViewModel(NodePin outputPin, NodePin inputPin)
+        public ConnectionViewModel(GraphEditorViewModel graphViewModel, NodePin outputPin = null, NodePin inputPin = null)
         {
-            this.outputPin = outputPin;
-            this.inputPin = inputPin;
+            this.graphViewModel = graphViewModel;
+            this.OutputPin = outputPin;
+            this.InputPin = inputPin;
         }
     }
 }

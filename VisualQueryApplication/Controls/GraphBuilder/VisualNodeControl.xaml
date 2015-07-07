@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="VisualQueryApplication.Controls.GraphBuilder.VisualGraphBox"
+﻿<UserControl x:Class="VisualQueryApplication.Controls.GraphBuilder.VisualNodeControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,21 +6,32 @@
              xmlns:local="clr-namespace:VisualQueryApplication.Controls.GraphBuilder"
              xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"
              mc:Ignorable="d"
-             MinWidth="160"
+             x:Name="VisualNodeBoxControl"
+             Width="180"
              MinHeight="50">
 
     <UserControl.Resources>
         <DataTemplate x:Key="InputDataTemplate">
             <StackPanel Orientation="Horizontal">
-                <local:NodePin HorizontalAlignment="Left" Margin="5" x:Name="InputPin" />
-                <Label HorizontalAlignment="Left" Content="{Binding Key}" VerticalAlignment="Center" />
+                
+                <local:NodePin HorizontalAlignment="Left"
+                               Margin="5"
+                               x:Name="InputPin">
+                </local:NodePin>
+                <Label HorizontalAlignment="Left" x:Name="InputLabel" Content="{Binding Name}" VerticalAlignment="Center" />
+                
             </StackPanel>
         </DataTemplate>
-        
+
         <DataTemplate x:Key="OutputDataTemplate">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Label HorizontalAlignment="Left" Content="{Binding Key}" VerticalAlignment="Center" />
-                <local:NodePin Margin="5" x:Name="OutputPin" />
+                
+                <Label HorizontalAlignment="Left" x:Name="OutputLabel" Content="{Binding Name}" VerticalAlignment="Center" />
+                <local:NodePin
+                    Margin="5"
+                    x:Name="OutputPin">
+                </local:NodePin>
+                
             </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
@@ -38,14 +49,14 @@
         <Border Grid.Row="0" Background="DarkGray" />
         <Border Grid.RowSpan="2" BorderThickness="2" BorderBrush="Black" />
 
-        <TextBlock x:Name="BoxHeading"  Grid.Row="0" Text="{Binding NodeTitle}" HorizontalAlignment="Center" FontSize="11" Margin="80,2,80,0" />
+        <TextBlock x:Name="BoxHeading" Grid.Row="0" Text="{Binding NodeTitle}" TextAlignment="Center" FontSize="11" Margin="0,2,0,0" />
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
+
             <ItemsControl Grid.Column="0" ItemsSource="{Binding Inputs}" ItemTemplate="{StaticResource InputDataTemplate}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -53,7 +64,7 @@
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
-            
+
             <ItemsControl Grid.Column="1" ItemsSource="{Binding Outputs}" ItemTemplate="{StaticResource OutputDataTemplate}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -62,6 +73,6 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
         </Grid>
-        
+
     </Grid>
 </UserControl>

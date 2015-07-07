@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VisualQueryApplication.Model;
 
 namespace VisualQueryApplication.ViewModels
 {
@@ -16,11 +17,16 @@ namespace VisualQueryApplication.ViewModels
             {
                 return visualNodes;
             }
+            set
+            {
+                visualNodes = value;
+                OnPropertyChanged(nameof(VisualNodes));
+            }
         }
 
         private ObservableCollection<VisualNodeViewModel> visualNodes = new ObservableCollection<VisualNodeViewModel>();
 
-        public List<GraphConnectionViewModel> Connections
+        public ObservableCollection<ConnectionViewModel> Connections
         {
             get
             {
@@ -28,16 +34,15 @@ namespace VisualQueryApplication.ViewModels
             }
             set
             {
-                SetValue(ref connections, value);
+                connections = value;
+                OnPropertyChanged(nameof(Connections));
             }
         }
 
-        private List<GraphConnectionViewModel> connections = new List<GraphConnectionViewModel>();
+        private ObservableCollection<ConnectionViewModel> connections = new ObservableCollection<ConnectionViewModel>();
 
         public GraphEditorViewModel()
         {
-            visualNodes.Add(new VisualNodeViewModel(typeof(SubtractNode)));
-            visualNodes.Add(new VisualNodeViewModel(typeof(AddNode)));
         }
 
         public int FindMaxZIndex()
