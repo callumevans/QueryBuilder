@@ -7,10 +7,27 @@
              xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"
              mc:Ignorable="d"
              x:Name="VisualNodeBoxControl"
+             MouseDown="VisualNodeBoxControl_MouseDown"
              Width="180"
              MinHeight="50">
 
     <UserControl.Resources>
+
+        <Style TargetType="Border" x:Key="BorderColour">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                    <Setter Property="BorderBrush" Value="Red" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsSelected}" Value="False">
+                    <Setter Property="BorderBrush" Value="Black" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        
+        <ContextMenu x:Key="NodeContextMenu">
+            <MenuItem Header="LOL" />
+        </ContextMenu>
+
         <DataTemplate x:Key="InputDataTemplate">
             <StackPanel Orientation="Horizontal">
                 
@@ -36,7 +53,7 @@
         </DataTemplate>
     </UserControl.Resources>
 
-    <Grid Background="White">
+    <Grid Background="White" ContextMenu="{StaticResource NodeContextMenu}">
         <Grid.RowDefinitions>
             <RowDefinition Height="20" />
             <RowDefinition Height="79*"/>
@@ -47,7 +64,7 @@
         </Grid.Effect>
 
         <Border Grid.Row="0" Background="DarkGray" />
-        <Border Grid.RowSpan="2" BorderThickness="2" BorderBrush="Black" />
+        <Border Grid.RowSpan="2" BorderThickness="2" Style="{StaticResource BorderColour}" />
 
         <TextBlock x:Name="BoxHeading" Grid.Row="0" Text="{Binding NodeTitle}" TextAlignment="Center" FontSize="11" Margin="0,2,0,0" />
 

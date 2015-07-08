@@ -46,7 +46,7 @@
                 VerticalScrollBarVisibility="Visible"
                 HorizontalScrollBarVisibility="Visible">
 
-            <ZoomAndPan:ZoomAndPanControl x:Name="ZoomPanControl">
+            <ZoomAndPan:ZoomAndPanControl x:Name="ZoomPanControl" MouseDown="Editor_MouseDown">
                 <Grid>
                     <ItemsControl x:Name="ContentDisplay" Background="LightGray" Width="2000" Height="2000" ItemsSource="{Binding VisualNodes}">
                         <ItemsControl.ItemsPanel>

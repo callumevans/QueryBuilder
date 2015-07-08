@@ -28,5 +28,17 @@ namespace VisualQueryApplication.Controls.GraphBuilder
         {
             InitializeComponent();
         }
+
+        private void VisualNodeBoxControl_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            GraphEditorViewModel editor = (GraphEditorViewModel)((MainWindow)(App.Current.MainWindow)).VisualEditor.DataContext;
+
+            foreach (VisualNodeViewModel visualNode in editor.VisualNodes)
+            {
+                visualNode.IsSelected = false;
+            }
+
+            ((VisualNodeViewModel)DataContext).IsSelected = true;
+        }
     }
 }

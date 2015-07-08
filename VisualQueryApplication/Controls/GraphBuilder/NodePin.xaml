@@ -13,7 +13,13 @@
         <vm:NodePinViewModel />
     </UserControl.DataContext>
     
-    <Grid>
+    <UserControl.Resources>
+        <ContextMenu x:Key="PinContextMenu">
+            <MenuItem Header="MUH NODE" />
+        </ContextMenu>
+    </UserControl.Resources>
+
+    <Grid ContextMenu="{StaticResource PinContextMenu}">
         <Ellipse Fill="{Binding PinColour}" />
     </Grid>
 </UserControl>

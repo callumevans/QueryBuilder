@@ -20,6 +20,21 @@ namespace VisualQueryApplication.ViewModels
     {
         private VisualNodeModel nodeModel;
 
+        public bool IsSelected
+        {
+            get
+            {
+                return isSelected;
+            }
+            set
+            {
+                isSelected = value;
+                OnPropertyChanged(nameof(IsSelected));
+            }
+        }
+
+        private bool isSelected = false;
+
         public int ZIndex
         {
             get
