@@ -119,9 +119,26 @@ namespace VisualQueryApplication.ViewModels
 
         private ObservableCollection<PinModel> outputs = new ObservableCollection<PinModel>();
 
+        public ICommand DeleteSelf
+        {
+            get
+            {
+                return deleteSelf;
+            }
+            set
+            {
+                deleteSelf = value;
+                OnPropertyChanged(nameof(DeleteSelf));
+            }
+        }
+
+        private ICommand deleteSelf;
+
         public VisualNodeViewModel(Type nodeType)
         {
             SetType(nodeType);
+
+            DeleteSelf = new RelayCommand(Delete) { CanExecute = true };
         }
 
         public void SetType(Type nodeType)
@@ -138,6 +155,18 @@ namespace VisualQueryApplication.ViewModels
                     else if (attribute.GetType() == typeof(ExposedOutput))
                         outputs.Add(new PinModel(field.Name, field.FieldType));
                 }
+            }
+        }
+
+        private void Delete()
+        {
+            GraphEditorViewModel graphViewModel = ((MainWindow)App.Current.MainWindow)
+                .VisualEditor
+                .DataContext as GraphEditorViewModel;
+
+            if (graphViewModel.VisualNodes.Contains(this))
+            {
+                graphViewModel.VisualNodes.Remove(this);
             }
         }
     }

@@ -25,7 +25,7 @@
         </Style>
         
         <ContextMenu x:Key="NodeContextMenu">
-            <MenuItem Header="LOL" />
+            <MenuItem Header="Delete" Command="{Binding DeleteSelf}" />
         </ContextMenu>
 
         <DataTemplate x:Key="InputDataTemplate">

@@ -31,6 +31,11 @@
 
         <Fluent:Ribbon Grid.ColumnSpan="2" VerticalAlignment="Stretch">
 
+            <Fluent:Ribbon.ContextualGroups>
+                <Fluent:RibbonContextualTabGroup Header="Edit" Visibility="Visible"
+                                                 x:Name="NodesGroup" Background="Green" BorderBrush="Green" />
+            </Fluent:Ribbon.ContextualGroups>
+            
             <!-- Theme Colour -->
             <Fluent:Ribbon.Resources>
                 <SolidColorBrush x:Key="RibbonThemeColorBrush" Color="#5C005C" />
@@ -81,19 +86,27 @@
                     <Fluent:Button
 						Header="Settings"
 						LargeIcon="Images\Ribbon\icon_settings.png"
-						Icon="Images\Ribbon\icon_settings.png"
-                        Click="Button_Click" />
+						Icon="Images\Ribbon\icon_settings.png" />
                 </Fluent:RibbonGroupBox>
 
                 <!-- Load Nodes -->
                 <Fluent:RibbonGroupBox Header="Nodes">
                     <Fluent:Button
-                        Header="Reload Nodes"
+                        Header="Reload"
 						LargeIcon="Images\Ribbon\icon_placeholder.png"
 						Icon="Images\Ribbon\icon_placeholder.png"
                         Command="{Binding LoadNodesCommand}" />
                 </Fluent:RibbonGroupBox>
-
+                
+                <!-- Database Functions -->
+                <Fluent:RibbonGroupBox Header="Database">
+                    <Fluent:Button
+                        Header="Load"
+						LargeIcon="Images\Ribbon\icon_database.png"
+						Icon="Images\Ribbon\icon_database.png"
+                        Command="{Binding LoadDatabaseCommand}" />
+                </Fluent:RibbonGroupBox>
+                
             </Fluent:RibbonTabItem>
 
             <!-- Query -->
@@ -112,9 +125,26 @@
                 
             </Fluent:RibbonTabItem>
 
+            <!-- Node Edit -->
+            <Fluent:RibbonTabItem Header="Node"
+                                  Group="{Binding ElementName=NodesGroup}">
+
+                <!-- Query Actions -->
+                <Fluent:RibbonGroupBox Header="Query Actions">
+                    <Fluent:Button
+						Header="Build"
+						LargeIcon="Images\Ribbon\icon_build.png"
+						Icon="Images\Ribbon\icon_build.png" />
+
+                    <Fluent:Button Icon="Images\Ribbon\icon_placeholder.png"
+						SizeDefinition="Middle" Header="Check" />
+                </Fluent:RibbonGroupBox>
+
+            </Fluent:RibbonTabItem>
+
         </Fluent:Ribbon>
 
-        <ListBox x:Name="LoadedNodesList" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding LoadedNodes}" />
+        <ListBox x:Name="LoadedNodesList" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding LoadedNodes}" MouseDoubleClick="LoadedNodesList_MouseDoubleClick" />
         
         <GraphBuilder:VisualEditor x:Name="VisualEditor" Grid.Column="1" Grid.Row="1"/>
         <GridSplitter x:Name="gridSplitter" HorizontalAlignment="Left" Height="100" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Width="5" Margin="0,348,0,347"/>

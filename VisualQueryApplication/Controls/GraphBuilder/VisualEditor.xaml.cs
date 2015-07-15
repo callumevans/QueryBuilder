@@ -64,7 +64,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             node.ZIndex = graphViewModel.FindMaxZIndex() + 10;
         }
 
-        private void Editor_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Editor_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             foreach (VisualNodeViewModel node in ((GraphEditorViewModel)DataContext).VisualNodes)
             {
