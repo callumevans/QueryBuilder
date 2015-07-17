@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using VisualQueryApplication.Model;
 
 namespace VisualQueryApplication.ViewModels
@@ -41,8 +42,24 @@ namespace VisualQueryApplication.ViewModels
 
         private ObservableCollection<ConnectionViewModel> connections = new ObservableCollection<ConnectionViewModel>();
 
+        public ICommand DeleteSelectedNodesCommand
+        {
+            get
+            {
+                return deleteSelectedNodesCommand;
+            }
+            set
+            {
+                deleteSelectedNodesCommand = value;
+                OnPropertyChanged(nameof(DeleteSelectedNodesCommand));
+            }
+        }
+
+        private ICommand deleteSelectedNodesCommand;
+
         public GraphEditorViewModel()
         {
+            DeleteSelectedNodesCommand = new RelayCommand(DeleteSelectedNodes);
         }
 
         public int FindMaxZIndex()
@@ -65,6 +82,22 @@ namespace VisualQueryApplication.ViewModels
             }
 
             return count;
+        }
+
+        private void DeleteSelectedNodes()
+        {
+            List<VisualNodeViewModel> nodesToDelete = new List<VisualNodeViewModel>();
+
+            foreach (VisualNodeViewModel node in visualNodes)
+            {
+                if (node.IsSelected)
+                    nodesToDelete.Add(node);
+            }
+
+            foreach (var node in nodesToDelete)
+            {
+                node.DeleteSelf.Execute(null);
+            }
         }
     }
 }

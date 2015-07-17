@@ -12,7 +12,8 @@
         x:Name="applicationWindow"
         mc:Ignorable="d"
         Title="Visual Query Builder" Width="1400" Height="968"
-        Loaded="applicationWindow_Loaded">
+        Loaded="applicationWindow_Loaded"
+        KeyDown="applicationWindow_KeyDown" >
 
     <Fluent:RibbonWindow.DataContext>
         <vm:MainWindowViewModel />

@@ -56,5 +56,15 @@ namespace VisualQueryApplication
 
             databaseViewWindow.Show();
         }
+
+        private void applicationWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Delete:
+                    ((GraphEditorViewModel)VisualEditor.DataContext).DeleteSelectedNodesCommand.Execute(null);
+                    break;
+            }
+        }
     }
 }
