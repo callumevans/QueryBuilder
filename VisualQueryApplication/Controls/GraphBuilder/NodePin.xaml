@@ -7,6 +7,8 @@
              xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"
              mc:Ignorable="d"
              Loaded="UserControl_Loaded"
+             MouseEnter="UserControl_MouseEnter"
+             MouseLeave="UserControl_MouseLeave"
              Height="11" Width="11">
     
     <UserControl.DataContext>
@@ -20,6 +22,6 @@
     </UserControl.Resources>
 
     <Grid ContextMenu="{StaticResource PinContextMenu}">
-        <Ellipse Fill="{Binding PinColour}" />
+        <Ellipse Fill="{Binding PinColour}" Stroke="{Binding PinStroke}" StrokeThickness="2" />
     </Grid>
 </UserControl>

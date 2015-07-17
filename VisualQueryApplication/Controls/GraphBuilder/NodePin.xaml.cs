@@ -24,6 +24,8 @@ namespace VisualQueryApplication.Controls.GraphBuilder
     /// </summary>
     public partial class NodePin : UserControl, INotifyPropertyChanged
     {
+        private SolidColorBrush pinColourCache;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Point Centre
@@ -57,6 +59,28 @@ namespace VisualQueryApplication.Controls.GraphBuilder
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             ((NodePinViewModel)DataContext).AllocatePinToInputCommand.Execute(this);
+
+            NodePinViewModel viewModel = ((NodePinViewModel)DataContext);
+            this.pinColourCache = viewModel.PinColour;
+        }
+
+        private void UserControl_MouseEnter(object sender, MouseEventArgs e)
+        {
+            var colour = ((NodePinViewModel)DataContext).PinColour.Color;
+
+            SolidColorBrush adjustedColour = new SolidColorBrush(Color.FromArgb(
+                colour.A,
+                (byte)Math.Min(255, colour.R + 255 * 0.3),
+                (byte)Math.Min(255, colour.G + 255 * 0.3),
+                (byte)Math.Min(255, colour.B + 255 * 0.3)
+                ));
+
+            ((NodePinViewModel)DataContext).PinColour = adjustedColour;
+        }
+
+        private void UserControl_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ((NodePinViewModel)DataContext).PinColour = pinColourCache;
         }
     }
 }

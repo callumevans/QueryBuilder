@@ -32,7 +32,7 @@
         <Fluent:Ribbon Grid.ColumnSpan="2" VerticalAlignment="Stretch">
 
             <Fluent:Ribbon.ContextualGroups>
-                <Fluent:RibbonContextualTabGroup Header="Edit" Visibility="Visible"
+                <Fluent:RibbonContextualTabGroup Header="Edit" Visibility="Hidden"
                                                  x:Name="NodesGroup" Background="Green" BorderBrush="Green" />
             </Fluent:Ribbon.ContextualGroups>
             
@@ -105,6 +105,12 @@
 						LargeIcon="Images\Ribbon\icon_database.png"
 						Icon="Images\Ribbon\icon_database.png"
                         Command="{Binding LoadDatabaseCommand}" />
+                    
+                    <Fluent:Button
+                        Header="View"
+                        LargeIcon="Images\Ribbon\icon_database.png"
+                        Icon="Images\Ribbon\icon_database.png"
+                        Click="ViewDatabase_Click" />
                 </Fluent:RibbonGroupBox>
                 
             </Fluent:RibbonTabItem>
@@ -127,6 +133,7 @@
 
             <!-- Node Edit -->
             <Fluent:RibbonTabItem Header="Node"
+                                  Visibility="Hidden"
                                   Group="{Binding ElementName=NodesGroup}">
 
                 <!-- Query Actions -->

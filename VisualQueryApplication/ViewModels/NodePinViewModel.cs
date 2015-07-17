@@ -37,6 +37,21 @@ namespace VisualQueryApplication.ViewModels
 
         private Type dataType;
 
+        public SolidColorBrush PinStroke
+        {
+            get
+            {
+                return pinStroke;
+            }
+            set
+            {
+                pinStroke = value;
+                OnPropertyChanged(nameof(PinStroke));
+            }
+        }
+
+        private SolidColorBrush pinStroke = new SolidColorBrush(Colors.Black);
+
         public SolidColorBrush PinColour
         {
             get
@@ -46,7 +61,7 @@ namespace VisualQueryApplication.ViewModels
             set
             {
                 pinColour = value;
-                OnPropertyChanged("PinColour");
+                OnPropertyChanged(nameof(PinColour));
             }
         }
 

@@ -47,17 +47,15 @@ namespace VisualQueryApplication
                 File.ReadAllText(queryFile),
                 currentDatabaseConnection);
 
-            currentDatabaseConnection.ConnectionString = "DataSource=:memory:;version=3;New=True;";
+            currentDatabaseConnection.ConnectionString = "DataSource=:memory:;version=3;";
             currentDatabaseConnection.Open();
 
-            System.Windows.Forms.Clipboard.SetText(sqlCommand.CommandText);
+            // IS ONLY FOR TESTING PURPOSES -- DELETE LATER!
             sqlCommand.ExecuteNonQuery();
 
             SQLiteDataAdapter DB = new SQLiteDataAdapter(sqlCommand);
             DataSet ds = new DataSet();
             DB.Fill(ds);
-
-            currentDatabaseConnection.Close();
         }
     }
 }

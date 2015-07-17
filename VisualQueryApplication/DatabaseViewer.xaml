@@ -4,8 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VisualQueryApplication"
+        xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"    
         mc:Ignorable="d"
         Title="DatabaseViewer" Height="317" Width="569">
+    
+    <Window.DataContext>
+        <vm:DatabaseViewerViewModel />
+    </Window.DataContext>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="120" />

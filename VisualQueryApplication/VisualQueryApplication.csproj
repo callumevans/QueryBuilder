@@ -123,6 +123,7 @@
     <Compile Include="Model\VisualNodeModel.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModels\ConnectionViewModel.cs" />
+    <Compile Include="ViewModels\DatabaseViewerViewModel.cs" />
     <Compile Include="ViewModels\GraphEditorViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\NodePinViewModel.cs" />

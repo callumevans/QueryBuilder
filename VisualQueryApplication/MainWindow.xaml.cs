@@ -25,6 +25,8 @@ namespace VisualQueryApplication
     /// </summary>
     public partial class MainWindow : RibbonWindow
     {
+        private DatabaseViewer databaseViewWindow;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -39,6 +41,20 @@ namespace VisualQueryApplication
         private void LoadedNodesList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             ((MainWindowViewModel)DataContext).InsertNodeCommand.Execute(LoadedNodesList.SelectedIndex);
+        }
+
+        private void ViewDatabase_Click(object sender, RoutedEventArgs e)
+        {
+            if (databaseViewWindow != null)
+            {
+                databaseViewWindow.Focus();
+                return;
+            }
+
+            databaseViewWindow = new DatabaseViewer(
+                new Action(() => databaseViewWindow = null));
+
+            databaseViewWindow.Show();
         }
     }
 }
