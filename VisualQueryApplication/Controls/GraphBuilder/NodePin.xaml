@@ -6,9 +6,10 @@
              xmlns:local="clr-namespace:VisualQueryApplication.Controls.GraphBuilder"
              xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"
              mc:Ignorable="d"
-             Loaded="UserControl_Loaded"
-             MouseEnter="UserControl_MouseEnter"
-             MouseLeave="UserControl_MouseLeave"
+             Loaded="NodePin_Loaded"
+             MouseLeftButtonDown="NodePin_OnMouseLeftButtonDown"
+             MouseEnter="NodePin_MouseEnter"
+             MouseLeave="NodePin_MouseLeave"
              Height="11" Width="11">
     
     <UserControl.DataContext>

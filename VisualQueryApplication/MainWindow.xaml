@@ -124,10 +124,12 @@
                     <Fluent:Button x:Name="Build"
 						Header="Build"
 						LargeIcon="Images\Ribbon\icon_build.png"
-						Icon="Images\Ribbon\icon_build.png" />
+						Icon="Images\Ribbon\icon_build.png"
+                        Click="ButtonBase_OnClick" />
 
                     <Fluent:Button Icon="Images\Ribbon\icon_placeholder.png"
-						SizeDefinition="Middle" Header="Check" />
+						SizeDefinition="Middle" Header="Check"
+                                   Click="ButtonBase2_OnClick" />
                 </Fluent:RibbonGroupBox>
                 
             </Fluent:RibbonTabItem>

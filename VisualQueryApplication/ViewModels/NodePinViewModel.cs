@@ -20,10 +20,7 @@ namespace VisualQueryApplication.ViewModels
 
         public Type DataType
         {
-            get
-            {
-                return dataType;
-            }
+            get { return dataType; }
             set
             {
                 dataType = value;
@@ -39,10 +36,7 @@ namespace VisualQueryApplication.ViewModels
 
         public SolidColorBrush PinStroke
         {
-            get
-            {
-                return pinStroke;
-            }
+            get { return pinStroke; }
             set
             {
                 pinStroke = value;
@@ -54,10 +48,7 @@ namespace VisualQueryApplication.ViewModels
 
         public SolidColorBrush PinColour
         {
-            get
-            {
-                return pinColour;
-            }
+            get { return pinColour; }
             set
             {
                 pinColour = value;
@@ -69,10 +60,7 @@ namespace VisualQueryApplication.ViewModels
 
         public VisualNodeControl ParentNode
         {
-            get
-            {
-                return parentNode;
-            }
+            get { return parentNode; }
             set
             {
                 parentNode = value;
@@ -84,10 +72,7 @@ namespace VisualQueryApplication.ViewModels
 
         public ICommand AllocatePinToInputCommand
         {
-            get
-            {
-                return allocatePinToInputCommand;
-            }
+            get { return allocatePinToInputCommand; }
             set
             {
                 allocatePinToInputCommand = value;

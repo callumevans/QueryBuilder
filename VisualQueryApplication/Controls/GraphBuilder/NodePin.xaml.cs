@@ -56,7 +56,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void NodePin_Loaded(object sender, RoutedEventArgs e)
         {
             ((NodePinViewModel)DataContext).AllocatePinToInputCommand.Execute(this);
 
@@ -64,7 +64,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             this.pinColourCache = viewModel.PinColour;
         }
 
-        private void UserControl_MouseEnter(object sender, MouseEventArgs e)
+        private void NodePin_MouseEnter(object sender, MouseEventArgs e)
         {
             var colour = ((NodePinViewModel)DataContext).PinColour.Color;
 
@@ -78,9 +78,47 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             ((NodePinViewModel)DataContext).PinColour = adjustedColour;
         }
 
-        private void UserControl_MouseLeave(object sender, MouseEventArgs e)
+        private void NodePin_MouseLeave(object sender, MouseEventArgs e)
         {
             ((NodePinViewModel)DataContext).PinColour = pinColourCache;
+        }
+
+        private void NodePin_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            DependencyObject parentObject = VisualTreeHelper.GetParent(this);
+            
+            // Find the visual editor
+            while (!(parentObject is VisualEditor))
+            {
+                parentObject = VisualTreeHelper.GetParent(parentObject);
+
+                if (parentObject == null)
+                    return;
+            }
+
+            VisualEditor visualEditor = parentObject as VisualEditor;
+
+            // Determine how to handle the click
+            if (visualEditor.IsCreatingConnection)
+            {
+                // If we are creating a new connection then we have to validate and add a new one
+                visualEditor.IsCreatingConnection = false;
+
+                GraphEditorViewModel graph = ((GraphEditorViewModel) visualEditor.DataContext);
+                ConnectionBuilderViewModel connectionBuilder = ((ConnectionBuilderViewModel) visualEditor.NewConnectionLine.DataContext);
+
+                graph.Connections.Add(new ConnectionViewModel(graph, connectionBuilder.OutputPin, this));
+                visualEditor.IsCreatingConnection = false;
+            }
+            else
+            {
+                // We need to initialise the 'create a connection' mode
+                visualEditor.IsCreatingConnection = true;
+            }
+
+            ConnectionBuilderViewModel newConnection = ((ConnectionBuilderViewModel)visualEditor.NewConnectionLine.DataContext);
+
+            newConnection.OutputPin = this;
         }
     }
 }

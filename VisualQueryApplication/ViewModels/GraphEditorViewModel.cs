@@ -14,10 +14,7 @@ namespace VisualQueryApplication.ViewModels
     {
         public ObservableCollection<VisualNodeViewModel> VisualNodes
         {
-            get
-            {
-                return visualNodes;
-            }
+            get { return visualNodes; }
             set
             {
                 visualNodes = value;
@@ -29,10 +26,7 @@ namespace VisualQueryApplication.ViewModels
 
         public ObservableCollection<ConnectionViewModel> Connections
         {
-            get
-            {
-                return connections;
-            }
+            get { return connections; }
             set
             {
                 connections = value;
@@ -44,10 +38,7 @@ namespace VisualQueryApplication.ViewModels
 
         public ICommand DeleteSelectedNodesCommand
         {
-            get
-            {
-                return deleteSelectedNodesCommand;
-            }
+            get { return deleteSelectedNodesCommand; }
             set
             {
                 deleteSelectedNodesCommand = value;

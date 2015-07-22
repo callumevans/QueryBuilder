@@ -66,5 +66,25 @@ namespace VisualQueryApplication
                     break;
             }
         }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            // TODO: REMOVE
+            var dc = ((GraphEditorViewModel)VisualEditor.DataContext);
+            dc.VisualNodes.Add(new VisualNodeViewModel(typeof(AddNode)));
+            dc.VisualNodes.Add(new VisualNodeViewModel(typeof(AddNode)));
+        }
+
+        private void ButtonBase2_OnClick(object sender, RoutedEventArgs e)
+        {
+            var dc = ((GraphEditorViewModel)VisualEditor.DataContext);
+
+            // TODO: REMOVE
+            dc.Connections.Add(new ConnectionViewModel(dc)
+            {
+                InputPin = dc.VisualNodes[0].Outputs[0].Pin,
+                OutputPin = dc.VisualNodes[1].Inputs[0].Pin
+            });
+        }
     }
 }

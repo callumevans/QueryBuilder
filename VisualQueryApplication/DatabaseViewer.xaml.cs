@@ -21,7 +21,7 @@ namespace VisualQueryApplication
     /// </summary>
     public partial class DatabaseViewer : Window
     {
-        private Action CallbackOnClose;
+        private readonly Action CallbackOnClose;
 
         private List<string> loadedTables;
 

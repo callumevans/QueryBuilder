@@ -15,18 +15,16 @@ namespace VisualQueryApplication.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        private readonly GraphEditorViewModel graphViewModel;
+
         private MainWindowModel model = new MainWindowModel();
-        private GraphEditorViewModel graphViewModel;
 
         /// <summary>
         /// List of nodes that are loaded in the system
         /// </summary>
         public ObservableCollection<string> LoadedNodes
         {
-            get
-            {
-                return loadedNodes;
-            }
+            get { return loadedNodes; }
             private set
             {
                 loadedNodes = value;
@@ -38,10 +36,7 @@ namespace VisualQueryApplication.ViewModels
 
         public ICommand LoadNodesCommand
         {
-            get
-            {
-                return loadNodesCommand;
-            }
+            get { return loadNodesCommand; }
             set
             {
                 loadNodesCommand = value;
@@ -53,10 +48,7 @@ namespace VisualQueryApplication.ViewModels
 
         public ICommand InsertNodeCommand
         {
-            get
-            {
-                return insertNodeCommand;
-            }
+            get { return insertNodeCommand; }
             set
             {
                 insertNodeCommand = value;
@@ -68,10 +60,7 @@ namespace VisualQueryApplication.ViewModels
 
         public ICommand LoadDatabaseCommand
         {
-            get
-            {
-                return loadDatabaseCommand;
-            }
+            get { return loadDatabaseCommand; }
             set
             {
                 loadDatabaseCommand = value;

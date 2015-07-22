@@ -8,6 +8,7 @@
              x:Class="VisualQueryApplication.Controls.GraphBuilder.VisualEditor"
              xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"
              mc:Ignorable="d" 
+             MouseMove="VisualEditor_OnMouseMove"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.DataContext>
@@ -77,6 +78,19 @@
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
+                    
+                    <Canvas>
+                        <Line
+                            x:Name="NewConnectionLine"
+                            Stroke="Black"
+                            StrokeThickness="2"
+                            Fill="Black"
+                            X1="{Binding OutputPin.Centre.X}"
+                            Y1="{Binding OutputPin.Centre.Y}"
+                            X2="{Binding MousePosition.X}"
+                            Y2="{Binding MousePosition.Y}" />
+                    </Canvas>
+                    
                 </Grid>
             </ZoomAndPan:ZoomAndPanControl>
         </ScrollViewer>

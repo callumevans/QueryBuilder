@@ -22,17 +22,31 @@ namespace VisualQueryApplication.Controls.GraphBuilder
     /// </summary>
     public partial class VisualEditor : UserControl
     {
+        public bool IsCreatingConnection
+        {
+            get { return isCreatingConnection; }
+            set
+            {
+                isCreatingConnection = value;
+
+                if (IsCreatingConnection)
+                    NewConnectionLine.Visibility = Visibility.Visible;
+                else
+                    NewConnectionLine.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private bool isCreatingConnection = false;
+
         public ItemsControl ContentArea
         {
-            get
-            {
-                return ContentDisplay;
-            }
+            get { return ContentDisplay; }
         }
 
         public VisualEditor()
         {
             InitializeComponent();
+            NewConnectionLine.DataContext = new ConnectionBuilderViewModel();
         }
 
         private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
@@ -70,6 +84,15 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             {
                 node.IsSelected = false;
             }
+        }
+
+        private void VisualEditor_OnMouseMove(object sender, MouseEventArgs e)
+        {
+            if (!isCreatingConnection)
+                return;
+
+            var connectionLine = ((ConnectionBuilderViewModel)NewConnectionLine.DataContext);
+            connectionLine.MousePosition = new Point(e.GetPosition(this).X - 1, e.GetPosition(this).Y - 1);
         }
     }
 }

@@ -10,33 +10,8 @@ namespace VisualQueryApplication.ViewModels
 {
     public class ConnectionViewModel : ViewModelBase
     {
-        public NodePin OutputPin
-        {
-            get
-            {
-                return outputPin;
-            }
-            set
-            {
-                outputPin = value;
-            }
-        }
-
-        private NodePin outputPin;
-
-        public NodePin InputPin
-        {
-            get
-            {
-                return inputPin;
-            }
-            set
-            {
-                inputPin = value;
-            }
-        }
-
-        private NodePin inputPin;
+        public NodePin OutputPin { get; set; }
+        public NodePin InputPin { get; set; }
 
         private GraphEditorViewModel graphViewModel;
 
