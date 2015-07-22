@@ -35,7 +35,7 @@ namespace VisualQueryApplication
             loadedTables = new List<string>();
 
             // TODO: MAKE MVVM!!
-            var conn = App.CurrentDatabaseConnection;
+            SQLiteConnection conn = App.CurrentDatabaseConnection;
 
             SQLiteCommand sqlCommand = new SQLiteCommand(
                 "SELECT * FROM sqlite_master WHERE type='table';",

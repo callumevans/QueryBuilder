@@ -52,26 +52,39 @@ namespace VisualQueryApplication.Controls.GraphBuilder
         private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
             Thumb thumb = (Thumb)sender;
-            VisualNodeViewModel node = (VisualNodeViewModel)thumb.DataContext;
+
+            var node = (VisualGraphComponentViewModel)thumb.DataContext;
 
             node.X += e.HorizontalChange;
             node.Y += e.VerticalChange;
 
-            foreach (var input in node.Inputs)
+            VisualNodeViewModel visualNode = node as VisualNodeViewModel;
+
+            if (visualNode != null)
             {
-                input.Pin.ParentMoved();
+                foreach (var input in visualNode.Inputs)
+                {
+                    input.Pin.ParentMoved();
+                }
+
+                foreach (var output in visualNode.Outputs)
+                {
+                    output.Pin.ParentMoved();
+                }
             }
 
-            foreach (var output in node.Outputs)
+            VisualConstantNodeViewModel constantNode = node as VisualConstantNodeViewModel;
+
+            if (constantNode != null)
             {
-                output.Pin.ParentMoved();
+                constantNode.OutputPin.Pin.ParentMoved();
             }
         }
 
-        private void Box_MouseDown(object sender, MouseButtonEventArgs e)
+        private void VisualNode_MouseDown(object sender, MouseButtonEventArgs e)
         {
             UserControl controlSender = (UserControl)sender;
-            VisualNodeViewModel node = (VisualNodeViewModel)controlSender.DataContext;
+            VisualGraphComponentViewModel node = (VisualGraphComponentViewModel)controlSender.DataContext;
 
             GraphEditorViewModel graphViewModel = (GraphEditorViewModel)DataContext;
 
@@ -80,7 +93,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
         private void Editor_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            foreach (VisualNodeViewModel node in ((GraphEditorViewModel)DataContext).VisualNodes)
+            foreach (VisualGraphComponentViewModel node in ((GraphEditorViewModel)DataContext).VisualNodes)
             {
                 node.IsSelected = false;
             }

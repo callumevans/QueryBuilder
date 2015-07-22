@@ -83,7 +83,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             ((NodePinViewModel)DataContext).PinColour = pinColourCache;
         }
 
-        private void NodePin_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void NodePin_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DependencyObject parentObject = VisualTreeHelper.GetParent(this);
             

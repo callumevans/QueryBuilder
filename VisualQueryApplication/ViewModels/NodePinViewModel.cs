@@ -58,7 +58,7 @@ namespace VisualQueryApplication.ViewModels
 
         private SolidColorBrush pinColour = new SolidColorBrush(Colors.Gray);
 
-        public VisualNodeControl ParentNode
+        public UserControl ParentNode
         {
             get { return parentNode; }
             set
@@ -68,7 +68,7 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
-        public VisualNodeControl parentNode;
+        public UserControl parentNode;
 
         public ICommand AllocatePinToInputCommand
         {
@@ -84,16 +84,16 @@ namespace VisualQueryApplication.ViewModels
 
         public NodePinViewModel()
         {
-            AllocatePinToInputCommand = new RelayCommand(new Action<object>(AllocatePinToInput));
+            AllocatePinToInputCommand = new RelayCommand(new Action<object>(AllocatePinToInputOutput));
         }
 
-        private void AllocatePinToInput(object pinControl)
+        private void AllocatePinToInputOutput(object pinControl)
         {
             /*
              * The entire method is quite a crappy implementation and is a temporary work-around.
              * This should be rewritten/removed later when a better MVVM set-up for the application has been set up.
              */
-
+            
             NodePin pin = (NodePin)pinControl;
             DependencyObject parentObject = VisualTreeHelper.GetParent(pin);
 
@@ -104,6 +104,20 @@ namespace VisualQueryApplication.ViewModels
 
                 if (parentObject == null)
                     return;
+            }
+
+            // If this is a pin from a constant node then we can skip a lot of work
+            var parentNodeAsConstantNode = parentObject as ConstantNode;
+
+            if (parentNodeAsConstantNode != null)
+            {
+                this.parentNode = parentNodeAsConstantNode;
+
+                var parentNodeViewModel = ((VisualConstantNodeViewModel) parentNodeAsConstantNode.DataContext);
+                parentNodeViewModel.OutputPin.Pin = pin;
+                this.DataType = parentNodeViewModel.OutputPin.DataType;
+
+                return;
             }
 
             // Set the parent node in the pin's viewmodel

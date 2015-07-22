@@ -7,6 +7,7 @@
              xmlns:ZoomAndPan="clr-namespace:VisualQueryApplication.Controls.GraphBuilder.ZoomAndPan"
              x:Class="VisualQueryApplication.Controls.GraphBuilder.VisualEditor"
              xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"
+             xmlns:dataTypes="clr-namespace:DataTypes;assembly=DataTypes"
              mc:Ignorable="d" 
              MouseMove="VisualEditor_OnMouseMove"
              d:DesignHeight="300" d:DesignWidth="300">
@@ -21,7 +22,17 @@
             <Thumb DragDelta="Thumb_DragDelta">
                 <Thumb.Template>
                     <ControlTemplate>
-                        <local:VisualNodeControl x:Name="VisualNodeControl" MouseDown="Box_MouseDown" />
+                        <local:VisualNodeControl x:Name="VisualNodeControl" MouseDown="VisualNode_MouseDown" />
+                    </ControlTemplate>
+                </Thumb.Template>
+            </Thumb>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:VisualConstantNodeViewModel}">
+            <Thumb DragDelta="Thumb_DragDelta">
+                <Thumb.Template>
+                    <ControlTemplate>
+                        <local:ConstantNode x:Name="ConstantNodeControl" MouseDown="VisualNode_MouseDown" />
                     </ControlTemplate>
                 </Thumb.Template>
             </Thumb>
@@ -39,6 +50,14 @@
         </DataTemplate>
 
     </UserControl.Resources>
+    
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Add Constant">
+                <MenuItem Header="Integer" Command="{Binding AddConstantCommand}" CommandParameter="{x:Type dataTypes:DEBUGINTEGER}" />
+            </MenuItem>
+        </ContextMenu>
+    </UserControl.ContextMenu>
     
     <Grid>
         <ScrollViewer

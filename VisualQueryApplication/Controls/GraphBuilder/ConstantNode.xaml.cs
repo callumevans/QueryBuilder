@@ -1,9 +1,6 @@
-﻿using DataTypes;
-using Nodes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,18 +17,18 @@ using VisualQueryApplication.ViewModels;
 namespace VisualQueryApplication.Controls.GraphBuilder
 {
     /// <summary>
-    /// Interaction logic for VisualChartBox.xaml
+    /// Interaction logic for ConstantNode.xaml
     /// </summary>
-    public partial class VisualNodeControl : UserControl
+    public partial class ConstantNode : UserControl
     {
-        public VisualNodeControl()
+        public ConstantNode()
         {
             InitializeComponent();
         }
 
-        private void VisualNodeBoxControl_MouseDown(object sender, MouseButtonEventArgs e)
+        private void ConstantNode_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            VisualGraphComponentViewModel viewModel = ((VisualGraphComponentViewModel) this.DataContext);
+            VisualGraphComponentViewModel viewModel = ((VisualGraphComponentViewModel)this.DataContext);
             viewModel.ClickedCommand.Execute(null);
         }
     }

@@ -7,7 +7,7 @@
              xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"
              mc:Ignorable="d"
              Loaded="NodePin_Loaded"
-             MouseLeftButtonDown="NodePin_OnMouseLeftButtonDown"
+             MouseLeftButtonDown="NodePin_MouseLeftButtonDown"
              MouseEnter="NodePin_MouseEnter"
              MouseLeave="NodePin_MouseLeave"
              Height="11" Width="11">
@@ -18,7 +18,7 @@
     
     <UserControl.Resources>
         <ContextMenu x:Key="PinContextMenu">
-            <MenuItem Header="MUH NODE" />
+            <MenuItem Header="Remove Connections" />
         </ContextMenu>
     </UserControl.Resources>
 

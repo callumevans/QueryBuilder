@@ -17,10 +17,7 @@ namespace VisualQueryApplication
     {
         public static SQLiteConnection CurrentDatabaseConnection
         {
-            get
-            {
-                return currentDatabaseConnection;
-            }
+            get { return currentDatabaseConnection; }
         }
 
         private static SQLiteConnection currentDatabaseConnection;
@@ -50,7 +47,7 @@ namespace VisualQueryApplication
             currentDatabaseConnection.ConnectionString = "DataSource=:memory:;version=3;";
             currentDatabaseConnection.Open();
 
-            // IS ONLY FOR TESTING PURPOSES -- DELETE LATER!
+            // TODO: IS ONLY FOR TESTING PURPOSES -- DELETE LATER!
             sqlCommand.ExecuteNonQuery();
 
             SQLiteDataAdapter DB = new SQLiteDataAdapter(sqlCommand);

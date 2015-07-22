@@ -16,69 +16,9 @@ using VisualQueryApplication.Model;
 
 namespace VisualQueryApplication.ViewModels
 {
-    public class VisualNodeViewModel : ViewModelBase
+    public class VisualNodeViewModel : VisualGraphComponentViewModel
     {
         private VisualNodeModel nodeModel;
-
-        public bool IsSelected
-        {
-            get
-            {
-                return isSelected;
-            }
-            set
-            {
-                isSelected = value;
-                OnPropertyChanged(nameof(IsSelected));
-            }
-        }
-
-        private bool isSelected = false;
-
-        public int ZIndex
-        {
-            get
-            {
-                return zIndex;
-            }
-            set
-            {
-                zIndex = value;
-                OnPropertyChanged(nameof(ZIndex));
-            }
-        }
-
-        private int zIndex = 0;
-
-        public double X
-        {
-            get
-            {
-                return x;
-            }
-            set
-            {
-                x = value;
-                OnPropertyChanged(nameof(X));
-            }
-        }
-
-        private double x = 20;
-
-        public double Y
-        {
-            get
-            {
-                return y;
-            }
-            set
-            {
-                y = value;
-                OnPropertyChanged(nameof(Y));
-            }
-        }
-
-        private double y = 20;
 
         public string NodeTitle
         {
@@ -119,29 +59,7 @@ namespace VisualQueryApplication.ViewModels
 
         private ObservableCollection<PinModel> outputs = new ObservableCollection<PinModel>();
 
-        public ICommand DeleteSelf
-        {
-            get
-            {
-                return deleteSelf;
-            }
-            set
-            {
-                deleteSelf = value;
-                OnPropertyChanged(nameof(DeleteSelf));
-            }
-        }
-
-        private ICommand deleteSelf;
-
         public VisualNodeViewModel(Type nodeType)
-        {
-            SetType(nodeType);
-
-            DeleteSelf = new RelayCommand(Delete) { CanExecute = true };
-        }
-
-        public void SetType(Type nodeType)
         {
             nodeModel = new VisualNodeModel(nodeType);
 
@@ -158,16 +76,5 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
-        private void Delete()
-        {
-            GraphEditorViewModel graphViewModel = ((MainWindow)App.Current.MainWindow)
-                .VisualEditor
-                .DataContext as GraphEditorViewModel;
-
-            if (graphViewModel.VisualNodes.Contains(this))
-            {
-                graphViewModel.VisualNodes.Remove(this);
-            }
-        }
     }
 }

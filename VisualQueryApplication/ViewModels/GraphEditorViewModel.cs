@@ -6,13 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using DataTypes;
 using VisualQueryApplication.Model;
 
 namespace VisualQueryApplication.ViewModels
 {
     public class GraphEditorViewModel : ViewModelBase
     {
-        public ObservableCollection<VisualNodeViewModel> VisualNodes
+        public ObservableCollection<VisualGraphComponentViewModel> VisualNodes
         {
             get { return visualNodes; }
             set
@@ -22,7 +23,7 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
-        private ObservableCollection<VisualNodeViewModel> visualNodes = new ObservableCollection<VisualNodeViewModel>();
+        private ObservableCollection<VisualGraphComponentViewModel> visualNodes = new ObservableCollection<VisualGraphComponentViewModel>();
 
         public ObservableCollection<ConnectionViewModel> Connections
         {
@@ -48,9 +49,22 @@ namespace VisualQueryApplication.ViewModels
 
         private ICommand deleteSelectedNodesCommand;
 
+        public ICommand AddConstantCommand
+        {
+            get { return addConstantCommand; }
+            set
+            {
+                addConstantCommand = value;
+                OnPropertyChanged(nameof(AddConstantCommand));
+            }
+        }
+
+        private ICommand addConstantCommand;
+
         public GraphEditorViewModel()
         {
-            DeleteSelectedNodesCommand = new RelayCommand(DeleteSelectedNodes);
+            DeleteSelectedNodesCommand = new RelayCommand(DeleteSelectedNodes) { CanExecute = true };
+            AddConstantCommand = new RelayCommand(AddConstant) { CanExecute = true };
         }
 
         public int FindMaxZIndex()
@@ -66,7 +80,7 @@ namespace VisualQueryApplication.ViewModels
                 return 0;
             }
 
-            foreach (VisualNodeViewModel node in visualNodes)
+            foreach (VisualGraphComponentViewModel node in visualNodes)
             {
                 if (node.ZIndex > count)
                     count = node.ZIndex;
@@ -77,9 +91,9 @@ namespace VisualQueryApplication.ViewModels
 
         private void DeleteSelectedNodes()
         {
-            List<VisualNodeViewModel> nodesToDelete = new List<VisualNodeViewModel>();
+            List<VisualGraphComponentViewModel> nodesToDelete = new List<VisualGraphComponentViewModel>();
 
-            foreach (VisualNodeViewModel node in visualNodes)
+            foreach (VisualGraphComponentViewModel node in visualNodes)
             {
                 if (node.IsSelected)
                     nodesToDelete.Add(node);
@@ -89,6 +103,12 @@ namespace VisualQueryApplication.ViewModels
             {
                 node.DeleteSelf.Execute(null);
             }
+        }
+
+        private void AddConstant(object param)
+        {
+            Type constantType = (Type)param;
+            VisualNodes.Add(new VisualConstantNodeViewModel(constantType));
         }
     }
 }

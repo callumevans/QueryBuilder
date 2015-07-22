@@ -61,20 +61,9 @@
 
             <!-- File Menu -->
             <Fluent:Ribbon.Menu>
-
-                <Fluent:Backstage>
-
-                    <!-- Save -->
-                    <Fluent:BackstageTabControl>
-                        <Fluent:Button Header="Save"
-							Icon="Images\Ribbon\icon_placeholder.png" />
-
-                        <!-- Save As -->
-                        <Fluent:Button Header="Save As"
-							Icon="Images\Ribbon\icon_placeholder.png" />
-                    </Fluent:BackstageTabControl>
-
-                </Fluent:Backstage>
+                <Fluent:ApplicationMenu>
+                    
+                </Fluent:ApplicationMenu>
             </Fluent:Ribbon.Menu>
 
             <!-- Tabs -->
@@ -101,17 +90,19 @@
                 
                 <!-- Database Functions -->
                 <Fluent:RibbonGroupBox Header="Database">
-                    <Fluent:Button
-                        Header="Load"
-						LargeIcon="Images\Ribbon\icon_database.png"
-						Icon="Images\Ribbon\icon_database.png"
-                        Command="{Binding LoadDatabaseCommand}" />
-                    
+
                     <Fluent:Button
                         Header="View"
                         LargeIcon="Images\Ribbon\icon_database.png"
                         Icon="Images\Ribbon\icon_database.png"
                         Click="ViewDatabase_Click" />
+                    
+                    <Fluent:Button
+                        Header="Load"
+						LargeIcon="Images\Ribbon\icon_database_load.png"
+						Icon="Images\Ribbon\icon_database_load.png"
+                        Command="{Binding LoadDatabaseCommand}" />
+                   
                 </Fluent:RibbonGroupBox>
                 
             </Fluent:RibbonTabItem>
@@ -121,15 +112,20 @@
 
                 <!-- Query Actions -->
                 <Fluent:RibbonGroupBox Header="Query Actions">
-                    <Fluent:Button x:Name="Build"
+                    <Fluent:Button
 						Header="Build"
 						LargeIcon="Images\Ribbon\icon_build.png"
-						Icon="Images\Ribbon\icon_build.png"
-                        Click="ButtonBase_OnClick" />
+						Icon="Images\Ribbon\icon_build.png" />
 
-                    <Fluent:Button Icon="Images\Ribbon\icon_placeholder.png"
-						SizeDefinition="Middle" Header="Check"
-                                   Click="ButtonBase2_OnClick" />
+                    <Fluent:Button
+                        Icon="Images\Ribbon\icon_placeholder.png"
+						SizeDefinition="Middle" Header="Check" />
+
+                    <Fluent:Button 
+                        Header="Delete"
+                        LargeIcon="Images\Ribbon\icon_delete.png"
+                        Icon="Images\Ribbon\icon_delete.png" />
+                    
                 </Fluent:RibbonGroupBox>
                 
             </Fluent:RibbonTabItem>
