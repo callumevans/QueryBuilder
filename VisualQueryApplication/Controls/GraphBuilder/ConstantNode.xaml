@@ -1,0 +1,63 @@
+﻿<UserControl x:Class="VisualQueryApplication.Controls.GraphBuilder.ConstantNode"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VisualQueryApplication.Controls.GraphBuilder"
+             xmlns:viewModels="clr-namespace:VisualQueryApplication.ViewModels"
+             MouseDown="ConstantNode_MouseDown"
+             mc:Ignorable="d" 
+             MinWidth="50" Height="30">
+
+    <UserControl.Resources>
+
+        <Style TargetType="Border" x:Key="BorderColour">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                    <Setter Property="BorderBrush" Value="Red" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsSelected}" Value="False">
+                    <Setter Property="BorderBrush" Value="Black" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
+
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Delete" Command="{Binding DeleteSelf}" />
+        </ContextMenu>
+    </UserControl.ContextMenu>
+    
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="15" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.Effect>
+            <DropShadowEffect Color="Gray" Opacity="0.5" />
+        </Grid.Effect>
+
+        <Border Grid.ColumnSpan="2" BorderThickness="2" Style="{StaticResource BorderColour}" />
+
+        <TextBox
+            x:Name="ConstantValueField"
+            Grid.Column="0"
+            BorderThickness="0"
+            FontFamily="Arial"
+            FontSize="18"
+            Height="25"
+            MinWidth="30" Margin="5, 0, 5, 0"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Right"
+            TextAlignment="Right"
+            VerticalContentAlignment="Center" />
+        
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <local:NodePin x:Name="OutputPin" />
+        </StackPanel>
+        
+    </Grid>
+</UserControl>

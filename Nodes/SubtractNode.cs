@@ -8,21 +8,22 @@ using System.Threading.Tasks;
 
 namespace Nodes
 {
-    [NodeAttributes(
-        inputs:  new Type[] { typeof(DEBUGINTEGER), typeof(DEBUGINTEGER) },
-        outputs: new Type[] { typeof(DEBUGINTEGER) })]
+    [NodeName("Subtract")]
+    [NodeDescription("Subtracts two values")]
     public class SubtractNode : NodeBase
     {
-        public override IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs)
+        [ExposedInput(0)]
+        public DEBUGINTEGER inputOne;
+
+        [ExposedInput(1)]
+        public DEBUGINTEGER inputTwo;
+
+        [ExposedOutput(0)]
+        public DEBUGINTEGER outputOne;
+
+        public override void NodeFunction()
         {
-            IList<IDataTypeContainer> outputs = new List<IDataTypeContainer>();
-
-            DEBUGINTEGER a = (DEBUGINTEGER)inputs[0];
-            DEBUGINTEGER b = (DEBUGINTEGER)inputs[1];
-
-            outputs.Add(new DEBUGINTEGER(a.value - b.value));
-
-            return outputs;
+            outputOne = new DEBUGINTEGER(inputOne.value - inputTwo.value);
         }
     }
 }

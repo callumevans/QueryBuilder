@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 
 namespace Nodes
 {
-    [NodeAttributes(
-        inputs: new Type[] { typeof(DEBUGINTEGER) },
-        outputs: new Type[] { })]
+    [NodeName("Print")]
+    [NodeDescription("Prints text")]
     public class PrintNode : ExecutableNode
     {
+        [ExposedInput(0)]
+        public DEBUGINTEGER printValue;
+
         public PrintNode(QueryState state) : base(state) { }
 
         public override int GetExecutionPath()
@@ -25,15 +27,9 @@ namespace Nodes
             return 0;
         }
 
-        public override IList<IDataTypeContainer> NodeFunction(IList<IDataTypeContainer> inputs)
+        public override void NodeFunction()
         {
-            IList<IDataTypeContainer> outputs = new List<IDataTypeContainer>();
-
-            DEBUGINTEGER a = (DEBUGINTEGER)inputs[0];
-
-            Console.WriteLine("Print Function: " + a.GetDataAsString());
-
-            return outputs;
+            Console.WriteLine("Print function: " + printValue.GetDataAsString());
         }
     }
 }

@@ -1,0 +1,119 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VisualQueryApplication.Controls.GraphBuilder"
+             xmlns:ZoomAndPan="clr-namespace:VisualQueryApplication.Controls.GraphBuilder.ZoomAndPan"
+             x:Class="VisualQueryApplication.Controls.GraphBuilder.VisualEditor"
+             xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"
+             xmlns:dataTypes="clr-namespace:DataTypes;assembly=DataTypes"
+             mc:Ignorable="d" 
+             MouseMove="VisualEditor_OnMouseMove"
+             KeyDown="VisualEditor_OnKeyDown"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.DataContext>
+        <vm:GraphEditorViewModel />
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+
+        <DataTemplate DataType="{x:Type vm:VisualNodeViewModel}">
+            <Thumb DragDelta="Thumb_DragDelta">
+                <Thumb.Template>
+                    <ControlTemplate>
+                        <local:VisualNodeControl x:Name="VisualNodeControl" MouseDown="VisualNode_MouseDown" />
+                    </ControlTemplate>
+                </Thumb.Template>
+            </Thumb>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:VisualConstantNodeViewModel}">
+            <Thumb DragDelta="Thumb_DragDelta">
+                <Thumb.Template>
+                    <ControlTemplate>
+                        <local:ConstantNode x:Name="ConstantNodeControl" MouseDown="VisualNode_MouseDown" />
+                    </ControlTemplate>
+                </Thumb.Template>
+            </Thumb>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:ConnectionViewModel}">
+            <Line
+                Stroke="Black"
+                StrokeThickness="2"
+                Fill="Black"
+                X1="{Binding OutputPin.Centre.X}"
+                Y1="{Binding OutputPin.Centre.Y}"
+                X2="{Binding InputPin.Centre.X}"
+                Y2="{Binding InputPin.Centre.Y}" />
+        </DataTemplate>
+
+    </UserControl.Resources>
+    
+    <UserControl.ContextMenu>
+        <ContextMenu>
+            <MenuItem Header="Add Constant">
+                <MenuItem Header="Integer" Command="{Binding AddConstantCommand}" CommandParameter="{x:Type dataTypes:DEBUGINTEGER}" />
+            </MenuItem>
+        </ContextMenu>
+    </UserControl.ContextMenu>
+    
+    <Grid>
+        <ScrollViewer
+                x:Name="pannerScroller"
+                CanContentScroll="True"
+                VerticalScrollBarVisibility="Visible"
+                HorizontalScrollBarVisibility="Visible">
+
+            <ZoomAndPan:ZoomAndPanControl x:Name="ZoomPanControl" MouseLeftButtonDown="Editor_MouseLeftButtonDown">
+                <Grid>
+                    <ItemsControl x:Name="ContentDisplay" Background="LightGray" Width="2000" Height="2000" ItemsSource="{Binding VisualNodes}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemContainerStyle>
+                            <Style>
+                                <Setter
+                                Property="Canvas.Left"
+                                Value="{Binding X}" />
+                                <Setter
+                                Property="Canvas.Top"
+                                Value="{Binding Y}" />
+                                <Setter
+                                Property="Canvas.ZIndex"
+                                Value="{Binding ZIndex}" />
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                    </ItemsControl>
+
+                    <ItemsControl x:Name="ConnectionsDisplay" ItemsSource="{Binding Connections}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    
+                    <Canvas>
+                        <Line
+                            x:Name="NewConnectionLine"
+                            Stroke="Black"
+                            StrokeThickness="2"
+                            Fill="Black"
+                            X1="{Binding OutputPin.Centre.X}"
+                            Y1="{Binding OutputPin.Centre.Y}"
+                            X2="{Binding MousePosition.X}"
+                            Y2="{Binding MousePosition.Y}" />
+                    </Canvas>
+                    
+                </Grid>
+            </ZoomAndPan:ZoomAndPanControl>
+        </ScrollViewer>
+    </Grid>
+    
+</UserControl>

@@ -2,6 +2,8 @@
 using DataTypes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace Graph
 {
@@ -41,20 +43,37 @@ namespace Graph
 
             NodeType = nodeType;
 
-            NodeAttributes nodeAttributes = (NodeAttributes)Attribute.GetCustomAttribute(nodeType, typeof(NodeAttributes));
+            // Extract information about the node
+            FieldInfo[] fields = NodeType.GetFields();
 
             // Set input pins
-            for (int i = 0; i < nodeAttributes.Inputs.Count; i++)
+            foreach (FieldInfo field in fields)
             {
-                InputPin input = new InputPin(nodeAttributes.Inputs[i], this);
-                NodeInputs.Add(input);
+                Attribute[] attributes = field.GetCustomAttributes().ToArray();
+
+                foreach (Attribute attribute in attributes)
+                {
+                    if (attribute.GetType() == typeof(ExposedInput))
+                    {
+                        InputPin input = new InputPin(field.FieldType, this);
+                        NodeInputs.Add(input);
+                    }
+                }
             }
 
             // Set output pins
-            for (int i = 0; i < nodeAttributes.Outputs.Count; i++)
+            foreach (FieldInfo field in fields)
             {
-                OutputPin output = new OutputPin(nodeAttributes.Outputs[i], this);
-                NodeOutputs.Add(output);
+                Attribute[] attributes = field.GetCustomAttributes().ToArray();
+
+                foreach (Attribute attribute in attributes)
+                {
+                    if (attribute.GetType() == typeof(ExposedOutput))
+                    {
+                        OutputPin output = new OutputPin(field.FieldType, this);
+                        NodeOutputs.Add(output);
+                    }
+                }
             }
         }
 
@@ -88,9 +107,44 @@ namespace Graph
                 node = (NodeBase)Activator.CreateInstance(NodeType);
             }
 
-            // Calculate and set results
-            result = (List<IDataTypeContainer>)node.NodeFunction(nodeInputList);
+            // Forward input values to the instantiated node
+            for (int i = 0; i < NodeInputs.Count; i++)
+            {
+                foreach (FieldInfo field in node.GetType().GetFields())
+                {
+                    foreach (Attribute attribute in field.GetCustomAttributes())
+                    {
+                        if (attribute.GetType() == typeof(ExposedInput))
+                        {
+                            if (((ExposedInput)attribute).InputOrder == i)
+                                field.SetValue(node, NodeInputs[i].GetValue);
+                        }
+                    }
+                }
+            }
 
+            // Ready to calculate the output
+            node.NodeFunction();
+
+            result = new List<IDataTypeContainer>();
+
+            // Extract the newly calculated output from the node
+            for (int i = 0; i < NodeOutputs.Count; i++)
+            {
+                foreach (FieldInfo field in node.GetType().GetFields())
+                {
+                    foreach (Attribute attribute in field.GetCustomAttributes())
+                    {
+                        if (attribute.GetType() == typeof(ExposedOutput))
+                        {
+                            if (((ExposedOutput)attribute).OutputOrder == i)
+                                result.Add(field.GetValue(node) as IDataTypeContainer);
+                        }
+                    }
+                }
+            }
+
+            // And set the outputs in the graph model
             for (int i = 0; i < result.Count; i++)
             {
                 NodeOutputs[i].OutputValue = result[i];
