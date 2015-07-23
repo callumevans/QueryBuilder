@@ -42,22 +42,7 @@
                 <SolidColorBrush x:Key="RibbonThemeColorBrush" Color="#5C005C" />
             </Fluent:Ribbon.Resources>
 
-            <!-- Quick Access -->
-            <Fluent:Ribbon.QuickAccessItems>
-                
-                <!-- Undo -->
-                <Fluent:QuickAccessMenuItem>
-                    <Fluent:Button Header="Undo"
-						Icon="Images\Ribbon\icon_placeholder.png" />
-                </Fluent:QuickAccessMenuItem>
 
-                <!-- Redo -->
-                <Fluent:QuickAccessMenuItem>
-                    <Fluent:Button Header="Redo"
-						Icon="Images\Ribbon\icon_placeholder.png" />
-                </Fluent:QuickAccessMenuItem>
-
-            </Fluent:Ribbon.QuickAccessItems>
 
             <!-- File Menu -->
             <Fluent:Ribbon.Menu>
@@ -77,17 +62,15 @@
 						Header="Settings"
 						LargeIcon="Images\Ribbon\icon_settings.png"
 						Icon="Images\Ribbon\icon_settings.png" />
-                </Fluent:RibbonGroupBox>
 
-                <!-- Load Nodes -->
-                <Fluent:RibbonGroupBox Header="Nodes">
                     <Fluent:Button
-                        Header="Reload"
-						LargeIcon="Images\Ribbon\icon_placeholder.png"
-						Icon="Images\Ribbon\icon_placeholder.png"
+                        Header="Reload Nodes"
+                        SizeDefinition="Middle"
+						LargeIcon="Images\Ribbon\icon_reload.png"
+						Icon="Images\Ribbon\icon_reload.png"
                         Command="{Binding LoadNodesCommand}" />
                 </Fluent:RibbonGroupBox>
-                
+
                 <!-- Database Functions -->
                 <Fluent:RibbonGroupBox Header="Database">
 

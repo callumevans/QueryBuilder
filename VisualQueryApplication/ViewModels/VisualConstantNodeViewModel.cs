@@ -28,7 +28,22 @@ namespace VisualQueryApplication.ViewModels
 
         public override void RemoveConnections()
         {
-            throw new NotImplementedException();
+            GraphEditorViewModel editor = (GraphEditorViewModel)((MainWindow)(App.Current.MainWindow)).VisualEditor.DataContext;
+            
+            List<ConnectionViewModel> connectionsToRemove = new List<ConnectionViewModel>();
+
+            foreach (var connection in editor.Connections)
+            {
+                if (connection.OutputPin == this.OutputPin.Pin)
+                {
+                    connectionsToRemove.Add(connection);
+                }
+            }
+
+            foreach (var connection in connectionsToRemove)
+            {
+                editor.Connections.Remove(connection);
+            }
         }
     }
 }

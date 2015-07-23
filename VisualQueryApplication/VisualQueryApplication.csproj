@@ -212,7 +212,7 @@
     <Resource Include="Images\Ribbon\icon_settings.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Ribbon\icon_build.png" />
+    <Resource Include="Images\Ribbon\icon_reload.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -231,9 +231,6 @@
       <Project>{a9f4e2b5-c928-44f3-b5fe-c54edfde617b}</Project>
       <Name>Nodes</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\grid_bg.png" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
