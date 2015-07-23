@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Fluent;
 using VisualQueryApplication.Controls.GraphBuilder;
 using VisualQueryApplication.Model;
 
@@ -76,5 +77,28 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
+        public override void RemoveConnections()
+        {
+            GraphEditorViewModel editor = (GraphEditorViewModel)((MainWindow)(App.Current.MainWindow)).VisualEditor.DataContext;
+            List<NodePin> pins = new List<NodePin>();
+
+            pins.AddRange(Inputs.Select(pin => pin.Pin));
+            pins.AddRange(Outputs.Select(pin => pin.Pin));
+
+            List<ConnectionViewModel> connectionsToRemove = new List<ConnectionViewModel>();
+
+            foreach (var connection in editor.Connections)
+            {
+                if (pins.Contains(connection.InputPin) || (pins.Contains(connection.OutputPin)))
+                {
+                    connectionsToRemove.Add(connection);
+                }
+            }
+
+            foreach (var connection in connectionsToRemove)
+            {
+                editor.Connections.Remove(connection);
+            }
+        }
     }
 }

@@ -10,6 +10,7 @@
              xmlns:dataTypes="clr-namespace:DataTypes;assembly=DataTypes"
              mc:Ignorable="d" 
              MouseMove="VisualEditor_OnMouseMove"
+             KeyDown="VisualEditor_OnKeyDown"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.DataContext>

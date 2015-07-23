@@ -37,6 +37,9 @@ namespace VisualQueryApplication
             // TODO: MAKE MVVM!!
             SQLiteConnection conn = App.CurrentDatabaseConnection;
 
+            if (conn == null)
+                return;
+
             SQLiteCommand sqlCommand = new SQLiteCommand(
                 "SELECT * FROM sqlite_master WHERE type='table';",
                 conn);

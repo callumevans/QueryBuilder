@@ -95,6 +95,7 @@ namespace VisualQueryApplication.ViewModels
 
             if (graphViewModel.VisualNodes.Contains(this))
             {
+                this.RemoveConnections();
                 graphViewModel.VisualNodes.Remove(this);
             }
         }
@@ -110,5 +111,7 @@ namespace VisualQueryApplication.ViewModels
 
             IsSelected = true;
         }
+
+        public abstract void RemoveConnections();
     }
 }

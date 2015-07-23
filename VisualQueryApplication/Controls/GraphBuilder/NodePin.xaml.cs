@@ -43,6 +43,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
         public NodePin()
         {
             InitializeComponent();
+            this.DataContext = new NodePinViewModel(this);
         }
 
         public void ParentMoved()
@@ -59,8 +60,8 @@ namespace VisualQueryApplication.Controls.GraphBuilder
         private void NodePin_Loaded(object sender, RoutedEventArgs e)
         {
             ((NodePinViewModel)DataContext).AllocatePinToInputCommand.Execute(this);
-
             NodePinViewModel viewModel = ((NodePinViewModel)DataContext);
+
             this.pinColourCache = viewModel.PinColour;
         }
 

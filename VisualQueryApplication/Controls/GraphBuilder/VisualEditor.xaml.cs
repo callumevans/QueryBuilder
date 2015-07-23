@@ -107,5 +107,22 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             var connectionLine = ((ConnectionBuilderViewModel)NewConnectionLine.DataContext);
             connectionLine.MousePosition = new Point(e.GetPosition(this).X - 1, e.GetPosition(this).Y - 1);
         }
+
+        private void VisualEditor_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.Delete:
+
+                    if (IsCreatingConnection)
+                    {
+                        IsCreatingConnection = false;
+                        return;
+                    }
+
+                    ((GraphEditorViewModel)DataContext).DeleteSelectedNodesCommand.Execute(null);
+                    break;
+            }
+        }
     }
 }

@@ -17,6 +17,7 @@ namespace VisualQueryApplication.ViewModels
     public class NodePinViewModel : ViewModelBase
     {
         public bool IsOutputPin { get; set; }
+        public NodePin Pin { get; private set; }
 
         public Type DataType
         {
@@ -64,7 +65,7 @@ namespace VisualQueryApplication.ViewModels
             set
             {
                 parentNode = value;
-                OnPropertyChanged("ParentNode");
+                OnPropertyChanged(nameof(ParentNode));
             }
         }
 
@@ -76,15 +77,30 @@ namespace VisualQueryApplication.ViewModels
             set
             {
                 allocatePinToInputCommand = value;
-                OnPropertyChanged("AllocatePinToInputCommand");
+                OnPropertyChanged(nameof(AllocatePinToInputCommand));
             }
         }
 
         private ICommand allocatePinToInputCommand;
 
-        public NodePinViewModel()
+        public ICommand RemoveConnectionsCommand
         {
-            AllocatePinToInputCommand = new RelayCommand(new Action<object>(AllocatePinToInputOutput));
+            get { return removeConnectionsCommand; }
+            set
+            {
+                removeConnectionsCommand = value;
+                OnPropertyChanged(nameof(RemoveConnections));
+            }
+        }
+
+        private ICommand removeConnectionsCommand;
+
+        public NodePinViewModel(NodePin pin)
+        {
+            this.Pin = pin;
+
+            AllocatePinToInputCommand = new RelayCommand(AllocatePinToInputOutput) { CanExecute = true };
+            RemoveConnectionsCommand = new RelayCommand(RemoveConnections) { CanExecute = true };
         }
 
         private void AllocatePinToInputOutput(object pinControl)
@@ -176,6 +192,25 @@ namespace VisualQueryApplication.ViewModels
                         }
                     }
                 }
+            }
+        }
+
+        private void RemoveConnections()
+        {
+            GraphEditorViewModel editor = (GraphEditorViewModel)((MainWindow)(App.Current.MainWindow)).VisualEditor.DataContext;
+            List<ConnectionViewModel> connectionsToRemove = new List<ConnectionViewModel>();
+
+            foreach (var connection in editor.Connections)
+            {
+                if (connection.InputPin == this.Pin || connection.OutputPin == this.Pin)
+                {
+                    connectionsToRemove.Add(connection);
+                }
+            }
+
+            foreach (var connection in connectionsToRemove)
+            {
+                editor.Connections.Remove(connection);
             }
         }
     }

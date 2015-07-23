@@ -25,5 +25,10 @@ namespace VisualQueryApplication.ViewModels
         {
             OutputPin = new PinModel("Output", type);
         }
+
+        public override void RemoveConnections()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
