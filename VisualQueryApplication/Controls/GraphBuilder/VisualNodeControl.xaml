@@ -27,12 +27,35 @@
         <ContextMenu x:Key="NodeContextMenu">
             <MenuItem Header="Delete" Command="{Binding DeleteSelf}" />
         </ContextMenu>
+        
+        <DataTemplate x:Key="ExecutionInputDataTemplate">
+            <StackPanel Orientation="Horizontal">
+
+                <local:NodePin HorizontalAlignment="Left"
+                               Margin="5"
+                               x:Name="ExecutionInputPin">
+                </local:NodePin>
+
+            </StackPanel>
+        </DataTemplate>
+        
+        <DataTemplate x:Key="ExecutionOutputDataTemplate">
+            <StackPanel Orientation="Horizontal">
+
+                <local:NodePin HorizontalAlignment="Right"
+                               Margin="5"
+                               x:Name="ExecutionInputPin">
+                </local:NodePin>
+
+            </StackPanel>
+        </DataTemplate>
 
         <DataTemplate x:Key="InputDataTemplate">
             <StackPanel Orientation="Horizontal">
                 
                 <local:NodePin HorizontalAlignment="Left"
                                Margin="5"
+                               Tag="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=DataContext.Name}"
                                x:Name="InputPin">
                 </local:NodePin>
                 <Label HorizontalAlignment="Left" x:Name="InputLabel" Content="{Binding Name}" VerticalAlignment="Center" />
@@ -46,6 +69,7 @@
                 <Label HorizontalAlignment="Left" x:Name="OutputLabel" Content="{Binding Name}" VerticalAlignment="Center" />
                 <local:NodePin
                     Margin="5"
+                    Tag="{Binding RelativeSource={x:Static RelativeSource.TemplatedParent}, Path=DataContext.Name}"
                     x:Name="OutputPin">
                 </local:NodePin>
                 
@@ -73,8 +97,13 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-            <ItemsControl Grid.Column="0" ItemsSource="{Binding Inputs}" ItemTemplate="{StaticResource InputDataTemplate}">
+            <ItemsControl Grid.Column="0" Grid.Row="0" ItemsSource="{Binding ExecutionInputs}" ItemTemplate="{StaticResource ExecutionInputDataTemplate}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel />
@@ -82,13 +111,30 @@
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
 
-            <ItemsControl Grid.Column="1" ItemsSource="{Binding Outputs}" ItemTemplate="{StaticResource OutputDataTemplate}">
+            <ItemsControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Inputs}" ItemTemplate="{StaticResource InputDataTemplate}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
             </ItemsControl>
+
+            <ItemsControl Grid.Column="1" Grid.Row="0" ItemsSource="{Binding ExecutionOutputs}" ItemTemplate="{StaticResource ExecutionOutputDataTemplate}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+
+            <ItemsControl Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Outputs}" ItemTemplate="{StaticResource OutputDataTemplate}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            
         </Grid>
 
     </Grid>

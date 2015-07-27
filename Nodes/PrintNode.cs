@@ -13,7 +13,7 @@ namespace Nodes
     public class PrintNode : ExecutableNode
     {
         [ExposedInput(0)]
-        public DEBUGINTEGER printValue;
+        public DataTypes.Integer printValue;
 
         public PrintNode(QueryState state) : base(state) { }
 

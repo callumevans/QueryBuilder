@@ -65,6 +65,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             this.pinColourCache = viewModel.PinColour;
         }
 
+
         private void NodePin_MouseEnter(object sender, MouseEventArgs e)
         {
             var colour = ((NodePinViewModel)DataContext).PinColour.Color;

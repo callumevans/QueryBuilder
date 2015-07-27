@@ -60,6 +60,30 @@ namespace VisualQueryApplication.ViewModels
 
         private ObservableCollection<PinModel> outputs = new ObservableCollection<PinModel>();
 
+        public ObservableCollection<PinModel> ExecutionInputs
+        {
+            get { return executionInputs; }
+            set
+            {
+                executionInputs = value;
+                OnPropertyChanged(nameof(ExecutionInputs));
+            }
+        } 
+
+        private ObservableCollection<PinModel> executionInputs = new ObservableCollection<PinModel>(); 
+
+        public ObservableCollection<PinModel> ExecutionOutputs
+        {
+            get { return executionOutputs; }
+            set
+            {
+                executionOutputs = value;
+                OnPropertyChanged(nameof(ExecutionOutputs));
+            }
+        }
+
+        private ObservableCollection<PinModel> executionOutputs = new ObservableCollection<PinModel>(); 
+
         public VisualNodeViewModel(Type nodeType)
         {
             nodeModel = new VisualNodeModel(nodeType);

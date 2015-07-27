@@ -28,7 +28,7 @@ namespace VisualQueryApplication.ViewModels
                 OnPropertyChanged("DataType");
 
                 // Update pin colour
-                if (value == typeof(DEBUGINTEGER))
+                if (value == typeof(DataTypes.Integer))
                     PinColour = new SolidColorBrush(Colors.Green);
             }
         }
@@ -122,6 +122,8 @@ namespace VisualQueryApplication.ViewModels
                     return;
             }
 
+            dynamic parentNodeViewModel;
+
             // If this is a pin from a constant node then we can skip a lot of work
             var parentNodeAsConstantNode = parentObject as ConstantNode;
 
@@ -129,7 +131,7 @@ namespace VisualQueryApplication.ViewModels
             {
                 this.parentNode = parentNodeAsConstantNode;
 
-                var parentNodeViewModel = ((VisualConstantNodeViewModel) parentNodeAsConstantNode.DataContext);
+                parentNodeViewModel = ((VisualConstantNodeViewModel)parentNodeAsConstantNode.DataContext);
                 parentNodeViewModel.OutputPin.Pin = pin;
                 this.DataType = parentNodeViewModel.OutputPin.DataType;
 
@@ -145,51 +147,38 @@ namespace VisualQueryApplication.ViewModels
 
             int children = VisualTreeHelper.GetChildrenCount(parentObject);
 
-            for (int i = 0; i < children; i++)
+            if (pin.Name == "InputPin")
+                this.IsOutputPin = false;
+            else if (pin.Name == "OutputPin")
+                this.IsOutputPin = true;
+
+            parentNodeViewModel = (VisualNodeViewModel)this.ParentNode.DataContext;
+
+            var t = pin.Tag;
+
+            if (!IsOutputPin)
             {
-                var child = VisualTreeHelper.GetChild(parentObject, i);
-
-                Label pinLabel = child as Label;
-
-                if (pinLabel == null)
+                foreach (PinModel input in parentNodeViewModel.Inputs)
                 {
-                    continue;
-                }
-                else if (!string.IsNullOrEmpty(pinLabel.Name))
-                {
-                    // Now we have a handle between the pin and its label
-                    // We need to add the pin to its input/output field in the VisualNode viewmodel
-                    VisualNodeViewModel parentNodeViewModel = (VisualNodeViewModel)this.ParentNode.DataContext;
-
-                    if (pinLabel.Name == "InputLabel")
+                    if (input.Name.Equals(pin.Tag))
                     {
-                        this.IsOutputPin = false;
+                        input.Pin = (NodePin)pinControl;
+                        this.DataType = input.DataType;
 
-                        foreach (PinModel input in parentNodeViewModel.Inputs)
-                        {
-                            if (input.Name == (string)pinLabel.Content)
-                            {
-                                input.Pin = pinControl as NodePin;
-                                this.DataType = input.DataType;
-
-                                break;
-                            }
-                        }
+                        break;
                     }
-                    else if (pinLabel.Name == "OutputLabel")
+                }
+            }
+            else
+            {
+                foreach (PinModel output in parentNodeViewModel.Outputs)
+                {
+                    if (output.Name.Equals(pin.Tag))
                     {
-                        this.IsOutputPin = true;
+                        output.Pin = (NodePin)pinControl;
+                        this.DataType = output.DataType;
 
-                        foreach (PinModel output in parentNodeViewModel.Outputs)
-                        {
-                            if (output.Name == (string)pinLabel.Content)
-                            {
-                                output.Pin = pinControl as NodePin;
-                                this.DataType = output.DataType;
-
-                                break;
-                            }
-                        }
+                        break;
                     }
                 }
             }

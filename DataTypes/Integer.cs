@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DataTypes
 {
-    public struct DEBUGINTEGER : IDataTypeContainer
+    public class Integer : IDataTypeContainer
     {
         public int value;
 
-        public DEBUGINTEGER(int val)
+        public Integer(int val)
         {
             this.value = val;
         }

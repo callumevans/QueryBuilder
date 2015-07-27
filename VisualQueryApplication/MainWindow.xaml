@@ -42,8 +42,6 @@
                 <SolidColorBrush x:Key="RibbonThemeColorBrush" Color="#5C005C" />
             </Fluent:Ribbon.Resources>
 
-
-
             <!-- File Menu -->
             <Fluent:Ribbon.Menu>
                 <Fluent:ApplicationMenu>
@@ -101,8 +99,10 @@
 						Icon="Images\Ribbon\icon_build.png" />
 
                     <Fluent:Button
-                        Icon="Images\Ribbon\icon_placeholder.png"
-						SizeDefinition="Middle" Header="Check" />
+						SizeDefinition="Middle"
+                        LargeIcon="Images\Ribbon\icon_check.png"
+						Icon="Images\Ribbon\icon_check.png"
+                        Header="Check" />
 
                     <Fluent:Button 
                         Header="Delete"

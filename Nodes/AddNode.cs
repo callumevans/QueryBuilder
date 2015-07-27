@@ -13,17 +13,17 @@ namespace Nodes
     public class AddNode : NodeBase
     {
         [ExposedInput(0)]
-        public DEBUGINTEGER inputOne;
+        public DataTypes.Integer inputOne;
 
         [ExposedInput(1)]
-        public DEBUGINTEGER inputTwo;
+        public DataTypes.Integer inputTwo;
 
         [ExposedOutput(0)]
-        public DEBUGINTEGER outputOne;
+        public DataTypes.Integer outputOne;
 
         public override void NodeFunction()
         {
-            outputOne = new DEBUGINTEGER(inputOne.value + inputTwo.value);
+            outputOne = new DataTypes.Integer(inputOne.value + inputTwo.value);
         }
     }
 }

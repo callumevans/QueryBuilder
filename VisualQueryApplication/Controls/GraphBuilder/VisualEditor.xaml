@@ -55,7 +55,7 @@
     <UserControl.ContextMenu>
         <ContextMenu>
             <MenuItem Header="Add Constant">
-                <MenuItem Header="Integer" Command="{Binding AddConstantCommand}" CommandParameter="{x:Type dataTypes:DEBUGINTEGER}" />
+                <MenuItem Header="Integer" Command="{Binding AddConstantCommand}" CommandParameter="{x:Type dataTypes:Integer}" />
             </MenuItem>
         </ContextMenu>
     </UserControl.ContextMenu>
