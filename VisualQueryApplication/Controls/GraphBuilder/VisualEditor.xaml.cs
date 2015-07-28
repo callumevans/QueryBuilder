@@ -71,6 +71,16 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                 {
                     output.Pin.ParentMoved();
                 }
+
+                foreach (var executionInput in visualNode.ExecutionInputs)
+                {
+                    executionInput.Pin.ParentMoved();
+                }
+
+                foreach (var executionOutput in visualNode.ExecutionOutputs)
+                {
+                    executionOutput.Pin.ParentMoved();
+                }
             }
 
             VisualConstantNodeViewModel constantNode = node as VisualConstantNodeViewModel;

@@ -17,6 +17,5 @@ namespace Common
         }
 
         public abstract int GetExecutionPath();
-        public abstract int GetOutgoingExecutionCount();
     }
 }

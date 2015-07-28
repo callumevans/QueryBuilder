@@ -10,16 +10,12 @@ namespace Nodes
 {
     [NodeName("Start")]
     [NodeDescription("Start of the flow")]
+    [ExecutionOutDescription(1, "Out")]
     public class StartNode : ExecutableNode
     {
         public StartNode(QueryState state) : base(state) { }
 
         public override int GetExecutionPath()
-        {
-            return 1;
-        }
-
-        public override int GetOutgoingExecutionCount()
         {
             return 1;
         }

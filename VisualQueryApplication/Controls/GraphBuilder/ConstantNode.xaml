@@ -56,7 +56,7 @@
             VerticalContentAlignment="Center" />
         
         <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
-            <local:NodePin x:Name="OutputPin" />
+            <local:NodePin DataContext="{Binding OutputPin}" />
         </StackPanel>
         
     </Grid>

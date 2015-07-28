@@ -22,11 +22,6 @@ namespace Nodes
             return 0;
         }
 
-        public override int GetOutgoingExecutionCount()
-        {
-            return 0;
-        }
-
         public override void NodeFunction()
         {
             Console.WriteLine("Print function: " + printValue.GetDataAsString());

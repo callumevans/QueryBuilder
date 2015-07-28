@@ -9,15 +9,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using VisualQueryApplication.Model;
 
 namespace VisualQueryApplication.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        private List<Type> loadedNodeTypes = new List<Type>();
+         
         private readonly GraphEditorViewModel graphViewModel;
-
-        private MainWindowModel model = new MainWindowModel();
 
         /// <summary>
         /// List of nodes that are loaded in the system
@@ -91,13 +90,13 @@ namespace VisualQueryApplication.ViewModels
             if ((int)selectedIndex == -1)
                 return;
 
-            Type nodeToLoad = model.LoadedNodes[(int)selectedIndex];
+            Type nodeToLoad = loadedNodeTypes[(int)selectedIndex];
             graphViewModel.VisualNodes.Add(new VisualNodeViewModel(nodeToLoad));
         }
 
         private void LoadNodes()
         {
-            model.LoadedNodes.Clear();
+            this.loadedNodeTypes.Clear();
             this.LoadedNodes.Clear();
 
             string[] dllFile = Directory.GetFiles(App.PluginFolderPath, "*.dll");
@@ -115,7 +114,7 @@ namespace VisualQueryApplication.ViewModels
                     {
                         if (type.IsSubclassOf(typeof(NodeBase)))
                         {
-                            model.LoadedNodes.Add(type);
+                            loadedNodeTypes.Add(type);
                             LoadedNodes.Add(GetNodeTypeName(type));
                         }
                     }

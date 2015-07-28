@@ -10,14 +10,27 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using VisualQueryApplication.Controls.GraphBuilder;
-using VisualQueryApplication.Model;
 
 namespace VisualQueryApplication.ViewModels
 {
     public class NodePinViewModel : ViewModelBase
     {
+        public NodePin Pin { get; set; }
+
         public bool IsOutputPin { get; set; }
-        public NodePin Pin { get; private set; }
+        public bool IsExecutionPin { get; set; }
+
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+
+        private string name;
 
         public Type DataType
         {
@@ -25,7 +38,7 @@ namespace VisualQueryApplication.ViewModels
             set
             {
                 dataType = value;
-                OnPropertyChanged("DataType");
+                OnPropertyChanged(nameof(DataType));
 
                 // Update pin colour
                 if (value == typeof(DataTypes.Integer))
@@ -59,18 +72,6 @@ namespace VisualQueryApplication.ViewModels
 
         private SolidColorBrush pinColour = new SolidColorBrush(Colors.Gray);
 
-        public UserControl ParentNode
-        {
-            get { return parentNode; }
-            set
-            {
-                parentNode = value;
-                OnPropertyChanged(nameof(ParentNode));
-            }
-        }
-
-        public UserControl parentNode;
-
         public ICommand AllocatePinToInputCommand
         {
             get { return allocatePinToInputCommand; }
@@ -95,93 +96,14 @@ namespace VisualQueryApplication.ViewModels
 
         private ICommand removeConnectionsCommand;
 
-        public NodePinViewModel(NodePin pin)
+        public NodePinViewModel(string name, Type dataType, bool isOutputPin, bool isExecutionPin)
         {
-            this.Pin = pin;
+            this.Name = name;
+            this.DataType = dataType;
+            this.IsOutputPin = isOutputPin;
+            this.IsExecutionPin = isExecutionPin;
 
-            AllocatePinToInputCommand = new RelayCommand(AllocatePinToInputOutput) { CanExecute = true };
             RemoveConnectionsCommand = new RelayCommand(RemoveConnections) { CanExecute = true };
-        }
-
-        private void AllocatePinToInputOutput(object pinControl)
-        {
-            /*
-             * The entire method is quite a crappy implementation and is a temporary work-around.
-             * This should be rewritten/removed later when a better MVVM set-up for the application has been set up.
-             */
-            
-            NodePin pin = (NodePin)pinControl;
-            DependencyObject parentObject = VisualTreeHelper.GetParent(pin);
-
-            // Find the node that contains the pin
-            while (!(parentObject is UserControl))
-            {
-                parentObject = VisualTreeHelper.GetParent(parentObject);
-
-                if (parentObject == null)
-                    return;
-            }
-
-            dynamic parentNodeViewModel;
-
-            // If this is a pin from a constant node then we can skip a lot of work
-            var parentNodeAsConstantNode = parentObject as ConstantNode;
-
-            if (parentNodeAsConstantNode != null)
-            {
-                this.parentNode = parentNodeAsConstantNode;
-
-                parentNodeViewModel = ((VisualConstantNodeViewModel)parentNodeAsConstantNode.DataContext);
-                parentNodeViewModel.OutputPin.Pin = pin;
-                this.DataType = parentNodeViewModel.OutputPin.DataType;
-
-                return;
-            }
-
-            // Set the parent node in the pin's viewmodel
-            this.ParentNode = (VisualNodeControl)parentObject;
-
-            // Add this pin to the node's viewmodel input/output map
-            // This will let us bind the pins to connectors later
-            parentObject = VisualTreeHelper.GetParent(pin);
-
-            int children = VisualTreeHelper.GetChildrenCount(parentObject);
-
-            if (pin.Name == "InputPin")
-                this.IsOutputPin = false;
-            else if (pin.Name == "OutputPin")
-                this.IsOutputPin = true;
-
-            parentNodeViewModel = (VisualNodeViewModel)this.ParentNode.DataContext;
-
-            var t = pin.Tag;
-
-            if (!IsOutputPin)
-            {
-                foreach (PinModel input in parentNodeViewModel.Inputs)
-                {
-                    if (input.Name.Equals(pin.Tag))
-                    {
-                        input.Pin = (NodePin)pinControl;
-                        this.DataType = input.DataType;
-
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                foreach (PinModel output in parentNodeViewModel.Outputs)
-                {
-                    if (output.Name.Equals(pin.Tag))
-                    {
-                        output.Pin = (NodePin)pinControl;
-                        this.DataType = output.DataType;
-
-                        break;
-                    }
-                }
-            }
         }
 
         private void RemoveConnections()

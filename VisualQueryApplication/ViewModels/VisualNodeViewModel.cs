@@ -13,24 +13,23 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Fluent;
 using VisualQueryApplication.Controls.GraphBuilder;
-using VisualQueryApplication.Model;
 
 namespace VisualQueryApplication.ViewModels
 {
     public class VisualNodeViewModel : VisualGraphComponentViewModel
     {
-        private VisualNodeModel nodeModel;
+        public Type NodeType { get; private set; }
 
         public string NodeTitle
         {
             get
             {
-                Attribute titleAttribute = nodeModel.NodeType.GetCustomAttribute(typeof(NodeName));
+                Attribute titleAttribute = NodeType.GetCustomAttribute(typeof(NodeName));
                 return ((NodeName)titleAttribute).Name;
             }
         }
 
-        public ObservableCollection<PinModel> Inputs
+        public ObservableCollection<NodePinViewModel> Inputs
         {
             get
             {
@@ -43,9 +42,9 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
-        private ObservableCollection<PinModel> inputs = new ObservableCollection<PinModel>();
+        private ObservableCollection<NodePinViewModel> inputs = new ObservableCollection<NodePinViewModel>();
 
-        public ObservableCollection<PinModel> Outputs
+        public ObservableCollection<NodePinViewModel> Outputs
         {
             get
             {
@@ -58,9 +57,9 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
-        private ObservableCollection<PinModel> outputs = new ObservableCollection<PinModel>();
+        private ObservableCollection<NodePinViewModel> outputs = new ObservableCollection<NodePinViewModel>();
 
-        public ObservableCollection<PinModel> ExecutionInputs
+        public ObservableCollection<NodePinViewModel> ExecutionInputs
         {
             get { return executionInputs; }
             set
@@ -70,9 +69,9 @@ namespace VisualQueryApplication.ViewModels
             }
         } 
 
-        private ObservableCollection<PinModel> executionInputs = new ObservableCollection<PinModel>(); 
+        private ObservableCollection<NodePinViewModel> executionInputs = new ObservableCollection<NodePinViewModel>(); 
 
-        public ObservableCollection<PinModel> ExecutionOutputs
+        public ObservableCollection<NodePinViewModel> ExecutionOutputs
         {
             get { return executionOutputs; }
             set
@@ -82,21 +81,34 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
-        private ObservableCollection<PinModel> executionOutputs = new ObservableCollection<PinModel>(); 
+        private ObservableCollection<NodePinViewModel> executionOutputs = new ObservableCollection<NodePinViewModel>(); 
 
         public VisualNodeViewModel(Type nodeType)
         {
-            nodeModel = new VisualNodeModel(nodeType);
+            this.NodeType = nodeType;
+
+            // If the node is executable
+            if (this.NodeType.IsSubclassOf(typeof (ExecutableNode)))
+            {
+                // Set an execution-in pin
+                executionInputs.Add(new NodePinViewModel("In", null, false, true));
+
+                // Import execution-out pins
+                foreach (Attribute attribute in this.NodeType.GetCustomAttributes(typeof (ExecutionOutDescription)))
+                {
+                    executionOutputs.Add(new NodePinViewModel(((ExecutionOutDescription)attribute).Label, null, true, true));
+                }
+            }
 
             // Import inputs and outputs
-            foreach (FieldInfo field in nodeModel.NodeType.GetFields())
+            foreach (FieldInfo field in this.NodeType.GetFields())
             {
                 foreach (Attribute attribute in field.GetCustomAttributes())
                 {
                     if (attribute.GetType() == typeof(ExposedInput))
-                        inputs.Add(new PinModel(field.Name, field.FieldType));
+                        inputs.Add(new NodePinViewModel(field.Name, field.FieldType, false, false));
                     else if (attribute.GetType() == typeof(ExposedOutput))
-                        outputs.Add(new PinModel(field.Name, field.FieldType));
+                        outputs.Add(new NodePinViewModel(field.Name, field.FieldType, true, false));
                 }
             }
         }

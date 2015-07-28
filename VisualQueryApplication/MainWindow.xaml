@@ -79,11 +79,18 @@
                         Click="ViewDatabase_Click" />
                     
                     <Fluent:Button
+                        SizeDefinition="Middle"
                         Header="Load"
 						LargeIcon="Images\Ribbon\icon_database_load.png"
 						Icon="Images\Ribbon\icon_database_load.png"
                         Command="{Binding LoadDatabaseCommand}" />
                    
+                    <Fluent:Button
+                        SizeDefinition="Middle"
+                        Header="Close"
+                        LargeIcon="Images\Ribbon\icon_database_close.png"
+                        Icon="Images\Ribbon\icon_database_close.png" />
+                    
                 </Fluent:RibbonGroupBox>
                 
             </Fluent:RibbonTabItem>
