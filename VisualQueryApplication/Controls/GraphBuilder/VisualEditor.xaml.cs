@@ -46,6 +46,8 @@ namespace VisualQueryApplication.Controls.GraphBuilder
         public VisualEditor()
         {
             InitializeComponent();
+
+            this.DataContext = new GraphEditorViewModel(this);
             NewConnectionLine.DataContext = new ConnectionBuilderViewModel();
         }
 

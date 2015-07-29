@@ -5,6 +5,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using DataTypes;
 
@@ -12,6 +14,18 @@ namespace VisualQueryApplication.ViewModels
 {
     public class GraphEditorViewModel : ViewModelBase
     {
+        private readonly UserControl graphControl;
+
+        public Point MousePoint
+        {
+            get
+            {
+                return new Point(
+                    Mouse.GetPosition(graphControl).X,
+                    Mouse.GetPosition(graphControl).Y);
+            }
+        }
+
         public ObservableCollection<VisualGraphComponentViewModel> VisualNodes
         {
             get { return visualNodes; }
@@ -60,8 +74,10 @@ namespace VisualQueryApplication.ViewModels
 
         private ICommand addConstantCommand;
 
-        public GraphEditorViewModel()
+        public GraphEditorViewModel(UserControl graphControl)
         {
+            this.graphControl = graphControl;
+
             DeleteSelectedNodesCommand = new RelayCommand(DeleteSelectedNodes) { CanExecute = true };
             AddConstantCommand = new RelayCommand(AddConstant) { CanExecute = true };
         }
@@ -107,7 +123,7 @@ namespace VisualQueryApplication.ViewModels
         private void AddConstant(object param)
         {
             Type constantType = (Type)param;
-            VisualNodes.Add(new VisualConstantNodeViewModel(constantType));
+            VisualNodes.Add(new VisualConstantNodeViewModel(constantType) { X = MousePoint.X, Y = MousePoint.Y });
         }
     }
 }

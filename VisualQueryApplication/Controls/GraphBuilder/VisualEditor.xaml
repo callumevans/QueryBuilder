@@ -13,10 +13,6 @@
              KeyDown="VisualEditor_OnKeyDown"
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <UserControl.DataContext>
-        <vm:GraphEditorViewModel />
-    </UserControl.DataContext>
-
     <UserControl.Resources>
 
         <DataTemplate DataType="{x:Type vm:VisualNodeViewModel}">
@@ -40,14 +36,24 @@
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:ConnectionViewModel}">
-            <Line
-                Stroke="Black"
-                StrokeThickness="2"
-                Fill="Black"
-                X1="{Binding OutputPin.Centre.X}"
-                Y1="{Binding OutputPin.Centre.Y}"
-                X2="{Binding InputPin.Centre.X}"
-                Y2="{Binding InputPin.Centre.Y}" />
+            <Path Stroke="Black" StrokeThickness="2">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathGeometry.Figures>
+                            <PathFigure StartPoint="{Binding OutputPin.Centre}">
+                                <PathFigure.Segments>
+                                    <PathSegmentCollection>
+                                        <BezierSegment
+                                            Point1="{Binding CurvePoint1}"
+                                            Point2="{Binding CurvePoint2}"
+                                            Point3="{Binding InputPin.Centre}"></BezierSegment>
+                                    </PathSegmentCollection>
+                                </PathFigure.Segments>
+                            </PathFigure>
+                        </PathGeometry.Figures>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
         </DataTemplate>
 
     </UserControl.Resources>
@@ -56,6 +62,7 @@
         <ContextMenu>
             <MenuItem Header="Add Constant">
                 <MenuItem Header="Integer" Command="{Binding AddConstantCommand}" CommandParameter="{x:Type dataTypes:Integer}" />
+                <MenuItem Header="Boolean" Command="{Binding AddConstantCommand}" CommandParameter="{x:Type dataTypes:Boolean}" />
             </MenuItem>
         </ContextMenu>
     </UserControl.ContextMenu>
@@ -102,7 +109,7 @@
                     <Canvas>
                         <Line
                             x:Name="NewConnectionLine"
-                            Stroke="Black"
+                            Stroke="DarkSlateGray"
                             StrokeThickness="2"
                             Fill="Black"
                             X1="{Binding OutputPin.Centre.X}"

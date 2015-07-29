@@ -43,6 +43,8 @@ namespace VisualQueryApplication.ViewModels
                 // Update pin colour
                 if (value == typeof(DataTypes.Integer))
                     PinColour = new SolidColorBrush(Colors.Green);
+                else if (value == typeof(DataTypes.Boolean))
+                    PinColour = new SolidColorBrush(Colors.DarkRed);
             }
         }
 

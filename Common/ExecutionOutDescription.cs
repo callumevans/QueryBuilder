@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common
 {
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class ExecutionOutDescription : Attribute
     {
         public int Order { get; set; }

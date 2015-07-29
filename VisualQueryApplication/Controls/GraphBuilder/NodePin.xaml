@@ -10,7 +10,7 @@
              MouseLeftButtonDown="NodePin_MouseLeftButtonDown"
              MouseEnter="NodePin_MouseEnter"
              MouseLeave="NodePin_MouseLeave"
-             Height="11" Width="11">
+             Height="9" Width="9">
 
     <UserControl.Resources>
         <ContextMenu x:Key="PinContextMenu">
@@ -19,6 +19,6 @@
     </UserControl.Resources>
 
     <Grid ContextMenu="{StaticResource PinContextMenu}">
-        <Ellipse Fill="{Binding PinColour}" Stroke="{Binding PinStroke}" StrokeThickness="2" />
+        <Ellipse Fill="{Binding PinColour}" Stroke="{Binding PinStroke}" StrokeThickness="1" />
     </Grid>
 </UserControl>

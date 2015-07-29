@@ -120,6 +120,8 @@ namespace VisualQueryApplication.ViewModels
 
             pins.AddRange(Inputs.Select(pin => pin.Pin));
             pins.AddRange(Outputs.Select(pin => pin.Pin));
+            pins.AddRange(ExecutionInputs.Select(pin => pin.Pin));
+            pins.AddRange(ExecutionOutputs.Select(pin => pin.Pin));
 
             List<ConnectionViewModel> connectionsToRemove = new List<ConnectionViewModel>();
 

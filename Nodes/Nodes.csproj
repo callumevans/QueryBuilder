@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddNode.cs" />
+    <Compile Include="IfLogic.cs" />
     <Compile Include="PrintNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StartNode.cs" />
