@@ -77,7 +77,7 @@
             
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
 
             <ItemsControl Grid.Column="0" Grid.Row="0" ItemsSource="{Binding ExecutionInputs}" ItemTemplate="{StaticResource InputDataTemplate}">

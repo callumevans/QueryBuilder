@@ -103,7 +103,8 @@
                     <Fluent:Button
 						Header="Build"
 						LargeIcon="Images\Ribbon\icon_build.png"
-						Icon="Images\Ribbon\icon_build.png" />
+						Icon="Images\Ribbon\icon_build.png"
+                        Click="ButtonBase_OnClick"/>
 
                     <Fluent:Button
 						SizeDefinition="Middle"

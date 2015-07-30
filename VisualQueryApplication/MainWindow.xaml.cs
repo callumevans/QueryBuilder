@@ -56,5 +56,10 @@ namespace VisualQueryApplication
 
             databaseViewWindow.Show();
         }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            VisualEditor.ConstructGraph();
+        }
     }
 }

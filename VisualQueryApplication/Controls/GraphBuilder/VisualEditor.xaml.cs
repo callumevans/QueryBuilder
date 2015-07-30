@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Graph;
 using VisualQueryApplication.ViewModels;
 
 namespace VisualQueryApplication.Controls.GraphBuilder
@@ -49,6 +50,45 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
             this.DataContext = new GraphEditorViewModel(this);
             NewConnectionLine.DataContext = new ConnectionBuilderViewModel();
+        }
+
+        public void ConstructGraph()
+        {
+            GraphEditorViewModel viewModel = ((GraphEditorViewModel) this.DataContext);
+
+            // Start by getting the first executable node with no input
+            VisualNodeViewModel startNode;
+
+            foreach (var node in viewModel.VisualNodes)
+            {
+                var visualNode = node as VisualNodeViewModel;
+                if (visualNode != null)
+                {
+                    if (visualNode.ExecutionInputs.Count == 1)
+                    {
+                        bool hasConnection = false;
+
+                        // If the node has an execution input we need to see if it's connected
+                        // If it isn't then we can start with that
+                        foreach (var connection in viewModel.Connections)
+                        {
+
+                            NodePinViewModel connectedPin = (NodePinViewModel)connection.OutputPin.DataContext;
+                            if (connectedPin == visualNode.ExecutionInputs[0])
+                            {
+                                hasConnection = true;
+                            }
+                        }
+
+                        // Input pin has no connections
+                        if (!hasConnection)
+                        {
+                            MessageBox.Show(visualNode.NodeTitle);
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)

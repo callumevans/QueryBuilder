@@ -86,7 +86,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
         private void NodePin_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DependencyObject parentObject = VisualTreeHelper.GetParent(this);
-            
+
             // Find the visual editor
             while (!(parentObject is VisualEditor))
             {
@@ -104,8 +104,8 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                 // If we are creating a new connection then we have to validate and add a new one
                 visualEditor.IsCreatingConnection = false;
 
-                GraphEditorViewModel graph = ((GraphEditorViewModel) visualEditor.DataContext);
-                ConnectionBuilderViewModel connectionBuilder = ((ConnectionBuilderViewModel) visualEditor.NewConnectionLine.DataContext);
+                GraphEditorViewModel graph = ((GraphEditorViewModel)visualEditor.DataContext);
+                ConnectionBuilderViewModel connectionBuilder = ((ConnectionBuilderViewModel)visualEditor.NewConnectionLine.DataContext);
 
                 graph.Connections.Add(new ConnectionViewModel(graph, connectionBuilder.OutputPin, this));
                 visualEditor.IsCreatingConnection = false;

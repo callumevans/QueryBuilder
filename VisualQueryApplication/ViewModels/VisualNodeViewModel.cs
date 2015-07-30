@@ -88,13 +88,13 @@ namespace VisualQueryApplication.ViewModels
             this.NodeType = nodeType;
 
             // If the node is executable
-            if (this.NodeType.IsSubclassOf(typeof (ExecutableNode)))
+            if (this.NodeType.IsSubclassOf(typeof(ExecutableNode)))
             {
                 // Set an execution-in pin
                 executionInputs.Add(new NodePinViewModel("In", null, false, true));
 
                 // Import execution-out pins
-                foreach (Attribute attribute in this.NodeType.GetCustomAttributes(typeof (ExecutionOutDescription)))
+                foreach (Attribute attribute in this.NodeType.GetCustomAttributes(typeof(ExecutionOutDescription)))
                 {
                     executionOutputs.Add(new NodePinViewModel(((ExecutionOutDescription)attribute).Label, null, true, true));
                 }

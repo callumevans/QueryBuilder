@@ -74,18 +74,6 @@ namespace VisualQueryApplication.ViewModels
 
         private SolidColorBrush pinColour = new SolidColorBrush(Colors.Gray);
 
-        public ICommand AllocatePinToInputCommand
-        {
-            get { return allocatePinToInputCommand; }
-            set
-            {
-                allocatePinToInputCommand = value;
-                OnPropertyChanged(nameof(AllocatePinToInputCommand));
-            }
-        }
-
-        private ICommand allocatePinToInputCommand;
-
         public ICommand RemoveConnectionsCommand
         {
             get { return removeConnectionsCommand; }
