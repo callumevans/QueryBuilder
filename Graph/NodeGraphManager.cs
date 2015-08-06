@@ -85,7 +85,6 @@ namespace Graph
         /// </summary>
         public void RealiseNodeOutputs()
         {
-            List<GraphNode> realisedNodes = new List<GraphNode>();
             List<GraphNode> unrealisedNodes = new List<GraphNode>();
             List<GraphNode> realisableNodes = new List<GraphNode>();
 

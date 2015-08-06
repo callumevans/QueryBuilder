@@ -10,6 +10,10 @@ namespace DataTypes
     {
         public bool value;
 
+        public Boolean()
+        {
+        }
+
         public Boolean(bool val)
         {
             this.value = val;

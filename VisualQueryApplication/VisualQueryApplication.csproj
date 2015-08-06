@@ -106,10 +106,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Controls\Graph.cs" />
     <Compile Include="Controls\GraphBuilder\ConstantNode.xaml.cs">
       <DependentUpon>ConstantNode.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\GraphBuilder\Graph.cs" />
     <Compile Include="Controls\GraphBuilder\NodePin.xaml.cs">
       <DependentUpon>NodePin.xaml</DependentUpon>
     </Compile>

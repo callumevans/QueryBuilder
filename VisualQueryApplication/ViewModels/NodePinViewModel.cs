@@ -16,7 +16,7 @@ namespace VisualQueryApplication.ViewModels
     public class NodePinViewModel : ViewModelBase
     {
         public NodePin Pin { get; set; }
-
+        public int Index { get; private set; }
         public bool IsOutputPin { get; set; }
         public bool IsExecutionPin { get; set; }
 
@@ -86,12 +86,13 @@ namespace VisualQueryApplication.ViewModels
 
         private ICommand removeConnectionsCommand;
 
-        public NodePinViewModel(string name, Type dataType, bool isOutputPin, bool isExecutionPin)
+        public NodePinViewModel(string name, Type dataType, bool isOutputPin, bool isExecutionPin, int index)
         {
             this.Name = name;
             this.DataType = dataType;
             this.IsOutputPin = isOutputPin;
             this.IsExecutionPin = isExecutionPin;
+            this.Index = index;
 
             RemoveConnectionsCommand = new RelayCommand(RemoveConnections) { CanExecute = true };
         }

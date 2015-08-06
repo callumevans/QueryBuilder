@@ -10,6 +10,10 @@ namespace DataTypes
     {
         public int value;
 
+        public Integer()
+        {
+        }
+
         public Integer(int val)
         {
             this.value = val;

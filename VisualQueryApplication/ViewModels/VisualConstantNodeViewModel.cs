@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataTypes;
 using VisualQueryApplication.Controls.GraphBuilder;
 
 namespace VisualQueryApplication.ViewModels
 {
     public class VisualConstantNodeViewModel : VisualGraphComponentViewModel
     {
+        public string Value { get; set; }
+
         public NodePinViewModel OutputPin
         {
             get { return outputPin; }
@@ -23,7 +26,7 @@ namespace VisualQueryApplication.ViewModels
 
         public VisualConstantNodeViewModel(Type type)
         {
-            this.OutputPin = new NodePinViewModel("Output", type, true, false);
+            this.OutputPin = new NodePinViewModel("Output", type, true, false, 0);
         }
 
         public override void RemoveConnections()

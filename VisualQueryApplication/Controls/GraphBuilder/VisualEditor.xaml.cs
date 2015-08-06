@@ -55,40 +55,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
         public void ConstructGraph()
         {
             GraphEditorViewModel viewModel = ((GraphEditorViewModel) this.DataContext);
-
-            // Start by getting the first executable node with no input
-            VisualNodeViewModel startNode;
-
-            foreach (var node in viewModel.VisualNodes)
-            {
-                var visualNode = node as VisualNodeViewModel;
-                if (visualNode != null)
-                {
-                    if (visualNode.ExecutionInputs.Count == 1)
-                    {
-                        bool hasConnection = false;
-
-                        // If the node has an execution input we need to see if it's connected
-                        // If it isn't then we can start with that
-                        foreach (var connection in viewModel.Connections)
-                        {
-
-                            NodePinViewModel connectedPin = (NodePinViewModel)connection.OutputPin.DataContext;
-                            if (connectedPin == visualNode.ExecutionInputs[0])
-                            {
-                                hasConnection = true;
-                            }
-                        }
-
-                        // Input pin has no connections
-                        if (!hasConnection)
-                        {
-                            MessageBox.Show(visualNode.NodeTitle);
-                            break;
-                        }
-                    }
-                }
-            }
+            Graph.BuildGraph(viewModel);
         }
 
         private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)

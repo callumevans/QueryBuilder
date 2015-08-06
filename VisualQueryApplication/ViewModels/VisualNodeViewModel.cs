@@ -91,26 +91,38 @@ namespace VisualQueryApplication.ViewModels
             if (this.NodeType.IsSubclassOf(typeof(ExecutableNode)))
             {
                 // Set an execution-in pin
-                executionInputs.Add(new NodePinViewModel("In", null, false, true));
+                executionInputs.Add(new NodePinViewModel("In", null, false, true, 0));
 
-                // Import execution-out pins
-                foreach (Attribute attribute in this.NodeType.GetCustomAttributes(typeof(ExecutionOutDescription)))
+                List<Attribute> outputsList = nodeType.GetCustomAttributes(typeof(ExecutionOutDescription)).ToList();
+
+                for (int i = 0; i < outputsList.Count; i++)
                 {
-                    executionOutputs.Add(new NodePinViewModel(((ExecutionOutDescription)attribute).Label, null, true, true));
+                    ExecutionOutputs.Add(new NodePinViewModel(
+                        ((ExecutionOutDescription) outputsList[i]).Label, null, true, true, i));
                 }
             }
+
+            int inputIndex = 0;
+            int outputIndex = 0;
 
             // Import inputs and outputs
             foreach (FieldInfo field in this.NodeType.GetFields())
             {
                 foreach (Attribute attribute in field.GetCustomAttributes())
                 {
-                    if (attribute.GetType() == typeof(ExposedInput))
-                        inputs.Add(new NodePinViewModel(field.Name, field.FieldType, false, false));
-                    else if (attribute.GetType() == typeof(ExposedOutput))
-                        outputs.Add(new NodePinViewModel(field.Name, field.FieldType, true, false));
+                    if (attribute.GetType() == typeof (ExposedInput))
+                    {
+                        inputs.Add(new NodePinViewModel(field.Name, field.FieldType, false, false, inputIndex));
+                        inputIndex++;
+                    }
+                    else if (attribute.GetType() == typeof (ExposedOutput))
+                    {
+                        outputs.Add(new NodePinViewModel(field.Name, field.FieldType, true, false, outputIndex));
+                        outputIndex++;
+                    }
                 }
             }
+
         }
 
         public override void RemoveConnections()
