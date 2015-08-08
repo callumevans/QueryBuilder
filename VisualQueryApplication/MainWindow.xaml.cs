@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Common;
+using Graph;
 using VisualQueryApplication.Controls.GraphBuilder;
 using VisualQueryApplication.ViewModels;
 
@@ -26,6 +28,7 @@ namespace VisualQueryApplication
     public partial class MainWindow : RibbonWindow
     {
         private DatabaseViewer databaseViewWindow;
+        private GeneratedQueryView queryViewWindow;
 
         public MainWindow()
         {
@@ -57,9 +60,27 @@ namespace VisualQueryApplication
             databaseViewWindow.Show();
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void BuildQuery_Click(object sender, RoutedEventArgs e)
         {
-            VisualEditor.ConstructGraph();
+            NodeGraphManager manager = VisualEditor.ConstructGraph();
+            ((MainWindowViewModel)this.DataContext).ActiveQueryState = manager.QueryState;
+        }
+
+        private void ViewQuery_Click(object sender, RoutedEventArgs e)
+        {
+            if (queryViewWindow != null)
+            {
+                queryViewWindow.Focus();
+                return;
+            }
+
+            queryViewWindow = new GeneratedQueryView(
+                new Action(() => queryViewWindow = null));
+
+            ((GeneratedQueryViewViewModel) queryViewWindow.DataContext).Query =
+                ((MainWindowViewModel) this.DataContext).ActiveQueryState.VariableBag["Print Function"].ToString();
+
+            queryViewWindow.Show();
         }
     }
 }

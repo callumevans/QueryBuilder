@@ -174,5 +174,16 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
             return pinConnections;
         }
+
+        public static string BuildQuery(QueryState state)
+        {
+            foreach (var variable in state.VariableBag)
+            {
+                if (variable.Key == "Print Function")
+                    return variable.Value.ToString();
+            }
+
+            return "NULL";
+        }
     }
 }

@@ -1,0 +1,28 @@
+﻿<Window x:Class="VisualQueryApplication.GeneratedQueryView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"    
+        mc:Ignorable="d"
+        Title="Query Viewer" Height="300" Width="399.429">
+    
+    <Window.DataContext>
+        <vm:GeneratedQueryViewViewModel />
+    </Window.DataContext>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="229*" />
+            <RowDefinition Height="40"/>
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="textBox" Margin="4" TextWrapping="Wrap" Text="{Binding Query}"/>
+        <Grid Grid.Row="1" Margin="4">
+            <Button x:Name="executeButton" Content="Execute" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Margin="0,6,80,6"/>
+            <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75"/>
+        </Grid>
+
+
+    </Grid>
+</Window>

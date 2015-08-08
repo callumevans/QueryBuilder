@@ -18,8 +18,9 @@ namespace VisualQueryApplication.ViewModels
     public class MainWindowViewModel : ViewModelBase
     {
         private List<Type> loadedNodeTypes = new List<Type>();
-         
         private readonly GraphEditorViewModel graphViewModel;
+
+        public QueryState ActiveQueryState { get; set; } = new QueryState();
 
         /// <summary>
         /// List of nodes that are loaded in the system

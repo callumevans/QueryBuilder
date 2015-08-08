@@ -52,10 +52,10 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             NewConnectionLine.DataContext = new ConnectionBuilderViewModel();
         }
 
-        public void ConstructGraph()
+        public NodeGraphManager ConstructGraph()
         {
             GraphEditorViewModel viewModel = ((GraphEditorViewModel) this.DataContext);
-            Graph.BuildGraph(viewModel);
+            return Graph.BuildGraph(viewModel);
         }
 
         private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)

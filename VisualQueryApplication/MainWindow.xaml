@@ -4,8 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:VisualQueryApplication"
-        xmlns:ZoomAndPan="clr-namespace:VisualQueryApplication.Controls.GraphBuilder.ZoomAndPan"
         xmlns:GraphBuilder="clr-namespace:VisualQueryApplication.Controls.GraphBuilder"
         xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"    
         x:Class="VisualQueryApplication.MainWindow"
@@ -105,14 +103,20 @@
 						Header="Build"
 						LargeIcon="Images\Ribbon\icon_build.png"
 						Icon="Images\Ribbon\icon_build.png"
-                        Click="ButtonBase_OnClick"/>
+                        Click="BuildQuery_Click"/>
 
                     <Fluent:Button
 						SizeDefinition="Middle"
                         LargeIcon="Images\Ribbon\icon_check.png"
 						Icon="Images\Ribbon\icon_check.png"
                         Header="Check" />
-
+                    
+                    <Fluent:Button
+                        LargeIcon="Images\Ribbon\icon_view_query.png"
+						Icon="Images\Ribbon\icon_view_query.png"
+                        Header="View Query"
+                        Click="ViewQuery_Click"/>
+                    
                     <Fluent:Button 
                         Header="Delete"
                         LargeIcon="Images\Ribbon\icon_delete.png"
