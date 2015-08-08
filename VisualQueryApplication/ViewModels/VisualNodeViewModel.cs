@@ -98,7 +98,7 @@ namespace VisualQueryApplication.ViewModels
                 for (int i = 0; i < outputsList.Count; i++)
                 {
                     ExecutionOutputs.Add(new NodePinViewModel(
-                        ((ExecutionOutDescription) outputsList[i]).Label, null, true, true, i));
+                        ((ExecutionOutDescription)outputsList[i]).Label, null, true, true, i));
                 }
             }
 

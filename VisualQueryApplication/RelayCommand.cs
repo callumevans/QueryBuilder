@@ -7,6 +7,7 @@ using System.Windows.Input;
 
 namespace VisualQueryApplication
 {
+    [Serializable]
     public class RelayCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;

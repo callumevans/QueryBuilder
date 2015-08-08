@@ -88,6 +88,37 @@ namespace Graph
             List<GraphNode> unrealisedNodes = new List<GraphNode>();
             List<GraphNode> realisableNodes = new List<GraphNode>();
 
+            GraphNode currentExecutionNode = null;
+
+            List<GraphNode> executableNodes = new List<GraphNode>();
+
+            // Reference executable nodes
+            foreach (Tuple<GraphNode, int, GraphNode> connection in ExecutionConnections)
+            {
+                if (!executableNodes.Contains(connection.Item1))
+                    executableNodes.Add(connection.Item1);
+
+                if (!executableNodes.Contains(connection.Item3))
+                    executableNodes.Add(connection.Item3);
+            }
+
+            // Get start node and set it to the currentExecutionNode
+            foreach (var executableNode in executableNodes)
+            {
+                int connectionsIn = 0;
+
+                foreach (var executionConnection in ExecutionConnections)
+                {
+                    if (executionConnection.Item3 == executableNode)
+                        connectionsIn++;
+                }
+
+                if (connectionsIn > 0)
+                    continue;
+                else if (connectionsIn == 0)
+                    currentExecutionNode = executableNode;
+            }
+
             // Assume all nodes are unrealised
             foreach (GraphNode node in nodeNetwork)
             {
@@ -104,6 +135,25 @@ namespace Graph
                 {
                     bool isRealisable = true;
 
+                    // If this is an execution node
+                    if (executableNodes.Contains(node) && node != currentExecutionNode)
+                    {
+                        foreach (var connection in ExecutionConnections)
+                        {
+                            if (connection.Item1 == currentExecutionNode && connection.Item3 == node)
+                            {
+                                if (currentExecutionNode.ExecutionPath == connection.Item2)
+                                    currentExecutionNode = node;
+                            }
+                        }
+
+                        // Then make sure it is executable
+                        if (node != currentExecutionNode)
+                        {
+                            continue;
+                        }
+                    }
+
                     foreach (InputPin inPin in node.NodeInputs)
                     {
                         if (inPin.InputProviderPin.OutputRealised == false)
@@ -115,6 +165,12 @@ namespace Graph
                         realisableNodes.Add(node);
                         tempList.Add(node);
                     }
+                }
+
+                // If we don't have any realisable nodes then assume graph execution is complete
+                if (realisableNodes.Count == 0)
+                {
+                    break;
                 }
 
                 // Calculate outputs for realisable nodes

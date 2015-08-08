@@ -30,6 +30,11 @@ namespace Graph
         public NodeGraphManager GraphManager { get; }
 
         /// <summary>
+        /// Returns the given execution path for executable nodes
+        /// </summary>
+        public int ExecutionPath { get; private set; } = -1;
+
+        /// <summary>
         /// Represents a single node on a graph of interconnected nodes
         /// </summary>
         /// <param name="nodeType">The class of the node being implemented</param>
@@ -149,6 +154,11 @@ namespace Graph
             {
                 NodeOutputs[i].OutputValue = result[i];
                 NodeOutputs[i].OutputRealised = true;
+            }
+
+            if (node is ExecutableNode)
+            {
+                ExecutionPath = (node as ExecutableNode).GetExecutionPath();
             }
         }
     }

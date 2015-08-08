@@ -24,7 +24,7 @@ namespace Nodes
 
         public override void NodeFunction()
         {
-            Console.WriteLine("Print function: " + printValue.GetDataAsString());
+            State.VariableBag.Add("Print Function", printValue.GetDataAsString());
         }
     }
 }

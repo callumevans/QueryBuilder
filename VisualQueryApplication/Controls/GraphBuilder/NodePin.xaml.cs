@@ -21,6 +21,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
     /// <summary>
     /// Interaction logic for NodePin.xaml
     /// </summary>
+    [Serializable]
     public partial class NodePin : UserControl, INotifyPropertyChanged
     {
         private SolidColorBrush pinColourCache;

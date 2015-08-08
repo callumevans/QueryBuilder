@@ -8,5 +8,6 @@ namespace Common
 {
     public class QueryState
     {
+        public Dictionary<string, object> VariableBag = new Dictionary<string, object>(); 
     }
 }

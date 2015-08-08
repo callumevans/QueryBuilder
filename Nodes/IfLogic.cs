@@ -9,8 +9,8 @@ namespace Nodes
 {
     [NodeName("If")]
     [NodeDescription("")]
-    [ExecutionOutDescription(1, "True")]
-    [ExecutionOutDescription(2, "False")]
+    [ExecutionOutDescription(0, "True")]
+    [ExecutionOutDescription(1, "False")]
     public class IfLogic : ExecutableNode
     {
         [ExposedInput(0)]
@@ -24,11 +24,11 @@ namespace Nodes
 
             if (val)
             {
-                return 1;
+                return 0;
             }
             else
             {
-                return 2;
+                return 1;
             }
         }
 

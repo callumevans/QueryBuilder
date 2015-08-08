@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Common;
 using DataTypes;
 using Graph;
 using VisualQueryApplication.ViewModels;
 using Boolean = System.Boolean;
+using System.Reflection;
 
 namespace VisualQueryApplication.Controls.GraphBuilder
 {
@@ -66,7 +68,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             foreach (var constantNode in constantNodes)
             {
                 List<ConnectionViewModel> connections = GetPinConnections(constantNode.OutputPin, graph);
-                
+
                 // Lookup each input pin that the constant node is connecting to and add it in our graph manager
                 foreach (var connection in connections)
                 {
@@ -94,7 +96,8 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                             }
 
                             OutputPin pinConnection = new OutputPin(
-                                ((NodePinViewModel)connection.InputPin.DataContext).DataType, null) { OutputValue = valueToSet, OutputRealised = true };
+                                ((NodePinViewModel)connection.InputPin.DataContext).DataType, null)
+                            { OutputValue = valueToSet, OutputRealised = true };
 
 
                             graphManager.AddConnection(pinConnection, functionNode.Value.NodeInputs[pindex]);
@@ -115,12 +118,34 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
                     foreach (var connection in connections)
                     {
+                        // Wire up non-execution pins
                         foreach (var targetFunctionNode in functionNodes)
                         {
                             if (targetFunctionNode.Key.Inputs.Contains(connection.InputPin.DataContext))
                             {
-                                int pindex = ((NodePinViewModel) connection.InputPin.DataContext).Index;
-                                graphManager.AddConnection(functionNodes[functionNode.Key].NodeOutputs[outputPindex], targetFunctionNode.Value.NodeInputs[pindex]);
+                                int pindex = ((NodePinViewModel)connection.InputPin.DataContext).Index;
+
+                                graphManager.AddConnection(
+                                    functionNodes[functionNode.Key].NodeOutputs[outputPindex],
+                                    targetFunctionNode.Value.NodeInputs[pindex]);
+                            }
+                        }
+                    }
+                }
+
+                // Wire up execution pins
+                foreach (var executionOutput in functionNode.Key.ExecutionOutputs)
+                {
+                    List<ConnectionViewModel> connections = GetPinConnections(executionOutput, graph);
+
+                    foreach (var connection in connections)
+                    {
+                        foreach (var targetFunctionNode in functionNodes)
+                        {
+                            if (targetFunctionNode.Key.ExecutionInputs.Contains(connection.InputPin.DataContext))
+                            {
+                                int pindex = ((NodePinViewModel)connection.OutputPin.DataContext).Index;
+                                graphManager.AddConnection(functionNode.Value, pindex, targetFunctionNode.Value);
                             }
                         }
                     }
@@ -139,7 +164,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             foreach (var connection in graph.Connections)
             {
                 NodePinViewModel inputPin = (NodePinViewModel)connection.InputPin.DataContext;
-                NodePinViewModel outputPin = (NodePinViewModel) connection.OutputPin.DataContext;
+                NodePinViewModel outputPin = (NodePinViewModel)connection.OutputPin.DataContext;
 
                 if (pin == inputPin || pin == outputPin)
                 {

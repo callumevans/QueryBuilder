@@ -45,7 +45,8 @@
             <!-- File Menu -->
             <Fluent:Ribbon.Menu>
                 <Fluent:ApplicationMenu>
-                    
+                    <Fluent:MenuItem Header="Save" Command="{Binding SaveQueryCommand}" />
+                    <Fluent:MenuItem Header="Load" Command="{Binding LoadQueryCommand}" />
                 </Fluent:ApplicationMenu>
             </Fluent:Ribbon.Menu>
 
