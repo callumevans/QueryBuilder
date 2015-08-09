@@ -121,8 +121,7 @@ namespace Graph
                     {
                         if (attribute.GetType() == typeof(ExposedInput))
                         {
-                            if (((ExposedInput)attribute).InputOrder == i)
-                                field.SetValue(node, NodeInputs[i].GetValue);
+                            field.SetValue(node, NodeInputs[i].GetValue);
                         }
                     }
                 }
@@ -142,8 +141,7 @@ namespace Graph
                     {
                         if (attribute.GetType() == typeof(ExposedOutput))
                         {
-                            if (((ExposedOutput)attribute).OutputOrder == i)
-                                result.Add(field.GetValue(node) as IDataTypeContainer);
+                            result.Add(field.GetValue(node) as IDataTypeContainer);
                         }
                     }
                 }

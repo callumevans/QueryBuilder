@@ -13,7 +13,7 @@ namespace Nodes
     [ExecutionOutDescription(1, "False")]
     public class IfLogic : ExecutableNode
     {
-        [ExposedInput(0)]
+        [ExposedInput]
         public DataTypes.Boolean boolValue;
 
         public IfLogic(QueryState state) : base(state) { }

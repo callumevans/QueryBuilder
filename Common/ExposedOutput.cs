@@ -9,11 +9,8 @@ namespace Common
     [AttributeUsage(AttributeTargets.Field)]
     public class ExposedOutput : Attribute
     {
-        public int OutputOrder { get; set; }
-
-        public ExposedOutput(int order)
+        public ExposedOutput()
         {
-            OutputOrder = order;
         }
     }
 }

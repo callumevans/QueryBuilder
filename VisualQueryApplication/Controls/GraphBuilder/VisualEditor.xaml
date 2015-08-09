@@ -63,6 +63,7 @@
             <MenuItem Header="Add Constant">
                 <MenuItem Header="Integer" Command="{Binding AddConstantCommand}" CommandParameter="{x:Type dataTypes:Integer}" />
                 <MenuItem Header="Boolean" Command="{Binding AddConstantCommand}" CommandParameter="{x:Type dataTypes:Boolean}" />
+                <MenuItem Header="String" Command="{Binding AddConstantCommand}" CommandParameter="{x:Type dataTypes:String}" />
             </MenuItem>
         </ContextMenu>
     </UserControl.ContextMenu>

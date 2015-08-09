@@ -12,13 +12,13 @@ namespace Nodes
     [NodeDescription("Subtracts two values")]
     public class SubtractNode : NodeBase
     {
-        [ExposedInput(0)]
+        [ExposedInput]
         public DataTypes.Integer inputOne;
 
-        [ExposedInput(1)]
+        [ExposedInput]
         public DataTypes.Integer inputTwo;
 
-        [ExposedOutput(0)]
+        [ExposedOutput]
         public DataTypes.Integer outputOne;
 
         public override void NodeFunction()

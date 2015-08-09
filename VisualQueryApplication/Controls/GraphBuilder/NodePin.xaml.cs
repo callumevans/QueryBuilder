@@ -21,7 +21,6 @@ namespace VisualQueryApplication.Controls.GraphBuilder
     /// <summary>
     /// Interaction logic for NodePin.xaml
     /// </summary>
-    [Serializable]
     public partial class NodePin : UserControl, INotifyPropertyChanged
     {
         private SolidColorBrush pinColourCache;
@@ -103,12 +102,17 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             if (visualEditor.IsCreatingConnection)
             {
                 // If we are creating a new connection then we have to validate and add a new one
-                visualEditor.IsCreatingConnection = false;
-
                 GraphEditorViewModel graph = ((GraphEditorViewModel)visualEditor.DataContext);
                 ConnectionBuilderViewModel connectionBuilder = ((ConnectionBuilderViewModel)visualEditor.NewConnectionLine.DataContext);
 
-                graph.Connections.Add(new ConnectionViewModel(graph, connectionBuilder.OutputPin, this));
+                // Validate the output and input pins
+                // Reverse them if needed
+                // TODO: More extensive validation. ie. Check for output -> output or input -> input connections.
+                if (((NodePinViewModel)connectionBuilder.OutputPin.DataContext).IsOutputPin == false)
+                    graph.Connections.Add(new ConnectionViewModel(graph, this, connectionBuilder.OutputPin));
+                else
+                    graph.Connections.Add(new ConnectionViewModel(graph, connectionBuilder.OutputPin, this));
+
                 visualEditor.IsCreatingConnection = false;
             }
             else

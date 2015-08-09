@@ -77,8 +77,13 @@ namespace VisualQueryApplication
             queryViewWindow = new GeneratedQueryView(
                 new Action(() => queryViewWindow = null));
 
-            ((GeneratedQueryViewViewModel) queryViewWindow.DataContext).Query =
-                ((MainWindowViewModel) this.DataContext).ActiveQueryState.VariableBag["Print Function"].ToString();
+            var viewModel = ((MainWindowViewModel)this.DataContext);
+
+            if (viewModel.ActiveQueryState.VariableBag.ContainsKey("Print Function"))
+            {
+                ((GeneratedQueryViewViewModel) queryViewWindow.DataContext).Query =
+                    viewModel.ActiveQueryState.VariableBag["Print Function"].ToString();
+            }
 
             queryViewWindow.Show();
         }

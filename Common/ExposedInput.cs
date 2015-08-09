@@ -9,11 +9,8 @@ namespace Common
     [AttributeUsage(AttributeTargets.Field)]
     public class ExposedInput : Attribute
     {
-        public int InputOrder { get; set; }
-
-        public ExposedInput(int order)
+        public ExposedInput()
         {
-            InputOrder = order;
         }
     }
 }
