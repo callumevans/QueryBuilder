@@ -43,8 +43,8 @@
   <ItemGroup>
     <Compile Include="ExecutableNode.cs" />
     <Compile Include="ExecutionOutDescription.cs" />
-    <Compile Include="LabelDisplay.cs" />
     <Compile Include="ExposedInput.cs" />
+    <Compile Include="LabelDisplay.cs" />
     <Compile Include="NodeName.cs" />
     <Compile Include="ExposedOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
