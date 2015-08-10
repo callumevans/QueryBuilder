@@ -1,6 +1,7 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Graph
 {
@@ -173,11 +174,7 @@ namespace Graph
                     break;
                 }
 
-                // Calculate outputs for realisable nodes
-                foreach (GraphNode realisable in realisableNodes)
-                {
-                    realisable.CalculateOutput();
-                }
+                Parallel.ForEach(realisableNodes, realisable => realisable.CalculateOutput());
 
                 // Cleanup
                 foreach (GraphNode cleanupNode in tempList)

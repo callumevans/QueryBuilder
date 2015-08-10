@@ -19,6 +19,7 @@ using Common;
 using Graph;
 using VisualQueryApplication.Controls.GraphBuilder;
 using VisualQueryApplication.ViewModels;
+using Graph = VisualQueryApplication.Controls.GraphBuilder.Graph;
 
 namespace VisualQueryApplication
 {
@@ -60,10 +61,16 @@ namespace VisualQueryApplication
             databaseViewWindow.Show();
         }
 
-        private void BuildQuery_Click(object sender, RoutedEventArgs e)
+        private async void BuildQuery_Click(object sender, RoutedEventArgs e)
         {
-            NodeGraphManager manager = VisualEditor.ConstructGraph();
-            ((MainWindowViewModel)this.DataContext).ActiveQueryState = manager.QueryState;
+            NodeGraphManager builtGraph = new NodeGraphManager();
+
+            Dispatcher.Invoke(() =>
+            {
+                builtGraph = VisualEditor.ConstructGraph();
+            });
+
+            ((MainWindowViewModel)this.DataContext).ActiveQueryState = builtGraph.QueryState;
         }
 
         private void ViewQuery_Click(object sender, RoutedEventArgs e)

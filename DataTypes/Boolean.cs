@@ -8,7 +8,7 @@ namespace DataTypes
 {
     public class Boolean : IDataTypeContainer
     {
-        public bool value;
+        public bool value = false;
 
         public Boolean()
         {
@@ -26,7 +26,7 @@ namespace DataTypes
 
         public void SetValue(object value)
         {
-            this.value = Convert.ToBoolean(value.ToString());
+            this.value = Convert.ToBoolean(value);
         }
     }
 }

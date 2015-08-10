@@ -24,11 +24,8 @@ namespace VisualQueryApplication.ViewModels
             get { return new Point(InputPin.Centre.X - 60, InputPin.Centre.Y); }
         }
 
-        private GraphEditorViewModel graphViewModel;
-
-        public ConnectionViewModel(GraphEditorViewModel graphViewModel, NodePin outputPin, NodePin inputPin)
+        public ConnectionViewModel(NodePin outputPin, NodePin inputPin)
         {
-            this.graphViewModel = graphViewModel;
             this.OutputPin = outputPin;
             this.InputPin = inputPin;
 

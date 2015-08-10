@@ -2,6 +2,7 @@
 using DataTypes;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -115,13 +116,16 @@ namespace Graph
             // Forward input values to the instantiated node
             for (int i = 0; i < NodeInputs.Count; i++)
             {
+                int fieldCounter = 0;
+
                 foreach (FieldInfo field in node.GetType().GetFields())
                 {
                     foreach (Attribute attribute in field.GetCustomAttributes())
                     {
                         if (attribute.GetType() == typeof(ExposedInput))
                         {
-                            field.SetValue(node, NodeInputs[i].GetValue);
+                            if (fieldCounter++ == i)
+                                field.SetValue(node, NodeInputs[i].GetValue);
                         }
                     }
                 }
@@ -135,13 +139,16 @@ namespace Graph
             // Extract the newly calculated output from the node
             for (int i = 0; i < NodeOutputs.Count; i++)
             {
+                int fieldCounter = 0;
+
                 foreach (FieldInfo field in node.GetType().GetFields())
                 {
                     foreach (Attribute attribute in field.GetCustomAttributes())
                     {
                         if (attribute.GetType() == typeof(ExposedOutput))
                         {
-                            result.Add(field.GetValue(node) as IDataTypeContainer);
+                            if (fieldCounter++ == i)
+                                result.Add(field.GetValue(node) as IDataTypeContainer);
                         }
                     }
                 }

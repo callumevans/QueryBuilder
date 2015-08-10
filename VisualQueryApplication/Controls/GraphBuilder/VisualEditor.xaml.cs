@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Graph;
 using VisualQueryApplication.ViewModels;
 
@@ -54,7 +55,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
         public NodeGraphManager ConstructGraph()
         {
-            GraphEditorViewModel viewModel = ((GraphEditorViewModel) this.DataContext);
+            GraphEditorViewModel viewModel = ((GraphEditorViewModel)this.DataContext);
             return Graph.BuildGraph(viewModel);
         }
 
@@ -112,6 +113,34 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
         private void Editor_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            // If we are creating a connection, check if we are clicking from an input pin
+            // If we are, then try and automatically add a constant input into the node
+            if (IsCreatingConnection)
+            {
+                ConnectionBuilderViewModel connectionBuilder = (ConnectionBuilderViewModel)NewConnectionLine.DataContext;
+                NodePinViewModel connectionRootPin = (NodePinViewModel)connectionBuilder.OutputPin.DataContext;
+
+                if (connectionRootPin.IsOutputPin == false && connectionRootPin.IsExecutionPin == false)
+                {
+                    GraphEditorViewModel viewModel = (GraphEditorViewModel)this.DataContext;
+                    VisualConstantNodeViewModel autoConstantNode = new VisualConstantNodeViewModel(connectionRootPin.DataType)
+                    {
+                        X = e.GetPosition(this).X,
+                        Y = e.GetPosition(this).Y
+                    };
+
+                    viewModel.VisualNodes.Add(autoConstantNode);
+
+                    // Bit hacky. Generates the view for the NodePin in the constant node before we add it
+                    Dispatcher.Invoke(new Action(() => { }), DispatcherPriority.ContextIdle, null);
+
+                    viewModel.Connections.Add(new ConnectionViewModel(autoConstantNode.OutputPin.Pin, connectionRootPin.Pin));
+                }
+
+                IsCreatingConnection = false;
+                return;
+            }
+
             foreach (VisualGraphComponentViewModel node in ((GraphEditorViewModel)DataContext).VisualNodes)
             {
                 node.IsSelected = false;

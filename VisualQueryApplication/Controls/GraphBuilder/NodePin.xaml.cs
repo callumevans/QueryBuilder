@@ -109,9 +109,9 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                 // Reverse them if needed
                 // TODO: More extensive validation. ie. Check for output -> output or input -> input connections.
                 if (((NodePinViewModel)connectionBuilder.OutputPin.DataContext).IsOutputPin == false)
-                    graph.Connections.Add(new ConnectionViewModel(graph, this, connectionBuilder.OutputPin));
+                    graph.Connections.Add(new ConnectionViewModel(this, connectionBuilder.OutputPin));
                 else
-                    graph.Connections.Add(new ConnectionViewModel(graph, connectionBuilder.OutputPin, this));
+                    graph.Connections.Add(new ConnectionViewModel(connectionBuilder.OutputPin, this));
 
                 visualEditor.IsCreatingConnection = false;
             }

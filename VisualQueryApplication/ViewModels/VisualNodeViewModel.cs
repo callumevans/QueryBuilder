@@ -112,12 +112,36 @@ namespace VisualQueryApplication.ViewModels
                 {
                     if (attribute.GetType() == typeof (ExposedInput))
                     {
-                        inputs.Add(new NodePinViewModel(field.Name, field.FieldType, false, false, inputIndex));
+                        switch ((attribute as ExposedInput).LabelDisplay)
+                        {
+                            case LabelDisplay.Field:
+                                inputs.Add(new NodePinViewModel(field.Name, field.FieldType, false, false, inputIndex));
+                                break;
+                            case LabelDisplay.Custom:
+                                inputs.Add(new NodePinViewModel((attribute as ExposedInput).Label, field.FieldType, false, false, inputIndex));
+                                break;
+                            case LabelDisplay.Hidden:
+                                inputs.Add(new NodePinViewModel("", field.FieldType, false, false, inputIndex));
+                                break;
+                        }
+
                         inputIndex++;
                     }
                     else if (attribute.GetType() == typeof (ExposedOutput))
                     {
-                        outputs.Add(new NodePinViewModel(field.Name, field.FieldType, true, false, outputIndex));
+                        switch ((attribute as ExposedOutput).LabelDisplay)
+                        {
+                            case LabelDisplay.Field:
+                                outputs.Add(new NodePinViewModel(field.Name, field.FieldType, true, false, inputIndex));
+                                break;
+                            case LabelDisplay.Custom:
+                                outputs.Add(new NodePinViewModel((attribute as ExposedInput).Label, field.FieldType, true, false, inputIndex));
+                                break;
+                            case LabelDisplay.Hidden:
+                                outputs.Add(new NodePinViewModel("", field.FieldType, true, false, inputIndex));
+                                break;
+                        }
+
                         outputIndex++;
                     }
                 }

@@ -8,7 +8,6 @@ using Common;
 namespace Nodes
 {
     [NodeName("If")]
-    [NodeDescription("")]
     [ExecutionOutDescription(0, "True")]
     [ExecutionOutDescription(1, "False")]
     public class IfLogic : ExecutableNode

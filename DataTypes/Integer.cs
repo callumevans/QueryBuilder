@@ -26,7 +26,7 @@ namespace DataTypes
 
         public void SetValue(object value)
         {
-            this.value = Convert.ToInt32(value.ToString());
+            this.value = Convert.ToInt32(value);
         }
     }
 }

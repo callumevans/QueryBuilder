@@ -9,10 +9,9 @@ using System.Threading.Tasks;
 namespace Nodes
 {
     [NodeName("Print")]
-    [NodeDescription("Prints text")]
     public class PrintNode : ExecutableNode
     {
-        [ExposedInput]
+        [ExposedInput(LabelDisplay.Custom, "Print Value")]
         public DataTypes.Integer printValue;
 
         public PrintNode(QueryState state) : base(state) { }

@@ -9,7 +9,6 @@ using DataTypes;
 namespace Nodes
 {
     [NodeName("Start")]
-    [NodeDescription("Start of the flow")]
     [ExecutionOutDescription(0, "Out")]
     public class StartNode : ExecutableNode
     {

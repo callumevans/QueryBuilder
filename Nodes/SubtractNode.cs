@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace Nodes
 {
     [NodeName("Subtract")]
-    [NodeDescription("Subtracts two values")]
     public class SubtractNode : NodeBase
     {
         [ExposedInput]

@@ -8,7 +8,7 @@
              mc:Ignorable="d"
              x:Name="VisualNodeBoxControl"
              MouseDown="VisualNodeBoxControl_MouseDown"
-             Width="180"
+             MinWidth="90"
              MinHeight="50">
 
     <UserControl.Resources>
