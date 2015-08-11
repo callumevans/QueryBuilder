@@ -153,7 +153,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                 return;
 
             var connectionLine = ((ConnectionBuilderViewModel)NewConnectionLine.DataContext);
-            connectionLine.MousePosition = new Point(e.GetPosition(this).X - 1, e.GetPosition(this).Y - 1);
+            connectionLine.MousePosition = new Point(e.GetPosition(this).X, e.GetPosition(this).Y);
         }
 
         private void VisualEditor_OnKeyDown(object sender, KeyEventArgs e)

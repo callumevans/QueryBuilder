@@ -104,12 +104,6 @@
 						LargeIcon="Images\Ribbon\icon_build.png"
 						Icon="Images\Ribbon\icon_build.png"
                         Click="BuildQuery_Click"/>
-
-                    <Fluent:Button
-						SizeDefinition="Middle"
-                        LargeIcon="Images\Ribbon\icon_check.png"
-						Icon="Images\Ribbon\icon_check.png"
-                        Header="Check" />
                     
                     <Fluent:Button
                         LargeIcon="Images\Ribbon\icon_view_query.png"

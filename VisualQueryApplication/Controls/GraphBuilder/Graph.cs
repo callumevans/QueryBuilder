@@ -55,7 +55,6 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             {
                 if (visualNode is VisualNodeViewModel)
                 {
-                    // TODO: Graph nodes should be null and created later on
                     functionNodes.Add(visualNode, new GraphNode(visualNode.NodeType, graphManager));
                 }
                 else if (visualNode is VisualConstantNodeViewModel)

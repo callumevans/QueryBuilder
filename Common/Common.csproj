@@ -45,6 +45,7 @@
     <Compile Include="ExecutionOutDescription.cs" />
     <Compile Include="ExposedInput.cs" />
     <Compile Include="LabelDisplay.cs" />
+    <Compile Include="NodeCategory.cs" />
     <Compile Include="NodeName.cs" />
     <Compile Include="ExposedOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

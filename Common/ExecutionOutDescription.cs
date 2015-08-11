@@ -9,8 +9,8 @@ namespace Common
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class ExecutionOutDescription : Attribute
     {
-        public int Order { get; set; }
-        public string Label { get; set; }
+        public int Order { get; private set; }
+        public string Label { get; private set; }
 
         public ExecutionOutDescription(int order, string label)
         {

@@ -110,6 +110,7 @@
                     <Canvas>
                         <Line
                             x:Name="NewConnectionLine"
+                            IsHitTestVisible="False"
                             Stroke="DarkSlateGray"
                             StrokeThickness="2"
                             Fill="Black"

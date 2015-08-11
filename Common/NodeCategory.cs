@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace Common
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class NodeName : Attribute
+    public class NodeCategory : Attribute
     {
-        public string Name { get; private set; }
+        public string Category { get; private set; }
 
-        public NodeName(string name)
+        public NodeCategory(string category)
         {
-            Name = name;
+            this.Category = category;
         }
     }
 }

@@ -19,8 +19,9 @@
 
         <TextBox x:Name="textBox" Margin="4" TextWrapping="Wrap" Text="{Binding Query}"/>
         <Grid Grid.Row="1" Margin="4">
-            <Button x:Name="executeButton" Content="Execute" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Margin="0,6,80,6"/>
-            <Button x:Name="clearButton" Content="Clear" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75"/>
+            <Button x:Name="ExecuteButton" Content="Execute" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Margin="0,6,80,6"/>
+            <Button x:Name="ClearButton" Content="Clear" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75"/>
+            <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" VerticalAlignment="Center" Width="75" Margin="0,6,80,6"/>
         </Grid>
 
 
