@@ -7,8 +7,7 @@ using System.Windows.Input;
 
 namespace VisualQueryApplication
 {
-    [Serializable]
-    public class RelayCommand : ICommand
+    public sealed class RelayCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
@@ -50,7 +49,7 @@ namespace VisualQueryApplication
             this.action = action;
         }
 
-        public virtual void DoExecute(object param)
+        public void DoExecute(object param)
         {
             CancelCommandEventArgs args = new CancelCommandEventArgs() { Parameter = param, Cancel = false };
             InvokeExecuting(args);
@@ -63,7 +62,7 @@ namespace VisualQueryApplication
             InvokeExecuted(new CommandEventArgs() { Parameter = param });
         }
 
-        protected void InvokeAction(object param)
+        private void InvokeAction(object param)
         {
             if (action != null)
                 action();
@@ -71,13 +70,13 @@ namespace VisualQueryApplication
                 parameterisedAction(param);
         }
 
-        protected void InvokeExecuted(CommandEventArgs args)
+        private void InvokeExecuted(CommandEventArgs args)
         {
             if (Executed != null)
                 Executed(this, args);
         }
 
-        protected void InvokeExecuting(CancelCommandEventArgs args)
+        private void InvokeExecuting(CancelCommandEventArgs args)
         {
             if (Executing != null)
                 Executing(this, args);

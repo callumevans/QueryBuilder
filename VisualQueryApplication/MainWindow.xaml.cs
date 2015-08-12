@@ -94,5 +94,10 @@ namespace VisualQueryApplication
 
             queryViewWindow.Show();
         }
+
+        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

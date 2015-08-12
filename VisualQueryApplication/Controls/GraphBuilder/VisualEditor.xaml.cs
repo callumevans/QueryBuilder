@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -55,6 +57,9 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
         private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
         {
+            if (IsCreatingConnection)
+                return;
+
             Thumb thumb = (Thumb)sender;
 
             var node = (VisualGraphComponentViewModel)thumb.DataContext;
@@ -85,6 +90,8 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                 {
                     executionOutput.Pin.ParentMoved();
                 }
+
+                return;
             }
 
             VisualConstantNodeViewModel constantNode = node as VisualConstantNodeViewModel;
@@ -92,6 +99,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             if (constantNode != null)
             {
                 constantNode.OutputPin.Pin.ParentMoved();
+                return;
             }
         }
 

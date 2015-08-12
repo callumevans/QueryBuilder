@@ -22,6 +22,14 @@ namespace VisualQueryApplication.ViewModels
 
         public QueryState ActiveQueryState { get; set; } = new QueryState();
 
+        public List<Type> LoadedNodeTypes
+        {
+            get
+            {
+                return loadedNodeTypes;
+            }
+        } 
+
         /// <summary>
         /// List of nodes that are loaded in the system
         /// </summary>
