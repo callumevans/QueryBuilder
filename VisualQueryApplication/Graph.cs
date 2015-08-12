@@ -10,16 +10,20 @@ using Graph;
 using VisualQueryApplication.ViewModels;
 using Boolean = System.Boolean;
 using System.Reflection;
+using System.Threading;
+using System.Windows.Threading;
 
-namespace VisualQueryApplication.Controls.GraphBuilder
+namespace VisualQueryApplication
 {
     public static class Graph
     {
+        public async static Task<NodeGraphManager> BuildGraphAsync(GraphEditorViewModel graph)
+        {
+            return await Task.Run(() => BuildGraph(graph));
+        }
+
         public static NodeGraphManager BuildGraph(GraphEditorViewModel graph)
         {
-            // Find the start node
-            VisualNodeViewModel startNode;
-
             List<VisualNodeViewModel> visualExecutionNodes = new List<VisualNodeViewModel>();
 
             foreach (var graphComponent in graph.VisualNodes)
@@ -29,20 +33,6 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                 {
                     visualExecutionNodes.Add(visualNode);
                 }
-            }
-
-            // Check each executable node's input pin
-            foreach (var node in visualExecutionNodes)
-            {
-                // If the input pin has no connections then we can use it as our start point
-                if (GetPinConnections(
-                    node.ExecutionInputs[0].Pin.DataContext as NodePinViewModel, graph).Count == 0)
-                {
-                    startNode = node;
-                    break;
-                }
-
-                // TODO: Make sure only one node has an execution input with no connections
             }
 
             // Begin to build our graph
@@ -73,10 +63,10 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                 {
                     foreach (var functionNode in functionNodes)
                     {
-                        if (functionNode.Key.Inputs.Contains(connection.InputPin.DataContext))
+                        if (functionNode.Key.Inputs.Contains(connection.InputPin))
                         {
                             // Get pin index
-                            int pindex = ((NodePinViewModel)connection.InputPin.DataContext).Index;
+                            int pindex = ((NodePinViewModel)connection.InputPin).Index;
 
                             IDataTypeContainer valueToSet;
 
@@ -95,7 +85,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                             }
 
                             OutputPin pinConnection = new OutputPin(
-                                ((NodePinViewModel)connection.InputPin.DataContext).DataType, null)
+                                ((NodePinViewModel)connection.InputPin).DataType, null)
                             { OutputValue = valueToSet, OutputRealised = true };
 
 
@@ -120,9 +110,9 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                         // Wire up non-execution pins
                         foreach (var targetFunctionNode in functionNodes)
                         {
-                            if (targetFunctionNode.Key.Inputs.Contains(connection.InputPin.DataContext))
+                            if (targetFunctionNode.Key.Inputs.Contains(connection.InputPin))
                             {
-                                int pindex = ((NodePinViewModel)connection.InputPin.DataContext).Index;
+                                int pindex = ((NodePinViewModel)connection.InputPin).Index;
 
                                 graphManager.AddConnection(
                                     functionNodes[functionNode.Key].NodeOutputs[outputPindex],
@@ -141,9 +131,9 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                     {
                         foreach (var targetFunctionNode in functionNodes)
                         {
-                            if (targetFunctionNode.Key.ExecutionInputs.Contains(connection.InputPin.DataContext))
+                            if (targetFunctionNode.Key.ExecutionInputs.Contains(connection.InputPin))
                             {
-                                int pindex = ((NodePinViewModel)connection.OutputPin.DataContext).Index;
+                                int pindex = ((NodePinViewModel)connection.OutputPin).Index;
                                 graphManager.AddConnection(functionNode.Value, pindex, targetFunctionNode.Value);
                             }
                         }
@@ -162,8 +152,8 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
             foreach (var connection in graph.Connections)
             {
-                NodePinViewModel inputPin = (NodePinViewModel)connection.InputPin.DataContext;
-                NodePinViewModel outputPin = (NodePinViewModel)connection.OutputPin.DataContext;
+                NodePinViewModel inputPin = connection.InputPin;
+                NodePinViewModel outputPin = connection.OutputPin;
 
                 if (pin == inputPin || pin == outputPin)
                 {

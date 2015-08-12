@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +20,6 @@ using Common;
 using Graph;
 using VisualQueryApplication.Controls.GraphBuilder;
 using VisualQueryApplication.ViewModels;
-using Graph = VisualQueryApplication.Controls.GraphBuilder.Graph;
 
 namespace VisualQueryApplication
 {
@@ -64,11 +64,7 @@ namespace VisualQueryApplication
         private async void BuildQuery_Click(object sender, RoutedEventArgs e)
         {
             NodeGraphManager builtGraph = new NodeGraphManager();
-
-            Dispatcher.Invoke(() =>
-            {
-                builtGraph = VisualEditor.ConstructGraph();
-            });
+            builtGraph = await Graph.BuildGraphAsync(VisualEditor.DataContext as GraphEditorViewModel);
 
             ((MainWindowViewModel)this.DataContext).ActiveQueryState = builtGraph.QueryState;
         }

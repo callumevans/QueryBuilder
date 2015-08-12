@@ -163,7 +163,7 @@ namespace VisualQueryApplication.ViewModels
 
             foreach (var connection in editor.Connections)
             {
-                if (pins.Contains(connection.InputPin) || (pins.Contains(connection.OutputPin)))
+                if (pins.Contains(connection.InputPinControl) || (pins.Contains(connection.OutputPinControl)))
                 {
                     connectionsToRemove.Add(connection);
                 }

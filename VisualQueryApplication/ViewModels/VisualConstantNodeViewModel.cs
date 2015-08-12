@@ -37,7 +37,7 @@ namespace VisualQueryApplication.ViewModels
 
             foreach (var connection in editor.Connections)
             {
-                if (connection.OutputPin == this.OutputPin.Pin)
+                if (connection.OutputPinControl == this.OutputPin.Pin)
                 {
                     connectionsToRemove.Add(connection);
                 }

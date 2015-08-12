@@ -36,17 +36,17 @@
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:ConnectionViewModel}">
-            <Path Stroke="Black" StrokeThickness="2">
+            <Path Stroke="Black" StrokeThickness="2" IsHitTestVisible="False">
                 <Path.Data>
                     <PathGeometry>
                         <PathGeometry.Figures>
-                            <PathFigure StartPoint="{Binding OutputPin.Centre}">
+                            <PathFigure StartPoint="{Binding OutputPinControl.Centre}">
                                 <PathFigure.Segments>
                                     <PathSegmentCollection>
                                         <BezierSegment
                                             Point1="{Binding CurvePoint1}"
                                             Point2="{Binding CurvePoint2}"
-                                            Point3="{Binding InputPin.Centre}"></BezierSegment>
+                                            Point3="{Binding InputPinControl.Centre}"></BezierSegment>
                                     </PathSegmentCollection>
                                 </PathFigure.Segments>
                             </PathFigure>
