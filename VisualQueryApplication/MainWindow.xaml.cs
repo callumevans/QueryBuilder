@@ -63,10 +63,14 @@ namespace VisualQueryApplication
 
         private async void BuildQuery_Click(object sender, RoutedEventArgs e)
         {
+            BuildButton.IsEnabled = false;
+
             NodeGraphManager builtGraph = new NodeGraphManager();
             builtGraph = await Graph.BuildGraphAsync(VisualEditor.DataContext as GraphEditorViewModel);
 
             ((MainWindowViewModel)this.DataContext).ActiveQueryState = builtGraph.QueryState;
+
+            BuildButton.IsEnabled = true;
         }
 
         private void ViewQuery_Click(object sender, RoutedEventArgs e)
