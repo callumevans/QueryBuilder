@@ -24,7 +24,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition Height="769*" />
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
 
         <Fluent:Ribbon Grid.ColumnSpan="2" VerticalAlignment="Stretch">
@@ -127,8 +128,30 @@
         <ListBox x:Name="LoadedNodesList" Grid.Row="1" Grid.Column="0" ItemsSource="{Binding LoadedNodes}" MouseDoubleClick="LoadedNodesList_MouseDoubleClick" />
 
         <GraphBuilder:VisualEditor x:Name="VisualEditor" Grid.Column="1" Grid.Row="1"/>
-        <GridSplitter x:Name="gridSplitter" HorizontalAlignment="Left" Height="100" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" Width="5" Margin="0,338,0,337"/>
         <Border Grid.Row="1" Grid.Column="0" Background="Black" Width="1" HorizontalAlignment="Right" />
+        
+        <Fluent:StatusBar Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Height="25">
+            <Fluent:StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="200" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </Fluent:StatusBar.ItemsPanel>
+
+            <Fluent:StatusBarItem Grid.Column="0" Margin="0" HorizontalAlignment="Left">
+                <TextBlock Text="{Binding CurrentProcessIndicator}" Foreground="White" />
+            </Fluent:StatusBarItem>
+            <Fluent:StatusBarItem Grid.Column="1" Margin="0,4,1,4">
+                <ProgressBar Visibility="{Binding IsBuilding}" Minimum="0" Maximum="100" Value="50" Height="15" />
+            </Fluent:StatusBarItem>
+        </Fluent:StatusBar>
     </Grid>
 
 </Fluent:RibbonWindow>

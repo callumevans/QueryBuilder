@@ -79,6 +79,10 @@ namespace VisualQueryApplication
                             {
                                 valueToSet = new DataTypes.Boolean(Boolean.Parse(constantNode.Value));
                             }
+                            else if (constantNode.OutputPin.DataType == typeof (DataTypes.String))
+                            {
+                                valueToSet = new DataTypes.String(constantNode.Value);
+                            } 
                             else
                             {
                                 throw new Exception("Data type could not be determined.");

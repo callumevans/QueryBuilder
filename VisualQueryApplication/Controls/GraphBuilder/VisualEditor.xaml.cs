@@ -127,8 +127,8 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                     GraphEditorViewModel viewModel = (GraphEditorViewModel)this.DataContext;
                     VisualConstantNodeViewModel autoConstantNode = new VisualConstantNodeViewModel(connectionRootPin.DataType)
                     {
-                        X = e.GetPosition(this).X,
-                        Y = e.GetPosition(this).Y
+                        X = viewModel.MousePoint.X,
+                        Y = viewModel.MousePoint.Y
                     };
 
                     viewModel.VisualNodes.Add(autoConstantNode);
@@ -155,7 +155,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                 return;
 
             var connectionLine = ((ConnectionBuilderViewModel)NewConnectionLine.DataContext);
-            connectionLine.MousePosition = new Point(e.GetPosition(this).X, e.GetPosition(this).Y);
+            connectionLine.MousePosition = ((GraphEditorViewModel)this.DataContext).MousePoint;
         }
 
         private void VisualEditor_OnKeyDown(object sender, KeyEventArgs e)

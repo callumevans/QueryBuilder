@@ -22,6 +22,30 @@ namespace VisualQueryApplication.ViewModels
 
         public QueryState ActiveQueryState { get; set; } = new QueryState();
 
+        public bool IsBuilding
+        {
+            get { return isBuilding; }
+            set
+            {
+                isBuilding = value;
+                OnPropertyChanged(nameof(IsBuilding));
+            }
+        }
+
+        private bool isBuilding;
+
+        public string CurrentProcessIndicator
+        {
+            get { return currentProcessIndicator; }
+            set
+            {
+                currentProcessIndicator = value;
+                OnPropertyChanged(nameof(CurrentProcessIndicator));
+            }
+        }
+
+        private string currentProcessIndicator = "";
+
         public List<Type> LoadedNodeTypes
         {
             get

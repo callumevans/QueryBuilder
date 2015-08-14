@@ -10,20 +10,21 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using DataTypes;
+using VisualQueryApplication.Controls.GraphBuilder;
 
 namespace VisualQueryApplication.ViewModels
 {
     public class GraphEditorViewModel : ViewModelBase
     {
-        private readonly UserControl graphControl;
+        private readonly VisualEditor graphControl;
 
         public Point MousePoint
         {
             get
             {
                 return new Point(
-                    Mouse.GetPosition(graphControl).X,
-                    Mouse.GetPosition(graphControl).Y);
+                    Mouse.GetPosition(graphControl).X + graphControl.pannerScroller.HorizontalOffset,
+                    Mouse.GetPosition(graphControl).Y + graphControl.pannerScroller.VerticalOffset);
             }
         }
 
@@ -75,7 +76,7 @@ namespace VisualQueryApplication.ViewModels
 
         private ICommand addConstantCommand;
 
-        public GraphEditorViewModel(UserControl graphControl)
+        public GraphEditorViewModel(VisualEditor graphControl)
         {
             this.graphControl = graphControl;
 
