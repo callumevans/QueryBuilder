@@ -9,6 +9,7 @@ using DataTypes;
 namespace Nodes
 {
     [NodeName("Less Than")]
+    [NodeCategory("Maths")]
     public class LessThan : NodeBase
     {
         [ExposedInput]

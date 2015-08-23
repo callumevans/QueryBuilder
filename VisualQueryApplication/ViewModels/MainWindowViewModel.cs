@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using Microsoft.Win32;
@@ -17,69 +18,10 @@ namespace VisualQueryApplication.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private List<Type> loadedNodeTypes = new List<Type>();
-        private readonly GraphEditorViewModel graphViewModel;
-
+        public List<Type> LoadedNodes { get; private set; } = new List<Type>();
         public QueryState ActiveQueryState { get; set; } = new QueryState();
 
-        public bool IsBuilding
-        {
-            get { return isBuilding; }
-            set
-            {
-                isBuilding = value;
-                OnPropertyChanged(nameof(IsBuilding));
-            }
-        }
-
-        private bool isBuilding;
-
-        public string CurrentProcessIndicator
-        {
-            get { return currentProcessIndicator; }
-            set
-            {
-                currentProcessIndicator = value;
-                OnPropertyChanged(nameof(CurrentProcessIndicator));
-            }
-        }
-
-        private string currentProcessIndicator = "";
-
-        public List<Type> LoadedNodeTypes
-        {
-            get
-            {
-                return loadedNodeTypes;
-            }
-        } 
-
-        /// <summary>
-        /// List of nodes that are loaded in the system
-        /// </summary>
-        public ObservableCollection<string> LoadedNodes
-        {
-            get { return loadedNodes; }
-            private set
-            {
-                loadedNodes = value;
-                OnPropertyChanged(nameof(LoadedNodes));
-            }
-        }
-
-        private ObservableCollection<string> loadedNodes = new ObservableCollection<string>();
-
-        public ICommand LoadNodesCommand
-        {
-            get { return loadNodesCommand; }
-            set
-            {
-                loadNodesCommand = value;
-                OnPropertyChanged(nameof(LoadNodesCommand));
-            }
-        }
-
-        private ICommand loadNodesCommand;
+        private GraphEditorViewModel graphViewModel;
 
         public ICommand InsertNodeCommand
         {
@@ -129,38 +71,16 @@ namespace VisualQueryApplication.ViewModels
 
         private ICommand loadQueryCommand;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(GraphEditorViewModel graphViewModel)
         {
-            LoadNodesCommand = new RelayCommand(LoadNodes) { CanExecute = true };
+            this.graphViewModel = graphViewModel;
+
             InsertNodeCommand = new RelayCommand(InsertNode) { CanExecute = true };
             LoadDatabaseCommand = new RelayCommand(LoadDatabaseFile) { CanExecute = true };
             SaveQueryCommand = new RelayCommand(SaveQuery) { CanExecute = true };
             LoadQueryCommand = new RelayCommand(LoadQuery) { CanExecute = true };
-        }
 
-        public MainWindowViewModel(GraphEditorViewModel graphViewModel = null)
-        {
-            this.graphViewModel = graphViewModel;
-
-            LoadNodesCommand = new RelayCommand(LoadNodes) { CanExecute = true };
-            InsertNodeCommand = new RelayCommand(InsertNode) { CanExecute = true };
-            LoadDatabaseCommand = new RelayCommand(LoadDatabaseFile) { CanExecute = true };
-        }
-
-        private void InsertNode(object selectedIndex)
-        {
-            if ((int)selectedIndex == -1)
-                return;
-
-            Type nodeToLoad = loadedNodeTypes[(int)selectedIndex];
-            graphViewModel.VisualNodes.Add(new VisualNodeViewModel(nodeToLoad));
-        }
-
-        private void LoadNodes()
-        {
-            this.loadedNodeTypes.Clear();
-            this.LoadedNodes.Clear();
-
+            // Load in usable nodes
             string[] dllFile = Directory.GetFiles(App.PluginFolderPath, "*.dll");
             List<Assembly> assemblies = new List<Assembly>(dllFile.Length);
 
@@ -176,8 +96,8 @@ namespace VisualQueryApplication.ViewModels
                     {
                         if (type.IsSubclassOf(typeof(NodeBase)))
                         {
-                            loadedNodeTypes.Add(type);
-                            LoadedNodes.Add(GetNodeTypeName(type));
+                            // Get unique name
+                            LoadedNodes.Add(type);
                         }
                     }
                 }
@@ -186,6 +106,14 @@ namespace VisualQueryApplication.ViewModels
                     MessageBox.Show("Error loading nodes.");
                 }
             }
+        }
+
+        private void InsertNode(object type)
+        {
+            Type nodeType = type as Type;
+
+            if (type != null)
+                graphViewModel.VisualNodes.Add(new VisualNodeViewModel(nodeType));
         }
 
         private void SaveQuery()

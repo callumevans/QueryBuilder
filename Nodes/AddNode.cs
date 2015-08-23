@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace Nodes
 {
     [NodeName("Add")]
+    [NodeCategory("Maths")]
     public class AddNode : NodeBase
     {
         [ExposedInput]
