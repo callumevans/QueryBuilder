@@ -48,10 +48,10 @@ namespace VisualQueryApplication.ViewModels
             get { return new Point(InputPinControl.Centre.X - 60, InputPinControl.Centre.Y); }
         }
 
-        public ConnectionViewModel(NodePin _outputPinControl, NodePin _inputPinControl)
+        public ConnectionViewModel(NodePin outputPinControl, NodePin inputPinControl)
         {
-            this.OutputPinControl = _outputPinControl;
-            this.InputPinControl = _inputPinControl;
+            this.OutputPinControl = outputPinControl;
+            this.InputPinControl = inputPinControl;
 
             OutputPinControl.PropertyChanged += PinOnPropertyChanged;
             InputPinControl.PropertyChanged += PinOnPropertyChanged;

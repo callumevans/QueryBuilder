@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConversionRule.cs" />
     <Compile Include="ExecutableNode.cs" />
     <Compile Include="ExecutionOutDescription.cs" />
     <Compile Include="ExposedInput.cs" />

@@ -54,16 +54,16 @@ namespace VisualQueryApplication
                 NodeName nameAttribute = (NodeName)node.GetCustomAttribute(typeof(NodeName));
 
                 if (categoryAttribute != null)
-                    nodeTreeItems.Add(new TreeViewItem() { Header = nameAttribute.Name, Tag = node }, categoryAttribute.Category);
+                    nodeTreeItems.Add(new TreeViewItem() { Header = nameAttribute.Name, Tag = node, FontWeight = FontWeights.Normal }, categoryAttribute.Category);
                 else
-                    nodeTreeItems.Add(new TreeViewItem() { Header = nameAttribute.Name, Tag = node }, "Uncategorised");
+                    nodeTreeItems.Add(new TreeViewItem() { Header = nameAttribute.Name, Tag = node, FontWeight = FontWeights.Normal }, "Uncategorised");
             }
 
             // Extract categories
             foreach (var node in nodeTreeItems)
             {
                 if (!rootCategories.ContainsKey(node.Value))
-                    rootCategories.Add(node.Value, new TreeViewItem() { Header = node.Value });
+                    rootCategories.Add(node.Value, new TreeViewItem() { Header = node.Value, FontWeight = FontWeights.Bold, IsExpanded = true });
             }
 
             // Display categories
@@ -98,7 +98,7 @@ namespace VisualQueryApplication
         {
             var selectedItem = SelectableNodesTree.SelectedItem as TreeViewItem;
 
-            if (selectedItem.Tag != null)
+            if (selectedItem != null && selectedItem.Tag != null)
                 ((MainWindowViewModel)DataContext).InsertNodeCommand.Execute(selectedItem.Tag);
         }
 

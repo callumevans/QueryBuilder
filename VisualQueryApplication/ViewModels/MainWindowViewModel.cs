@@ -98,6 +98,14 @@ namespace VisualQueryApplication.ViewModels
                         {
                             // Get unique name
                             LoadedNodes.Add(type);
+
+                            // If this is a conversion node tell our graph about it
+                            ConversionRule conversionRule = type.GetCustomAttribute(typeof(ConversionRule)) as ConversionRule;
+
+                            if (conversionRule != null)
+                            {
+                                graphViewModel.AddConversionRule(conversionRule.InputType, conversionRule.OutputType, type);
+                            }
                         }
                     }
                 }

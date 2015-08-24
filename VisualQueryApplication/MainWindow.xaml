@@ -119,10 +119,9 @@
 
 
         </Fluent:Ribbon>
-        
-        <TreeView x:Name="SelectableNodesTree" Grid.Column="0" Grid.Row="1" MouseDoubleClick="LoadedNodesList_MouseDoubleClick" />
 
-        <GraphBuilder:VisualEditor x:Name="VisualEditor" Grid.Column="1" Grid.Row="1"/>
+        <TreeView x:Name="SelectableNodesTree" Grid.Column="0" Grid.Row="1" MouseDoubleClick="LoadedNodesList_MouseDoubleClick" />
+            <GraphBuilder:VisualEditor x:Name="VisualEditor" Grid.Column="1" Grid.Row="1"/>
         <Border Grid.Row="1" Grid.Column="0" Background="Black" Width="1" HorizontalAlignment="Right" />
 
     </Grid>

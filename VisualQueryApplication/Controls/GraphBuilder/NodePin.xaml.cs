@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using VisualQueryApplication.ViewModels;
 
 namespace VisualQueryApplication.Controls.GraphBuilder
@@ -31,6 +32,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
         {
             get
             {
+
                 Point centre = this.TransformToAncestor(
                     ((MainWindow)App.Current.MainWindow).VisualEditor.ContentArea)
                     .Transform(new Point(this.Width / 2, this.Height / 2));
@@ -105,13 +107,68 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                 GraphEditorViewModel graph = ((GraphEditorViewModel)visualEditor.DataContext);
                 ConnectionBuilderViewModel connectionBuilder = ((ConnectionBuilderViewModel)visualEditor.NewConnectionLine.DataContext);
 
+                NodePinViewModel rootPin = (NodePinViewModel)connectionBuilder.OutputPin.DataContext;
+                NodePinViewModel targetPin = (NodePinViewModel)this.DataContext;
+
                 // Validate the output and input pins
                 // Reverse them if needed
                 // TODO: More extensive validation. ie. Check for output -> output or input -> input connections.
-                if (((NodePinViewModel)connectionBuilder.OutputPin.DataContext).IsOutputPin == false)
-                    graph.Connections.Add(new ConnectionViewModel(this, connectionBuilder.OutputPin));
+
+                // Ensure datatypes are the same between pins
+                if (rootPin.DataType != targetPin.DataType)
+                {
+                    // If the data types do not match try and add in an auto-conversion
+                    foreach (var rule in graph.ConversionRules)
+                    {
+                        if (rule.Item1 == rootPin.DataType && rule.Item2 == targetPin.DataType)
+                        {
+                            // Conversion rule found!
+                            // Add the conversion node at the midpoint between pins
+                            Point rootPoint = rootPin.Pin.Centre;
+                            Point targetPoint = targetPin.Pin.Centre;
+
+                            Point midPoint = new Point(
+                                ((rootPoint.X + targetPoint.X) / 2),
+                                 (rootPoint.Y + targetPoint.Y) / 2);
+
+                            VisualNodeViewModel conversionNode = new VisualNodeViewModel(rule.Item3)
+                            {
+                                X = midPoint.X,
+                                Y = midPoint.Y
+                            };
+
+                            graph.VisualNodes.Add(conversionNode);
+
+                            // Generate the conversion node's view so we can access its pins
+                            Dispatcher.Invoke(new Action(() => { }), DispatcherPriority.ContextIdle, null);
+
+                            // Add the new connections, but ensure it is an OutputPin -> InputPin connection
+                            // Otherwise, we need to correct for that here
+                            if (((NodePinViewModel)connectionBuilder.OutputPin.DataContext).IsOutputPin == false)
+                            {
+                                // Connections need flipping
+                                graph.Connections.Add(new ConnectionViewModel(targetPin.Pin, conversionNode.Inputs[0].Pin));
+                                graph.Connections.Add(new ConnectionViewModel(conversionNode.Outputs[0].Pin, rootPin.Pin));
+                            }
+                            else
+                            {
+                                // Connection is correct
+                                graph.Connections.Add(new ConnectionViewModel(rootPin.Pin, conversionNode.Inputs[0].Pin));
+                                graph.Connections.Add(new ConnectionViewModel(conversionNode.Outputs[0].Pin, targetPin.Pin));
+                            }
+
+                        }
+                    }
+                }
+                // If datatypes are the same, we can just create a connection between the pins
+                // Make sure the connection is added in an OutputPin -> InputPin order
                 else
-                    graph.Connections.Add(new ConnectionViewModel(connectionBuilder.OutputPin, this));
+                {
+                    if (((NodePinViewModel)connectionBuilder.OutputPin.DataContext).IsOutputPin == false)
+                        graph.Connections.Add(new ConnectionViewModel(this, connectionBuilder.OutputPin));
+                    else
+                        graph.Connections.Add(new ConnectionViewModel(connectionBuilder.OutputPin, this));
+                }
 
                 visualEditor.IsCreatingConnection = false;
             }
@@ -119,11 +176,11 @@ namespace VisualQueryApplication.Controls.GraphBuilder
             {
                 // We need to initialise the 'create a connection' mode
                 visualEditor.IsCreatingConnection = true;
+
+                // And set the root pin
+                ConnectionBuilderViewModel newConnection = ((ConnectionBuilderViewModel)visualEditor.NewConnectionLine.DataContext);
+                newConnection.OutputPin = this;
             }
-
-            ConnectionBuilderViewModel newConnection = ((ConnectionBuilderViewModel)visualEditor.NewConnectionLine.DataContext);
-
-            newConnection.OutputPin = this;
         }
     }
 }

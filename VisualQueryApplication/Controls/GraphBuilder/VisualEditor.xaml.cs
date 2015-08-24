@@ -115,13 +115,14 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
         private void Editor_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // If we are creating a connection, check if we are clicking from an input pin
-            // If we are, then try and automatically add a constant input into the node
+            // If we are creating a connection...
             if (IsCreatingConnection)
             {
                 ConnectionBuilderViewModel connectionBuilder = (ConnectionBuilderViewModel)NewConnectionLine.DataContext;
                 NodePinViewModel connectionRootPin = (NodePinViewModel)connectionBuilder.OutputPin.DataContext;
 
+                // Check if we are clicking from an input pin
+                // If we are, try to automatically place a constant node connecting to the input pin
                 if (connectionRootPin.IsOutputPin == false && connectionRootPin.IsExecutionPin == false)
                 {
                     GraphEditorViewModel viewModel = (GraphEditorViewModel)this.DataContext;
@@ -133,7 +134,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
                     viewModel.VisualNodes.Add(autoConstantNode);
 
-                    // Bit hacky. Generates the view for the NodePin in the constant node before we add it
+                    // Generates the view for the NodePin in the constant node before we add it
                     Dispatcher.Invoke(new Action(() => { }), DispatcherPriority.ContextIdle, null);
 
                     viewModel.Connections.Add(new ConnectionViewModel(autoConstantNode.OutputPin.Pin, connectionRootPin.Pin));
@@ -143,6 +144,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
                 return;
             }
 
+            // If we aren't creating a connection just deselect any nodes
             foreach (VisualGraphComponentViewModel node in ((GraphEditorViewModel)DataContext).VisualNodes)
             {
                 node.IsSelected = false;
@@ -172,6 +174,14 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
                     ((GraphEditorViewModel)DataContext).DeleteSelectedNodesCommand.Execute(null);
                     break;
+            }
+        }
+
+        private void VisualEditor_OnLostFocus(object sender, RoutedEventArgs e)
+        {
+            foreach (var node in ((GraphEditorViewModel)DataContext).VisualNodes)
+            {
+                node.IsSelected = false;
             }
         }
     }

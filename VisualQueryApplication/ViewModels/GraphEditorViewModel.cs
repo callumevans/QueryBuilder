@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Common;
 using DataTypes;
 using VisualQueryApplication.Controls.GraphBuilder;
 
@@ -17,6 +18,16 @@ namespace VisualQueryApplication.ViewModels
     public class GraphEditorViewModel : ViewModelBase
     {
         private readonly VisualEditor graphControl;
+
+        public List<Tuple<Type, Type, Type>> ConversionRules
+        {
+            get
+            {
+                return new List<Tuple<Type, Type, Type>>(conversionRules);
+            }
+        }
+
+        private List<Tuple<Type, Type, Type>> conversionRules = new List<Tuple<Type, Type, Type>>();
 
         public Point MousePoint
         {
@@ -82,6 +93,17 @@ namespace VisualQueryApplication.ViewModels
 
             DeleteSelectedNodesCommand = new RelayCommand(DeleteSelectedNodes) { CanExecute = true };
             AddConstantCommand = new RelayCommand(AddConstant) { CanExecute = true };
+        }
+
+        public void AddConversionRule(Type input, Type output, Type node)
+        {
+            // Input and output must be IDataTypes, node must be a NodeBase type
+            if (typeof(IDataTypeContainer).IsAssignableFrom(input)  &&
+                typeof(IDataTypeContainer).IsAssignableFrom(output) &&
+                node.IsSubclassOf(typeof(NodeBase)))
+            {
+                conversionRules.Add(new Tuple<Type, Type, Type>(input, output, node));
+            }
         }
 
         public int FindMaxZIndex()

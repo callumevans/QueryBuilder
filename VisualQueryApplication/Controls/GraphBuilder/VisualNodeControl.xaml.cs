@@ -31,7 +31,7 @@ namespace VisualQueryApplication.Controls.GraphBuilder
 
         private void VisualNodeBoxControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            VisualGraphComponentViewModel viewModel = ((VisualGraphComponentViewModel) this.DataContext);
+            VisualGraphComponentViewModel viewModel = ((VisualGraphComponentViewModel)this.DataContext);
             viewModel.ClickedCommand.Execute(null);
         }
     }

@@ -11,6 +11,8 @@
              mc:Ignorable="d" 
              MouseMove="VisualEditor_OnMouseMove"
              KeyDown="VisualEditor_OnKeyDown"
+             LostFocus="VisualEditor_OnLostFocus"
+             LostKeyboardFocus="VisualEditor_OnLostFocus"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>

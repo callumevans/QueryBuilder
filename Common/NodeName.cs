@@ -10,10 +10,12 @@ namespace Common
     public class NodeName : Attribute
     {
         public string Name { get; private set; }
+        public bool IsHidden { get; private set; }
 
-        public NodeName(string name)
+        public NodeName(string name, bool hidden = false)
         {
             Name = name;
+            IsHidden = hidden;
         }
     }
 }

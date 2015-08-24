@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using Fluent;
 using VisualQueryApplication.Controls.GraphBuilder;
 
@@ -25,7 +26,11 @@ namespace VisualQueryApplication.ViewModels
             get
             {
                 Attribute titleAttribute = NodeType.GetCustomAttribute(typeof(NodeName));
-                return ((NodeName)titleAttribute).Name;
+
+                if (((NodeName)titleAttribute).IsHidden)
+                    return "";
+                else
+                    return ((NodeName)titleAttribute).Name;
             }
         }
 
@@ -81,7 +86,7 @@ namespace VisualQueryApplication.ViewModels
             }
         }
 
-        private ObservableCollection<NodePinViewModel> executionOutputs = new ObservableCollection<NodePinViewModel>(); 
+        private ObservableCollection<NodePinViewModel> executionOutputs = new ObservableCollection<NodePinViewModel>();
 
         public VisualNodeViewModel(Type nodeType)
         {
@@ -146,7 +151,6 @@ namespace VisualQueryApplication.ViewModels
                     }
                 }
             }
-
         }
 
         public override void RemoveConnections()
