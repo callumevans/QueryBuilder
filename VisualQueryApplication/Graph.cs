@@ -71,9 +71,9 @@ namespace VisualQueryApplication
                             IDataTypeContainer valueToSet;
 
                             // Get value to set
-                            if (constantNode.OutputPin.DataType == typeof(DataTypes.Integer))
+                            if (constantNode.OutputPin.DataType == typeof(DataTypes.Numeric))
                             {
-                                valueToSet = new DataTypes.Integer(Int32.Parse(constantNode.Value));
+                                valueToSet = new DataTypes.Numeric(Int32.Parse(constantNode.Value));
                             }
                             else if (constantNode.OutputPin.DataType == typeof(DataTypes.Boolean))
                             {
@@ -170,13 +170,51 @@ namespace VisualQueryApplication
 
         public static string BuildQuery(QueryState state)
         {
-            foreach (var variable in state.VariableBag)
+            string outString = "";
+
+            // Select
+            if (state.VariableBag.ContainsKey("SelectFields"))
             {
-                if (variable.Key == "Print Function")
-                    return variable.Value.ToString();
+                object fields;
+                state.VariableBag.TryGetValue("SelectFields", out fields);
+
+                List<string> selectFields = (List<string>)fields;
+
+                outString = "SELECT ";
+
+                for (int i = 0; i < selectFields.Count; i++)
+                {
+                    // Don't add comma
+                    if (i == selectFields.Count - 1)
+                        outString += selectFields[i];
+                    else
+                        outString += selectFields[i] + ",";
+                }
             }
 
-            return "NULL";
+            // From
+            if (state.VariableBag.ContainsKey("FromTable"))
+            {
+                outString += "\n FROM " + state.VariableBag["FromTable"];
+            }
+
+            // Where
+            if (state.VariableBag.ContainsKey("WhereFields"))
+            {
+                outString += "\n WHERE ";
+
+                object whereList;
+                state.VariableBag.TryGetValue("WhereFields", out whereList);
+
+                List<Tuple<string, string, string>> castList = (List<Tuple<string, string, string>>)whereList;
+
+                foreach (var whereCondition in castList)
+                {
+                    outString += whereCondition.Item1 + " " + whereCondition.Item2 + " " + whereCondition.Item3 + "\n";
+                }
+            }
+
+            return outString;
         }
     }
 }

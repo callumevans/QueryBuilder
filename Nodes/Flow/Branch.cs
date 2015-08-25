@@ -5,30 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Common;
 
-namespace Nodes
+namespace Nodes.Flow
 {
-    [NodeName("If")]
+    [NodeName("Branch")]
+    [NodeCategory("Flow")]
     [ExecutionOutDescription(0, "True")]
     [ExecutionOutDescription(1, "False")]
-    public class IfLogic : ExecutableNode
+    public class Branch : ExecutableNode
     {
-        [ExposedInput]
-        public DataTypes.Boolean boolValue;
+        [ExposedInput(LabelDisplay.Hidden)]
+        public DataTypes.Boolean condition;
 
-        public IfLogic(QueryState state) : base(state) { }
+        public Branch(QueryState state) : base(state) { }
 
         public override int GetExecutionPath()
         {
-            bool val = Boolean.Parse(boolValue.GetDataAsString());
-
-            if (val)
-            {
+            if (condition.value)
                 return 0;
-            }
             else
-            {
                 return 1;
-            }
         }
 
         public override void NodeFunction()

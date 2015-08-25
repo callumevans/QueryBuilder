@@ -9,6 +9,6 @@ namespace Common
 {
     public abstract class NodeBase
     {
-        public abstract void NodeFunction();
+        public virtual void NodeFunction() { }
     }
 }

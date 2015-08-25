@@ -41,14 +41,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddNode.cs" />
+    <Compile Include="Basic SQL\Select.cs" />
+    <Compile Include="Basic SQL\Where.cs" />
+    <Compile Include="Boolean Logic\And.cs" />
+    <Compile Include="Boolean Logic\Equals.cs" />
+    <Compile Include="Boolean Logic\GreaterThan.cs" />
+    <Compile Include="Boolean Logic\GreaterThanEqualTo.cs" />
+    <Compile Include="Boolean Logic\LessThan.cs" />
+    <Compile Include="Boolean Logic\LessThanEqualTo.cs" />
+    <Compile Include="Boolean Logic\Nand.cs" />
+    <Compile Include="Boolean Logic\Not.cs" />
+    <Compile Include="Boolean Logic\Or.cs" />
+    <Compile Include="Boolean Logic\Xor.cs" />
     <Compile Include="Conversion\BoolToString.cs" />
-    <Compile Include="Conversion\IntegerToString.cs" />
+    <Compile Include="Conversion\NumericToString.cs" />
     <Compile Include="Debug\Print.cs" />
-    <Compile Include="IfLogic.cs" />
-    <Compile Include="LessThan.cs" />
+    <Compile Include="Flow\Branch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SubtractNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -62,6 +71,10 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

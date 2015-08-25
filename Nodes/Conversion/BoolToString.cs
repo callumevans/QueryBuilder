@@ -13,14 +13,14 @@ namespace Nodes.Conversion
     public class BoolToString : NodeBase
     {
         [ExposedInput]
-        public DataTypes.Boolean inputBool;
+        public DataTypes.Boolean input;
 
         [ExposedOutput]
-        public DataTypes.String outputString;
+        public DataTypes.String output;
 
         public override void NodeFunction()
         {
-            outputString = new DataTypes.String(inputBool.GetDataAsString());
+            output = new DataTypes.String(input.GetDataAsString());
         }
     }
 }

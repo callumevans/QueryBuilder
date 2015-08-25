@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace DataTypes
 {
-    public class Integer : IDataTypeContainer
+    public class Numeric : IDataTypeContainer
     {
-        public int value;
+        public double value;
 
-        public Integer()
+        public Numeric()
         {
         }
 
-        public Integer(int val)
+        public Numeric(double val)
         {
             this.value = val;
         }
@@ -26,7 +26,7 @@ namespace DataTypes
 
         public void SetValue(object value)
         {
-            this.value = Convert.ToInt32(value);
+            this.value = Double.Parse(value.ToString());
         }
     }
 }

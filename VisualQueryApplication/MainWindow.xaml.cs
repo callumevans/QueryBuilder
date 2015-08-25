@@ -141,10 +141,10 @@ namespace VisualQueryApplication
 
             var viewModel = ((MainWindowViewModel)this.DataContext);
 
-            if (viewModel.ActiveQueryState.VariableBag.ContainsKey("Print Function"))
+            if (viewModel.ActiveQueryState != null)
             {
                 ((GeneratedQueryViewViewModel) queryViewWindow.DataContext).Query =
-                    viewModel.ActiveQueryState.VariableBag["Print Function"].ToString();
+                    Graph.BuildQuery(viewModel.ActiveQueryState);
             }
 
             queryViewWindow.Show();

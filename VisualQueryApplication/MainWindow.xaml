@@ -29,38 +29,33 @@
             <Fluent:Ribbon.Resources>
                 <SolidColorBrush x:Key="RibbonThemeColorBrush" Color="#5C005C" />
             </Fluent:Ribbon.Resources>
-
-            <Fluent:Ribbon.ContextualGroups>
-                <Fluent:RibbonContextualTabGroup Header="Edit" Visibility="Hidden"
-					x:Name="NodesGroup" Background="Green" BorderBrush="Green" />
-            </Fluent:Ribbon.ContextualGroups>
-
-            <!-- File Menu -->
-            <Fluent:Ribbon.Menu>
-                <Fluent:ApplicationMenu Header="File">
-                    <Fluent:MenuItem Header="Save" Command="{Binding SaveQueryCommand}" />
-                    <Fluent:MenuItem Header="Load" Command="{Binding LoadQueryCommand}" />
-                </Fluent:ApplicationMenu>
-            </Fluent:Ribbon.Menu>
-
+            
             <!-- Tabs -->
 
             <!-- Home -->
             <Fluent:RibbonTabItem Header="Home">
 
-                <!-- Settings -->
-                <Fluent:RibbonGroupBox Header="Settings">
+                <!-- Query Actions -->
+                <Fluent:RibbonGroupBox Header="Query Actions">
                     <Fluent:Button
-						Header="Settings"
-						LargeIcon="Images\Ribbon\icon_settings.png"
-						Icon="Images\Ribbon\icon_settings.png" />
+						x:Name="BuildButton"
+						Header="Build"
+						LargeIcon="Images\Ribbon\icon_build.png"
+						Icon="Images\Ribbon\icon_build.png"
+						Click="BuildQuery_Click"/>
 
                     <Fluent:Button
-						Header="Reload Nodes"
-						SizeDefinition="Middle"
-						LargeIcon="Images\Ribbon\icon_reload.png"
-						Icon="Images\Ribbon\icon_reload.png"
-						Command="{Binding LoadNodesCommand}" />
+						LargeIcon="Images\Ribbon\icon_view_query.png"
+						Icon="Images\Ribbon\icon_view_query.png"
+						Header="View Query"
+						Click="ViewQuery_Click"/>
+
+                    <Fluent:Button 
+						Header="Delete"
+						Click="DeleteButton_Click"
+						LargeIcon="Images\Ribbon\icon_delete.png"
+						Icon="Images\Ribbon\icon_delete.png" />
+
                 </Fluent:RibbonGroupBox>
 
                 <!-- Database Functions -->
@@ -88,35 +83,6 @@
                 </Fluent:RibbonGroupBox>
 
             </Fluent:RibbonTabItem>
-
-            <!-- Query -->
-            <Fluent:RibbonTabItem Header="Query">
-
-                <!-- Query Actions -->
-                <Fluent:RibbonGroupBox Header="Query Actions">
-                    <Fluent:Button
-						x:Name="BuildButton"
-						Header="Build"
-						LargeIcon="Images\Ribbon\icon_build.png"
-						Icon="Images\Ribbon\icon_build.png"
-						Click="BuildQuery_Click"/>
-
-                    <Fluent:Button
-						LargeIcon="Images\Ribbon\icon_view_query.png"
-						Icon="Images\Ribbon\icon_view_query.png"
-						Header="View Query"
-						Click="ViewQuery_Click"/>
-
-                    <Fluent:Button 
-						Header="Delete"
-						Click="DeleteButton_Click"
-						LargeIcon="Images\Ribbon\icon_delete.png"
-						Icon="Images\Ribbon\icon_delete.png" />
-
-                </Fluent:RibbonGroupBox>
-
-            </Fluent:RibbonTabItem>
-
 
         </Fluent:Ribbon>
 

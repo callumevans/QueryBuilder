@@ -8,20 +8,20 @@ using DataTypes;
 
 namespace Nodes.Conversion
 {
-    [NodeName("Integer to String", true)]
+    [NodeName("Numeric to String", true)]
     [NodeCategory("Converters")]
-    [ConversionRule(typeof(DataTypes.Integer), typeof(DataTypes.String))]
-    public class IntegerToString : NodeBase
+    [ConversionRule(typeof(DataTypes.Numeric), typeof(DataTypes.String))]
+    public class NumericToString : NodeBase
     {
         [ExposedInput]
-        public DataTypes.Integer inputInteger;
+        public DataTypes.Numeric input;
 
         [ExposedOutput]
-        public DataTypes.String outputString;
+        public DataTypes.String output;
 
         public override void NodeFunction()
         {
-            outputString = new DataTypes.String(inputInteger.GetDataAsString());
+            output = new DataTypes.String(input.GetDataAsString());
         }
     }
 }

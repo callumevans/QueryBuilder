@@ -77,8 +77,6 @@ namespace VisualQueryApplication.ViewModels
 
             InsertNodeCommand = new RelayCommand(InsertNode) { CanExecute = true };
             LoadDatabaseCommand = new RelayCommand(LoadDatabaseFile) { CanExecute = true };
-            SaveQueryCommand = new RelayCommand(SaveQuery) { CanExecute = true };
-            LoadQueryCommand = new RelayCommand(LoadQuery) { CanExecute = true };
 
             // Load in usable nodes
             string[] dllFile = Directory.GetFiles(App.PluginFolderPath, "*.dll");
@@ -122,48 +120,6 @@ namespace VisualQueryApplication.ViewModels
 
             if (type != null)
                 graphViewModel.VisualNodes.Add(new VisualNodeViewModel(nodeType));
-        }
-
-        private void SaveQuery()
-        {
-            var fileDialog = new System.Windows.Forms.SaveFileDialog();
-
-            if (fileDialog.ShowDialog() == DialogResult.OK)
-            {
-                using (Stream stream = File.Open(fileDialog.FileName, FileMode.Create))
-                {
-                    GraphEditorViewModel graph = ((MainWindow)App.Current.MainWindow).VisualEditor.DataContext as GraphEditorViewModel;
-
-                    var binaryFormatter = new BinaryFormatter();
-                    binaryFormatter.Serialize(stream, graph);
-                }
-            }
-        }
-
-        private void LoadQuery()
-        {
-            var fileDialog = new System.Windows.Forms.OpenFileDialog();
-
-            if (fileDialog.ShowDialog() == DialogResult.OK)
-            {
-                using (Stream stream = File.Open(fileDialog.FileName, FileMode.Open))
-                {
-                    var binaryFormatter = new BinaryFormatter();
-                    var loadedGraph = (GraphEditorViewModel) binaryFormatter.Deserialize(stream);
-
-                    ((MainWindow)App.Current.MainWindow).VisualEditor.DataContext = loadedGraph;
-                }
-            }
-        }
-
-        private string GetNodeTypeName(Type node)
-        {
-            object attribute = node.GetCustomAttribute(typeof(NodeName));
-
-            if (attribute != null)
-                return ((NodeName)attribute).Name;
-
-            return null;
         }
 
         private void LoadDatabaseFile()
