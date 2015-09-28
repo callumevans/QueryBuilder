@@ -31,11 +31,6 @@ namespace VisualQueryApplication
                 Directory.CreateDirectory(PluginFolderPath);
         }
 
-        public static void SetDatabaseFile(string databaseFile)
-        {
-
-        }
-
         public static void NewDatabaseFromQuery(string queryFile)
         {
             currentDatabaseConnection = new SQLiteConnection();
@@ -47,9 +42,7 @@ namespace VisualQueryApplication
             currentDatabaseConnection.ConnectionString = "DataSource=:memory:;version=3;";
             currentDatabaseConnection.Open();
 
-            // TODO: IS ONLY FOR TESTING PURPOSES -- DELETE LATER!
-            sqlCommand.ExecuteNonQuery();
-
+            // Populate dataset
             SQLiteDataAdapter DB = new SQLiteDataAdapter(sqlCommand);
             DataSet ds = new DataSet();
             DB.Fill(ds);

@@ -131,6 +131,11 @@ namespace VisualQueryApplication
                 {
                     List<ConnectionViewModel> connections = GetPinConnections(executionOutput, graph);
 
+                    if (connections.Count == 0)
+                    {
+                        graphManager.AddNode(functionNode.Value);
+                    }
+
                     foreach (var connection in connections)
                     {
                         foreach (var targetFunctionNode in functionNodes)
@@ -168,50 +173,77 @@ namespace VisualQueryApplication
             return pinConnections;
         }
 
+        /// <summary>
+        /// Builds an HTML or SQL query from the query data taken from predefined testing nodes.
+        /// Testing purposes only.
+        /// </summary>
+        /// <param name="state">State object to build from.</param>
+        /// <returns></returns>
         public static string BuildQuery(QueryState state)
         {
             string outString = "";
 
-            // Select
-            if (state.VariableBag.ContainsKey("SelectFields"))
+            // Process as a print statement
+            if (state.VariableBag.ContainsKey("DebugPrint"))
             {
-                object fields;
-                state.VariableBag.TryGetValue("SelectFields", out fields);
+                object debugString;
+                state.VariableBag.TryGetValue("DebugPrint", out debugString);
 
-                List<string> selectFields = (List<string>)fields;
-
-                outString = "SELECT ";
-
-                for (int i = 0; i < selectFields.Count; i++)
-                {
-                    // Don't add comma
-                    if (i == selectFields.Count - 1)
-                        outString += selectFields[i];
-                    else
-                        outString += selectFields[i] + ",";
-                }
+                outString += debugString.ToString();
             }
-
-            // From
-            if (state.VariableBag.ContainsKey("FromTable"))
+            // Process as an SQL statement
+            else if (state.VariableBag.ContainsKey("SelectFields"))
             {
-                outString += "\n FROM " + state.VariableBag["FromTable"];
-            }
-
-            // Where
-            if (state.VariableBag.ContainsKey("WhereFields"))
-            {
-                outString += "\n WHERE ";
-
-                object whereList;
-                state.VariableBag.TryGetValue("WhereFields", out whereList);
-
-                List<Tuple<string, string, string>> castList = (List<Tuple<string, string, string>>)whereList;
-
-                foreach (var whereCondition in castList)
+                // Select
+                if (state.VariableBag.ContainsKey("SelectFields"))
                 {
-                    outString += whereCondition.Item1 + " " + whereCondition.Item2 + " " + whereCondition.Item3 + "\n";
+                    object fields;
+                    state.VariableBag.TryGetValue("SelectFields", out fields);
+
+                    List<string> selectFields = (List<string>) fields;
+
+                    outString = "SELECT ";
+
+                    for (int i = 0; i < selectFields.Count; i++)
+                    {
+                        // Don't add comma
+                        if (i == selectFields.Count - 1)
+                            outString += selectFields[i];
+                        else
+                            outString += selectFields[i] + ",";
+                    }
                 }
+
+                // From
+                if (state.VariableBag.ContainsKey("FromTable"))
+                {
+                    outString += " ";
+                    outString += "FROM " + state.VariableBag["FromTable"];
+                }
+
+                // Where
+                if (state.VariableBag.ContainsKey("WhereFields"))
+                {
+                    outString += " ";
+                    outString += "WHERE ";
+
+                    object whereList;
+                    state.VariableBag.TryGetValue("WhereFields", out whereList);
+
+                    List<Tuple<string, string, string>> castList = (List<Tuple<string, string, string>>) whereList;
+
+                    foreach (var whereCondition in castList)
+                    {
+                        outString += whereCondition.Item1 + " " + whereCondition.Item2 + "\"" + whereCondition.Item3 + "\"";
+                    }
+                }
+
+                outString += ";";
+            }
+            // Process as an HTML statement
+            else if (state.VariableBag.ContainsKey("HTML"))
+            {
+                outString += state.VariableBag["HTML"].ToString();
             }
 
             return outString;

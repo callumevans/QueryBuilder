@@ -61,6 +61,16 @@ namespace Graph
         }
 
         /// <summary>
+        /// Adds a new execution node to the graph
+        /// </summary>
+        /// <param name="node">The node to add to the graph</param>
+        public void AddNode(GraphNode node)
+        {
+            if (nodeNetwork.Contains(node) == false)
+                nodeNetwork.Add(node);
+        }
+
+        /// <summary>
         /// Adds a new execution connection between two nodes
         /// </summary>
         /// <param name="rootNode">Node to make connection from</param>
@@ -68,9 +78,6 @@ namespace Graph
         /// <param name="targetNode">The target node for the execution path</param>
         public void AddConnection(GraphNode rootNode, int connectionNumber, GraphNode targetNode)
         {
-            ExecutableNode root = (ExecutableNode)Activator.CreateInstance(rootNode.NodeType, new object[] { QueryState });
-            ExecutableNode target = (ExecutableNode)Activator.CreateInstance(targetNode.NodeType, new object[] { QueryState });
-
             ExecutionConnections.Add(new Tuple<GraphNode, int, GraphNode>(rootNode, connectionNumber, targetNode));
 
             // Add the connected nodes to our model if we need to

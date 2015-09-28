@@ -57,7 +57,18 @@
     <Compile Include="Conversion\NumericToString.cs" />
     <Compile Include="Debug\Print.cs" />
     <Compile Include="Flow\Branch.cs" />
+    <Compile Include="HTML\HTMLBegin.cs" />
+    <Compile Include="HTML\HTMLBody.cs" />
+    <Compile Include="HTML\HTMLEnd.cs" />
+    <Compile Include="HTML\HTMLHead.cs" />
+    <Compile Include="HTML\Pure\Div.cs" />
+    <Compile Include="HTML\Pure\Paragraph.cs" />
+    <Compile Include="Maths\Divide.cs" />
+    <Compile Include="Maths\Multiply.cs" />
+    <Compile Include="Maths\Subtract.cs" />
+    <Compile Include="Maths\Add.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="String\Concatenate.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

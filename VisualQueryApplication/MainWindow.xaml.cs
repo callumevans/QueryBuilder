@@ -29,9 +29,9 @@ namespace VisualQueryApplication
     /// </summary>
     public partial class MainWindow : RibbonWindow
     {
-        // TODO: MVVM the sub-views and events
         private DatabaseViewer databaseViewWindow;
         private GeneratedQueryView queryViewWindow;
+        private QueryResultsViewer queryResultsViewWindow;
 
         public MainWindow()
         {
@@ -120,12 +120,21 @@ namespace VisualQueryApplication
         {
             BuildButton.IsEnabled = false;
 
-            NodeGraphManager builtGraph = new NodeGraphManager();
-            builtGraph = await Graph.BuildGraphAsync(VisualEditor.DataContext as GraphEditorViewModel);
+            try
+            {
+                NodeGraphManager builtGraph = new NodeGraphManager();
+                builtGraph = await Graph.BuildGraphAsync(VisualEditor.DataContext as GraphEditorViewModel);
 
-            ((MainWindowViewModel)this.DataContext).ActiveQueryState = builtGraph.QueryState;
-
-            BuildButton.IsEnabled = true;
+                ((MainWindowViewModel) this.DataContext).ActiveQueryState = builtGraph.QueryState;
+            }
+            catch
+            {
+                MessageBox.Show("Error building graph.\n" + e.ToString());
+            }
+            finally
+            {
+                BuildButton.IsEnabled = true;
+            }
         }
 
         private void ViewQuery_Click(object sender, RoutedEventArgs e)
@@ -152,7 +161,33 @@ namespace VisualQueryApplication
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
+            GraphEditorViewModel graph = (GraphEditorViewModel) VisualEditor.DataContext;
+            graph.VisualNodes.Clear();
+            graph.Connections.Clear();
+        }
 
+        private void RunQuery_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (queryResultsViewWindow != null)
+            {
+                queryResultsViewWindow.Focus();
+                return;
+            }
+
+            var viewModel = ((MainWindowViewModel)this.DataContext);
+
+            if (viewModel.ActiveQueryState != null)
+            {
+                queryResultsViewWindow = new QueryResultsViewer(
+                    new Action(() => queryResultsViewWindow = null),
+                    Graph.BuildQuery(viewModel.ActiveQueryState));
+
+                queryResultsViewWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please create and build an SQL query first.");
+            }
         }
     }
 }

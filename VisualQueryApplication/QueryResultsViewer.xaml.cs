@@ -18,29 +18,25 @@ using VisualQueryApplication.ViewModels;
 namespace VisualQueryApplication
 {
     /// <summary>
-    /// Interaction logic for DatabaseViewer.xaml
+    /// Interaction logic for QueryResultsViewer.xaml
     /// </summary>
-    public partial class DatabaseViewer : Window
+    public partial class QueryResultsViewer : Window
     {
         private readonly Action CallbackOnClose;
 
-        public DatabaseViewer(Action parentCallbackOnClose)
+        public QueryResultsViewer(Action parentCallbackOnClose, string queryString)
         {
             InitializeComponent();
 
             CallbackOnClose = parentCallbackOnClose;
-            this.Closed += DatabaseViewer_Closed;
+            this.Closed += QueryViewer_Closed;
+
+            this.DataContext = new QueryResultsViewerViewModel(queryString);
         }
 
-        private void DatabaseViewer_Closed(object sender, EventArgs e)
+        private void QueryViewer_Closed(object sender, EventArgs e)
         {
             CallbackOnClose.Invoke();
-        }
-
-        private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var viewModel = (DatabaseViewerViewModel)this.DataContext;
-            viewModel.SelectedTableChangedCommand.Execute(DatabaseTablesList.SelectedItem.ToString());
         }
     }
 }

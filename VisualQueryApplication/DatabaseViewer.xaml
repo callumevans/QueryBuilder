@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:VisualQueryApplication"
         xmlns:vm="clr-namespace:VisualQueryApplication.ViewModels"    
         mc:Ignorable="d"
-        Title="DatabaseViewer" Height="317" Width="569">
+        Title="DatabaseViewer" Height="317" Width="769">
     
     <Window.DataContext>
         <vm:DatabaseViewerViewModel />
@@ -18,8 +18,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <DataGrid Grid.Column="1" x:Name="dataGrid" Margin="0" />
-        <TreeView x:Name="treeView" Margin="0" />
-
+        <DataGrid ItemsSource="{Binding DisplayedData}" Grid.Column="1" x:Name="dataGrid" Padding="0" Margin="0" MinColumnWidth="50" />
+        <ListBox x:Name="DatabaseTablesList" ItemsSource="{Binding LoadedTables}" Margin="0" SelectionChanged="Selector_OnSelectionChanged" />
     </Grid>
 </Window>
