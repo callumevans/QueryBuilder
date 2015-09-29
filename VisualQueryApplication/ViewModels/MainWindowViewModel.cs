@@ -109,7 +109,7 @@ namespace VisualQueryApplication.ViewModels
                 }
                 catch
                 {
-                    MessageBox.Show("Error loading nodes.");
+                    MessageBox.Show("Error loading nodes.\nPlease ensure there are libraries in the /NodePlugins folder and that they are unblocked.");
                 }
             }
         }
