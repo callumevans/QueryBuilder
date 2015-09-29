@@ -19,7 +19,7 @@
 
         <TextBox x:Name="textBox" Margin="4" TextWrapping="Wrap" Text="{Binding Query}"/>
         <Grid Grid.Row="1">
-            <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Margin="4 0" Click="ButtonBase_OnClick" />
+            <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Right" VerticalAlignment="Center" Width="75" Margin="4 0" Click="SaveButton_OnClick" />
         </Grid>
     </Grid>
 </Window>

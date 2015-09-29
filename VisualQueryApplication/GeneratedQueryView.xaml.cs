@@ -7,10 +7,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using VisualQueryApplication.ViewModels;
 
 namespace VisualQueryApplication
 {
@@ -34,9 +36,22 @@ namespace VisualQueryApplication
             CallbackOnClose.Invoke();
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.ShowDialog();
+
+            if (saveFileDialog != null)
+            {
+                string saveFile = saveFileDialog.FileName;
+
+                string text = ((GeneratedQueryViewViewModel)DataContext).Query;
+
+                System.IO.StreamWriter file = new System.IO.StreamWriter(saveFile);
+                file.WriteLine(text);
+
+                file.Close();
+            }
         }
     }
 }
