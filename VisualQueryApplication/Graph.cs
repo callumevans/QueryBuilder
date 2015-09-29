@@ -73,7 +73,7 @@ namespace VisualQueryApplication
                             // Get value to set
                             if (constantNode.OutputPin.DataType == typeof(DataTypes.Numeric))
                             {
-                                valueToSet = new DataTypes.Numeric(Int32.Parse(constantNode.Value));
+                                valueToSet = new DataTypes.Numeric(Double.Parse(constantNode.Value));
                             }
                             else if (constantNode.OutputPin.DataType == typeof(DataTypes.Boolean))
                             {

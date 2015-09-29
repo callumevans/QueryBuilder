@@ -39,9 +39,8 @@ namespace VisualQueryApplication
         private void SaveButton_OnClick(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.ShowDialog();
 
-            if (saveFileDialog != null)
+            if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 string saveFile = saveFileDialog.FileName;
 

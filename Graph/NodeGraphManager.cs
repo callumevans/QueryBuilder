@@ -110,10 +110,13 @@ namespace Graph
                     executableNodes.Add(connection.Item3);
             }
 
+            bool hasStart = false;
+        
             // Get start node and set it to the currentExecutionNode
             foreach (var executableNode in executableNodes)
             {
                 int connectionsIn = 0;
+
 
                 foreach (var executionConnection in ExecutionConnections)
                 {
@@ -122,9 +125,17 @@ namespace Graph
                 }
 
                 if (connectionsIn > 0)
+                {
                     continue;
+                }
                 else if (connectionsIn == 0)
+                {
+                    if (hasStart == true)
+                        throw new Exception("Multiple entry points.");
+
                     currentExecutionNode = executableNode;
+                    hasStart = true;
+                }
             }
 
             // Assume all nodes are unrealised
@@ -148,6 +159,8 @@ namespace Graph
                     {
                         foreach (var connection in ExecutionConnections)
                         {
+                            // If this is the next target execution node and it is along the correct execution path
+                            // then set this node as the new 'current' node
                             if (connection.Item1 == currentExecutionNode && connection.Item3 == node)
                             {
                                 if (currentExecutionNode.ExecutionPath == connection.Item2)
