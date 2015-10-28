@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataTypes
 {
+    /// <summary>
+    /// Defines a DataType for use in the graph system.
+    /// </summary>
     public interface IDataTypeContainer
     {
         void SetValue(object value);
