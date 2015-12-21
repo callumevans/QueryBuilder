@@ -58,31 +58,6 @@
 
                 </Fluent:RibbonGroupBox>
 
-                <!-- Database Functions -->
-                <Fluent:RibbonGroupBox Header="Database">
-
-                    <Fluent:Button
-						Header="View"
-						LargeIcon="Images\Ribbon\icon_database.png"
-						Icon="Images\Ribbon\icon_database.png"
-						Click="ViewDatabase_Click" />
-
-                    <Fluent:Button
-						SizeDefinition="Middle"
-						Header="Load"
-						LargeIcon="Images\Ribbon\icon_database_load.png"
-						Icon="Images\Ribbon\icon_database_load.png"
-						Command="{Binding LoadDatabaseCommand}" />
-
-                    <Fluent:Button
-						SizeDefinition="Middle"
-						Header="Run Query"
-						LargeIcon="Images\Ribbon\icon_database_close.png"
-						Icon="Images\Ribbon\icon_database_query.png"
-                        Click="RunQuery_OnClick" />
-
-                </Fluent:RibbonGroupBox>
-
             </Fluent:RibbonTabItem>
 
         </Fluent:Ribbon>

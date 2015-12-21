@@ -29,9 +29,7 @@ namespace VisualQueryApplication
     /// </summary>
     public partial class MainWindow : RibbonWindow
     {
-        private DatabaseViewer databaseViewWindow;
         private GeneratedQueryView queryViewWindow;
-        private QueryResultsViewer queryResultsViewWindow;
 
         public MainWindow()
         {
@@ -102,20 +100,6 @@ namespace VisualQueryApplication
                 ((MainWindowViewModel)DataContext).InsertNodeCommand.Execute(selectedItem.Tag);
         }
 
-        private void ViewDatabase_Click(object sender, RoutedEventArgs e)
-        {
-            if (databaseViewWindow != null)
-            {
-                databaseViewWindow.Focus();
-                return;
-            }
-
-            databaseViewWindow = new DatabaseViewer(
-                new Action(() => databaseViewWindow = null));
-
-            databaseViewWindow.Show();
-        }
-
         private async void BuildQuery_Click(object sender, RoutedEventArgs e)
         {
             BuildButton.IsEnabled = false;
@@ -164,30 +148,6 @@ namespace VisualQueryApplication
             GraphEditorViewModel graph = (GraphEditorViewModel) VisualEditor.DataContext;
             graph.VisualNodes.Clear();
             graph.Connections.Clear();
-        }
-
-        private void RunQuery_OnClick(object sender, RoutedEventArgs e)
-        {
-            if (queryResultsViewWindow != null)
-            {
-                queryResultsViewWindow.Focus();
-                return;
-            }
-
-            var viewModel = ((MainWindowViewModel)this.DataContext);
-
-            if (viewModel.ActiveQueryState != null)
-            {
-                queryResultsViewWindow = new QueryResultsViewer(
-                    new Action(() => queryResultsViewWindow = null),
-                    Graph.BuildQuery(viewModel.ActiveQueryState));
-
-                queryResultsViewWindow.Show();
-            }
-            else
-            {
-                MessageBox.Show("Please create and build an SQL query first.");
-            }
         }
     }
 }
