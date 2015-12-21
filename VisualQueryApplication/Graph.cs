@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using Common;
 using DataTypes;
 using Graph;
 using VisualQueryApplication.ViewModels;
 using Boolean = System.Boolean;
-using System.Reflection;
-using System.Threading;
-using System.Windows.Threading;
 
 namespace VisualQueryApplication
 {

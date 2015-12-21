@@ -1,17 +1,9 @@
 ﻿using Common;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
-using Microsoft.Win32;
 using MessageBox = System.Windows.MessageBox;
 
 namespace VisualQueryApplication.ViewModels
@@ -76,7 +68,6 @@ namespace VisualQueryApplication.ViewModels
             this.graphViewModel = graphViewModel;
 
             InsertNodeCommand = new RelayCommand(InsertNode) { CanExecute = true };
-            LoadDatabaseCommand = new RelayCommand(LoadDatabaseFile) { CanExecute = true };
 
             // Load in usable nodes
             string[] dllFile = Directory.GetFiles(App.PluginFolderPath, "*.dll");
@@ -120,17 +111,6 @@ namespace VisualQueryApplication.ViewModels
 
             if (type != null)
                 graphViewModel.VisualNodes.Add(new VisualNodeViewModel(nodeType));
-        }
-
-        private void LoadDatabaseFile()
-        {
-            var fileDialog = new System.Windows.Forms.OpenFileDialog();
-
-            if (fileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                if (fileDialog.FileName != null)
-                    App.NewDatabaseFromQuery(fileDialog.FileName);
-            }
         }
     }
 }
