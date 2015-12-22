@@ -1,5 +1,5 @@
 # QueryBuilder
-QueryBuilder is an extensible, visual graph construction system written for WPF.
+QueryBuilder is an extensible, visual programming system written for WPF.
 QueryBuilder was built as a part of a university project, and attempts to provide the foundation for developers
 that would like to integrate a visual graph editor into their own projects.
 
