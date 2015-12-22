@@ -15,9 +15,7 @@ one of their applications.
 
 The 'NodePlugins' folder can be found in the same directory as VisualQueryApplication.exe (try running the executable if it isn't there).
 
-To add nodes to the system, libraries need to be placed into the NodePlugins folder. The 'Nodes' project distributed with this repository
-is a library of sample nodes to help get you started. To makes these nodes available in the visual editor, find the compiled 'Nodes.dll'
-library in the Nodes project binaries folder and add it to the NodePlugins folder in the VisualEditor project.
+To add nodes to the system, libraries need to be placed into the NodePlugins folder. The 'Nodes' project distributed with this repository is a library of sample nodes to help get you started. To makes these nodes available in the visual editor, find the compiled 'Nodes.dll' library in the Nodes project binaries folder and add it to the NodePlugins folder in the VisualEditor project.
 
 <img src="https://cloud.githubusercontent.com/assets/2576186/11944750/3f21bc22-a840-11e5-8eff-199b928dfdaf.PNG" style="width: 20%; height: 20%" />
 
@@ -40,8 +38,7 @@ automatically be inserted. These boxes have text fields and will convert their v
 <img src="https://cloud.githubusercontent.com/assets/2576186/11945028/1b10f5d4-a843-11e5-9ab7-0b672114be20.PNG" />
 
 If we build the graph now, nothing will happen. We need a print node to extract data from our graph. Print nodes are executable 
-(impure) nodes. These are nodes that can affect the control-flow and internal state of our graph. The Branch node is a good example of this,
-but the Print node just takes an input value and prints it to the output log.
+(impure) nodes. These are nodes that can affect the control-flow and internal state of our graph. The Branch node is a good example of this, but the Print node just takes an input value and prints it to the output log.
 
 <img src="https://cloud.githubusercontent.com/assets/2576186/11945361/fedb3682-a846-11e5-9c6d-a422539bf4d5.PNG" />
 
@@ -55,3 +52,28 @@ There are three data types defined in the system:
  - Boolean (red)
  
 These are defined in the DataTypes project. These can be changed without too much hassle.
+
+## Custom Nodes
+
+Custom nodes can be added by extending the NodeBase and ExecutableNode classes. NodeBase defines a pure node (one with no execution pins) and ExecutableNode defines an impure node. Input and Output pins are denoted by the ExposedInput and ExposedOutput attributes respectively. NodeFunction is the function executed when the graph activates the node.
+
+```C#
+    [NodeName("Add")]
+    [NodeCategory("Maths")]
+    public class Add : NodeBase
+    {
+        [ExposedInput]
+        public DataTypes.Numeric A;
+
+        [ExposedInput]
+        public DataTypes.Numeric B;
+
+        [ExposedOutput]
+        public DataTypes.Numeric output;
+
+        public override void NodeFunction()
+        {
+            output = new DataTypes.Numeric(A.value + B.value);
+        }
+    }
+```
