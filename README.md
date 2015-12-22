@@ -77,3 +77,31 @@ Custom nodes can be added by extending the NodeBase and ExecutableNode classes. 
         }
     }
 ```
+
+Executable nodes are defined in a similar way. Their execution paths are declared with ExecutionOutDescription. GetExecutionPath tells the graph which output path to follow. A QueryState object is passed into the constructor--this represents the 'state' of the entire graph and you can add any variables you like to it. This can be used for communicating between nodes and building more complex functionality.
+
+```C#
+    [NodeName("Branch")]
+    [NodeCategory("Flow")]
+    [ExecutionOutDescription(0, "True")]
+    [ExecutionOutDescription(1, "False")]
+    public class Branch : ExecutableNode
+    {
+        [ExposedInput(LabelDisplay.Hidden)]
+        public DataTypes.Boolean condition;
+
+        public Branch(QueryState state) : base(state) { }
+
+        public override int GetExecutionPath()
+        {
+            if (condition.value)
+                return 0;
+            else
+                return 1;
+        }
+
+        public override void NodeFunction()
+        {
+        }
+    }
+```
