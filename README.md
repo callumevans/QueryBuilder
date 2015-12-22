@@ -24,8 +24,7 @@ To add nodes to the system, libraries need to be placed into the NodePlugins fol
 ### Adding Nodes and Creating Connections
 
 To add a node to the graph, double click on an entry from the list on the left (this will only populate when you've added some libraries 
-to NodePlugins). Pins are the coloured circles that come with the nodes, and they represent either a data connection or a control-flow connection.
-Currently, all input data pins must be connected for the graph to compile.
+to NodePlugins). Pins are the coloured circles that come with the nodes, and they represent either a data connection or a control-flow connection. Currently, all input data pins must be connected for the graph to compile.
 
 You can create a connection from an output pin (those on the right) to an input pin (those on the left). Do this by clicking on the 
 output pin you want to take data from, and then clicking on the input pin you want to provide that data to.
